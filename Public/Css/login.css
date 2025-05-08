@@ -34,6 +34,16 @@ h1 {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   display: flex;
   justify-content: space-between;
+  padding-bottom: 3rem;
+}
+img{
+  padding-left: 5rem;
+}
+ h2{
+  text-shadow: 1px 6px 7px rgba(179,83,83,0.44);
+  color:whitesmoke;
+  padding: 20px auto;
+  justify-content: center;
 }
 .card form {
   margin-top: 70px;
@@ -62,4 +72,10 @@ h1 {
 }
 .card form button:hover {
   background: #54a0ba;
+}
+.footer{
+  float: left;
+  margin-top: 5rem;
+  justify-content: end;
+  text-align: center;
 }
