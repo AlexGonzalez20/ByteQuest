@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+body {
+  font-family: Montserrat, Helvetica, sans-serif;
+  font-size: 15px;
+  background: fixed
+    linear-gradient(to left bottom, #46f0e4, #40c8d7, #54a0ba, #5d7a91, #545863);
+}
+h1 {
+  text-align: center;
+  color: whitesmoke;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin-top: 20px;
+}
+form {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+label {
+  color: whitesmoke;
+}
+input {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+}
+input[type="submit"] {
+  background-color: #1b6178;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+input[type="submit"]:hover {
+  background-color: #46f0e4;
+}
+a {
+  text-decoration: none;
+  color: #46f0e4;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+a:hover {
+  background-color: #1b6178;
+}
