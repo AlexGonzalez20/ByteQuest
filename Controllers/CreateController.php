@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = $modelo->crearCurso($nombre, $descripcion);
 
     if ($resultado) {
-        header("Location: ../Views/cursos/create.php?mensaje=Producto creado con éxito");
+        header("Location: ../Views/cursos/index.php");
     } else {
         header("Location: ../Views/cursos/create.php?mensaje=Error al crear el producto");
     }
