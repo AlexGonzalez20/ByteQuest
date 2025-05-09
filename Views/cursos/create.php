@@ -14,7 +14,6 @@
     <!-- menu de navegacion -->
     <nav class="navbar">
         <a href="index.php">Inicio</a>
-        <a href="create.php">Crear producto</a>
         <a href="../login.php">Salir</a>
     </nav>
 

@@ -17,7 +17,7 @@ $cursos = $modelo->obtenerCursos();
 </head>
 
 <body>
-    <h1>curso Registrados</h1>
+    <h1>Cursos Registrados</h1>
     <!-- menu de navegacion -->
     <nav class="navbar">
         <a href="index.php">Inicio</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2025 a las 23:53:01
+-- Tiempo de generación: 09-05-2025 a las 22:56:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -41,7 +41,8 @@ CREATE TABLE `t_curso` (
 INSERT INTO `t_curso` (`id_curso`, `id_usuario`, `nombre_curso`, `descripcion`) VALUES
 (1, 1, 'Programación Básica', 'Curso introductorio de programación.'),
 (2, 2, 'Estructuras de Datos', 'Uso de listas, pilas y colas.'),
-(3, 3, 'Bases de Datos', 'Curso sobre SQL y diseño relacional.');
+(3, 3, 'Bases de Datos', 'Curso sobre SQL y diseño relacional.'),
+(11, NULL, 'asdf', 'asdf');
 
 -- --------------------------------------------------------
 
@@ -88,8 +89,7 @@ CREATE TABLE `t_prueba` (
 
 INSERT INTO `t_prueba` (`id_prueba`, `id_usuario`, `id_historial`, `id_curso`, `pregunta`, `opciones`, `nivel`) VALUES
 (1, 1, 1, 1, '¿Qué es una variable?', '[\"Un contenedor,Un nu00famero,Una operaciu00f3n\"]', 12),
-(2, 2, 2, 2, '¿Qué es una pila?', '[\"Estructura LIFO\", \"Una lista\", \"Una base de datos\"]', 2),
-(3, 3, 3, 3, '¿Qué es una clave primaria?', '[\"Identificador único\", \"Una contraseña\", \"Un tipo de dato\"]', 3);
+(2, 2, 2, 2, '¿Qué es una pila?', '[\"Estructura LIFO\", \"Una lista\", \"Una base de datos\"]', 2);
 
 -- --------------------------------------------------------
 
@@ -112,7 +112,7 @@ CREATE TABLE `t_usuario` (
 --
 
 INSERT INTO `t_usuario` (`id_usuario`, `nombre`, `correo`, `password`, `experiencia`, `vidas`, `rol`) VALUES
-(1, 'A', 'a@a', 'a', 1200, 3, 'Estudiante'),
+(1, 'A', 'a@a.a', 'a', 1200, 3, 'Estudiante'),
 (2, 'Laura', 'laura@example.com', 'pass456', 1500, 5, 'Estudiante'),
 (3, 'Admin', 'admin@example.com', 'admin789', 9999, 10, 'admin');
 
@@ -157,7 +157,7 @@ ALTER TABLE `t_usuario`
 -- AUTO_INCREMENT de la tabla `t_curso`
 --
 ALTER TABLE `t_curso`
-  MODIFY `id_curso` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_curso` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `t_historial`
@@ -169,7 +169,7 @@ ALTER TABLE `t_historial`
 -- AUTO_INCREMENT de la tabla `t_prueba`
 --
 ALTER TABLE `t_prueba`
-  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `t_usuario`
