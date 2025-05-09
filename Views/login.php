@@ -8,23 +8,30 @@
 </head>
 
 <body>
-    <h1>Iniciar Sesión</h1>
+    <h1>Bienvenido a ByteQuest</h1>
     <div class="container">
-        <div class="card">
-            <div class="img">
-                <img src="" alt="holi">
-            </div>
+    <div class="img">
+                <img src="../Public/img/robot-preview.png" alt="robot">
+    </div>
+    <div class="card">
+
             <!-- un html sencillo y el codigo es una validacion por si el otro documento manda un error -->
-            <?php if (isset($_GET['error'])): ?>
-                <p style="color: red;">Email o contraseña incorrectos</p>
-            <?php endif; ?>
-            <form class="formulario" action="/bytequest/validar.php" method="POST">
-                <input type="email" name="email" placeholder="Email" required>
+    <?php if (isset($_GET['error'])): ?>
+    <p style="color: red;">Email o contraseña incorrectos</p>
+    <?php endif; ?>
+    <form class="formulario" action="/bytequest/validar.php" method="POST">
+        <h2>INGRESA TUS DATOS PARA CONTINUAR</h2>
+        <input type="email" name="email" placeholder="Email" required>
                 <!-- recuerde que este formulario tiene el metodo de post el cual es para conseguir informacion, de este login la informacion va hacia validar.php -->
                 <input type="password" name="password" placeholder="Contraseña" required>
                 <button type="submit">Iniciar Sesión</button>
             </form>
         </div>
+
+        <footer class="footer">
+            <h5>Derechos reservados ByteQuest&copy2025</h5>
+        </footer>
+        
     </div>
 </body>
 
