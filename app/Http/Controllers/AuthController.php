@@ -65,5 +65,6 @@ class AuthController extends Controller
         ]);
 
         return redirect('/login')->with('success', 'Registro exitoso. Ya puedes iniciar sesión.');
+
     }
 }

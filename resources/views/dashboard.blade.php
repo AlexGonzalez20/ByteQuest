@@ -21,31 +21,33 @@
                 <button type="submit">
                     Cerrar sesión
                 </button>
+                <button href="inicio">Ir al inicio
+                </button>
+                <h2>Lista de Usuarios</h2>
             </form>
-            <h2>Lista de Usuarios</h2>
-                <table cellpadding="8">
-                    <thead>
+            <table cellpadding="8">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Correo</th>
+                        <th>Fecha de creación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($usuarios as $usuario)
                         <tr>
-                            <th>ID</th>
-                            <th>Correo</th>
-                            <th>Fecha de creación</th>
+                            <td>{{ $usuario->id }}</td>
+                            <td>{{ $usuario->correo }}</td>
+                            <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($usuarios as $usuario)
-                            <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->correo }}</td>
-                                <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3">No hay usuarios registrados.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            <a href="inicio">Ir Al inicio</a>
+                    @empty
+                        <tr>
+                            <td colspan="3">No hay usuarios registrados.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+
         </div>
         @csrf
     @endsection
