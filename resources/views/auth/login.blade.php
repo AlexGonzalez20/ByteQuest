@@ -12,11 +12,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <header>Bienvenido a ByteQuest</header>
+            <header>¡Bienvenido a ByteQuest!</header>
         </div>
 
         <div class="caja1">
-            <img src="{{ asset('img/robot-preview.png') }}" alt="ROBOT">
+            <img src="{{ asset('img/robot-idle.gif') }}" alt="ROBOT">
         </div>
 
         <div class="card">
@@ -24,7 +24,7 @@
                 <h2>POR FAVOR INGRESA TUS DATOS</h2>
 
                 @if(session('error'))
-                <p style="color: red;">{{ session('error') }}</p>
+                    <p style="color: red;">{{ session('error') }}</p>
                 @endif
 
                 <form method="POST" action="{{ route('login') }}">
@@ -32,6 +32,7 @@
                     <input type="email" name="correo" placeholder="Ingresa tu correo" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <button class="button" type="submit">Ingresar</button>
+                    <a href="{{ route('register') }}">¿No tienes cuenta? ¡Registrate Ahora!</a>
                 </form>
             </div>
         </div>
