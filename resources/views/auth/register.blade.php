@@ -34,7 +34,7 @@
                     <input type="password" name="password" placeholder="Contraseña" required><br>
                     <label for="password_confirmation">Confirmar Contraseña:</label>
                     <input type="password" name="password_confirmation" required placeholder="Confirmar Contraseña"><br>
-                    <button type="submit">Registrarse</button>
+                    <button type="submit"><a href="/login">Registrarse</a></button>
                 </form>
                 <br>
                 <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>

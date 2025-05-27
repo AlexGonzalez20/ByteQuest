@@ -82,13 +82,14 @@ html {
     text-align: center;
     float: inline-end;
     inline-size: 100%;
-    padding: 0.4rem;
+    padding: 0.4rem;        
     border: none;
     margin-top: 20px;
     border-bottom: 2px solid #000;
     border-radius: 15px;
 }
 .card-form button {
+    text-align: center;
     inline-size: 80%;
     border: none;
     padding: 15px;
@@ -105,7 +106,10 @@ html {
     opacity: 1;
 }
 .card-form a {
+    text-align: left;
+    font-size: 18px;
     color: whitesmoke;
     margin-left: 2rem;
     text-shadow: #46f0e4 1px 0 10px;
+    text-decoration: none;
 }

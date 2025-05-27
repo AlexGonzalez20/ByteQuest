@@ -7,20 +7,29 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     @vite('resources/css/dashboard.css')
 
-    <title>DashBoard</title>
+    <title>ByteQuest</title>
 </head>
 
 <body>
+    <header>
+    <nav>
+        <a href="#">cursos</a>
+        <a href="#">administrar cursos</a>
+        <a href="#">administrar usuarios</a>
+        <a href="#">perfil</a>
+        <form action="{{ route('logout') }}" method="POST">
+                @csrf
+         <button type="submit">
+             Cerrar sesión
+        </button>
+    </nav>
+    </header>
     @extends('layouts.app')
     @section('content')
         <div class="container">
             <h1>Panel de Administración</h1>
             {{-- Botón de Cerrar sesión --}}
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">
-                    Cerrar sesión
-                </button>
+
             </form>
             <h2>Lista de Usuarios</h2>
                 <table cellpadding="8">
