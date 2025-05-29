@@ -45,7 +45,7 @@
                         @endforelse
                     </tbody>
                 </table>
-            <a href="inicio">Ir Al inicio</a>
+            <a href="inicio">Ir al inicio</a>
         </div>
         @csrf
     @endsection
