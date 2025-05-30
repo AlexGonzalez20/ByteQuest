@@ -21,7 +21,7 @@
                 <button type="submit">
                     Cerrar sesión
                 </button>
-                <button href="inicio">Ir al inicio
+                <button><a href="/inicio">Ir al inicio</a>
                 </button>
                 <h2>Lista de Usuarios</h2>
             </form>

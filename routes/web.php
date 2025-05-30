@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InicioController;
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -30,4 +31,9 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('cursos', CursoController::class);
     Route::resource('lecciones', LeccionController::class);
+});
+
+
+Route::get('/inicio', function () {
+    return view("inicio");
 });
