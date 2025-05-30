@@ -12,10 +12,10 @@
 
 <body>
     <header>
-    <nav>
-        <a href="#">cursos</a>
-        <a href="#">administrar cursos</a>
-        <a href="#">administrar usuarios</a>
+    <nav>    
+
+        <a href="/administrar">cursos</a>
+
         <a href="#">perfil</a>
         <form action="{{ route('logout') }}" method="POST">
                 @csrf

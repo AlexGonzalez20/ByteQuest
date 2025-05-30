@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\View;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -66,4 +67,28 @@ class AuthController extends Controller
 
         return redirect('/login')->with('success', 'Registro exitoso. Ya puedes iniciar sesión.');
     }
+    //     public function links(){
+    //      View::share('menu_links', [
+    //         [
+    //             'name' => 'Inicio',
+    //             'route' => 'dashboard',
+    //         ],
+    //         [
+    //             'name' => 'Administrar cursos',
+    //             'route' => 'Admincourses.blade.php',
+    //         ],
+    //         [
+    //             'name' => 'Lecciones',
+    //             'route' => 'lecciones.index',
+    //         ],
+    //         [
+    //             'name' => 'Registro',
+    //             'route' => 'register',
+    //         ],
+    //         [
+    //             'name' => 'Iniciar Sesión',
+    //             'route' => 'login',
+    //         ]
+    //         ]);
+    // }
 }
