@@ -18,16 +18,20 @@
 
             <div class="card-form">
                 @if ($errors->any())
-                    <div style="color:red;font-size: 3px;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div style="color:red;font-size: 3px;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
                 <form method="POST" action="/register">
                     @csrf
+                    <label for="name" name="name">Nombre:</label>
+                    <input type="text" name="name" id="name" required placeholder="Nombre">
+                    <label for="name" name="lastName">Apellido:</label>
+                    <input type="text" name="lastName" id="lastName" required placeholder="Apellido">
                     <label for="correo">Correo:</label>
                     <input type="email" name="correo" placeholder="Correo" required><br>
                     <label for="password">Contraseña:</label>

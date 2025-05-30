@@ -24,7 +24,7 @@
                 <h2>POR FAVOR INGRESA TUS DATOS</h2>
 
                 @if(session('error'))
-                    <p style="color: red;">{{ session('error') }}</p>
+                <p style="color: red;">{{ session('error') }}</p>
                 @endif
 
                 <form method="POST" action="{{ route('login') }}">
@@ -32,7 +32,9 @@
                     <input type="email" name="correo" placeholder="Ingresa tu correo" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <button class="button" type="submit">Ingresar</button>
-                    <a href="{{ route('register') }}">¿No tienes cuenta? ¡Registrate Ahora!</a>
+                    <a href="{{ route('register') }}">¿No tienes cuenta?
+                        <br>
+                        ¡Registrate Ahora!</a>
                 </form>
             </div>
         </div>
