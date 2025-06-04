@@ -31,3 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('cursos', CursoController::class);
     Route::resource('lecciones', LeccionController::class);
 });
+
+// Grupo de rutas para el módulo de vistas
+Route::prefix('views')->middleware(['auth'])->group(function () {
+    Route::view('/courses', 'courses')->name('views.courses');
+    // Puedes agregar más rutas de vistas aquí
+});

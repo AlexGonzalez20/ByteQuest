@@ -11,6 +11,16 @@
 </head>
 
 <body>
+    <header>
+        <div class="header">
+            <h1>¡Bienvenido a ByteQuest!</h1>
+            <img src="" alt="">
+            <a href="">home</a>
+            <a href="{{route('views.courses')}}">cursos</a>
+            <a href=""></a>
+            <a href="">perfil</a>
+        </div>
+    </header>
     @extends('layouts.app')
     @section('content')
         <div class="container">
@@ -49,6 +59,9 @@
         </div>
         @csrf
     @endsection
+    <footer>
+        <h5>Derechos reservados ByteQuest &copy; 2025</h5>
+    </footer>
 </body>
 
 </html>
