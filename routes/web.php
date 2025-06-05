@@ -37,4 +37,8 @@ route::get('/administrar', function(){
     return view("cursos/Admincourses");
     // return "holamundo";
 });
+
 // route::view('/admin','Admincourses.blade.php')->name(admin);
+Route::middleware(['auth'])->get('/views',function () {
+
+});
