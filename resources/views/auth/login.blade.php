@@ -16,7 +16,7 @@
         </div>
 
         <div class="caja1">
-            <img src="{{ asset('img/robot-idle.gif') }}" alt="ROBOT">
+            <img src="{{ asset('img/robot.png') }}" alt="ROBOT">
         </div>
 
         <div class="card">
