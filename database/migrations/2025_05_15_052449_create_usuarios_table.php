@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('correo')->unique();
             $table->string('password');
-            $table->timestamps();
-            
+            $table->timestamps(); // created_at y updated_at
         });
     }
 
-
+    
     /**
      * Reverse the migrations.
      */

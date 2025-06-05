@@ -51,18 +51,24 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:100',
+            'apellido' => 'required|string|max:100',
             'correo' => 'required|email|unique:usuarios,correo',
             'password' => 'required|min:6|confirmed',
         ]);
+
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         Usuario::create([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
             'correo' => $request->correo,
             'password' => Hash::make($request->password),
         ]);
+
 
         return redirect('/login')->with('success', 'Registro exitoso. Ya puedes iniciar sesión.');
     }
