@@ -16,7 +16,7 @@
         </div>
 
         <div class="caja1">
-            <img src="{{ asset('Byte.png') }}" alt="Byte">
+            <img src="{{ asset('byte.png') }}" alt="Robot">
         </div>
 
         <div class="card">

@@ -3,14 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Usuario;
 
-class DatabaseSeeder extends Seeder
+class UsuarioSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         Usuario::firstOrCreate(
