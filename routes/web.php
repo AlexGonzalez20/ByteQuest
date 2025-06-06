@@ -33,12 +33,7 @@ Route::middleware(['auth'])->group(function () {
 });
 //administrar cursos
 // Route::get('/AdminCourses', [AuthController::class, 'links'])->name('AdminCourses');
-route::get('/administrar', function(){
-    return view("cursos/Admincourses");
-    // return "holamundo";
-});
+
 
 // route::view('/admin','Admincourses.blade.php')->name(admin);
-Route::middleware(['auth'])->get('/views',function () {
-
-});
+route::view('usuarios.balde.php', 'usuarios')->name('usuarios');

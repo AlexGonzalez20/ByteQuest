@@ -14,7 +14,7 @@
     <header>
     <nav>    
 
-        <a href="/administrar">cursos</a>
+        <a href="{{ route('usuarios') }}">usuarios</a>
 
         <a href="#">perfil</a>
         <form action="{{ route('logout') }}" method="POST">
