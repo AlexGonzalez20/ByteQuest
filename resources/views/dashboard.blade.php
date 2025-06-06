@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+
     @vite('resources/css/dashboard.css')
 
     <title>DashBoard</title>
@@ -37,7 +37,7 @@
                         <span class="icono">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="titulo">Clientes</span>
+                        <span class="titulo">Mis Cursos</span>
                     </a>
                 </li>
                 <li>
@@ -45,7 +45,7 @@
                         <span class="icono">
                             <ion-icon name="cash-outline"></ion-icon>
                         </span>
-                        <span class="titulo">Ventas</span>
+                        <span class="titulo"></span>
                     </a>
                 </li>
                 <li>
@@ -104,6 +104,7 @@
     <!-- scripts -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></>
             <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="{{ asset('js/dashboard.js') }}" refer></script>
 </body>
 
 </html>
