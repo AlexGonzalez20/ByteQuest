@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        
         Usuario::firstOrCreate(
             ['correo' => 'admin@bytequest.com'],
             ['password' => Hash::make('12345678')]

@@ -10,9 +10,14 @@ class UsuarioSeeder extends Seeder
 {
     public function run(): void
     {
-        Usuario::firstOrCreate(
-            ['correo' => 'admin@bytequest.com'],
-            ['password' => Hash::make('12345678')]
-        );
+        // Verificar si el usuario ya existe para evitar duplicados
+        if (!Usuario::where('correo', 'admin@bytequest.com')->exists()) {
+            Usuario::create([
+                'nombre' => 'Admin',
+                'apellido' => 'ByteQuest',
+                'correo' => 'admin@bytequest.com',
+                'password' => Hash::make('12345678'),
+            ]);
+        }
     }
 }
