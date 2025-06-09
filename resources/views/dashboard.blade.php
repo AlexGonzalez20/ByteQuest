@@ -18,7 +18,7 @@
             <a href="">home</a>
             <a href="{{route('views.courses')}}">cursos</a>
             <a href=""></a>
-            <a href="">perfil</a>
+            <a href="{{route('views.profile')}}">perfil</a>
         </div>
     </header>
     @extends('layouts.app')
