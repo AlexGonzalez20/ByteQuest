@@ -35,6 +35,7 @@
                     <a href="{{ route('register') }}">¿No tienes cuenta?
                         <br>
                         ¡Registrate Ahora!</a>
+                    <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
                 </form>
             </div>
         </div>
