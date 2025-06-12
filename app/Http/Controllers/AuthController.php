@@ -9,6 +9,7 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\ResetPasswordNotification;
 
 class AuthController extends Controller
 {
@@ -20,17 +21,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'correo' => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt(['correo' => $credentials['correo'], 'password' => $credentials['password']])) {
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([
-            'correo' => 'Credenciales incorrectas.',
+            'email' => 'Credenciales incorrectas.',
         ]);
     }
 
@@ -54,7 +55,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
-            'correo' => 'required|email|unique:usuarios,correo',
+            'email' => 'required|email|unique:usuarios,email',
             'password' => 'required|min:6|confirmed',
         ]);
 
@@ -66,7 +67,7 @@ class AuthController extends Controller
         Usuario::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'correo' => $request->correo,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
@@ -85,15 +86,15 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        // Buscar usuario por correo
-        $usuario = \App\Models\Usuario::where('correo', $request->email)->first();
+        // Buscar usuario por email
+        $usuario = \App\Models\Usuario::where('email', $request->email)->first();
         if (!$usuario) {
-            return back()->withErrors(['email' => 'No se encontró un usuario con ese correo.']);
+            return back()->withErrors(['email' => 'No se encontró un usuario con ese email.']);
         }
 
         // Generar token único
-        $token = \Str::random(60);
-        \DB::table('password_resets')->updateOrInsert(
+        $token = Str::random(60);
+        DB::table('password_resets')->updateOrInsert(
             ['email' => $request->email],
             [
                 'token' => $token,
@@ -101,10 +102,8 @@ class AuthController extends Controller
             ]
         );
 
-        // Enviar correo con el enlace (aquí solo se muestra el enlace en pantalla para pruebas)
-        $resetLink = url('/password/reset/' . $token . '?email=' . urlencode($request->email));
-        // En producción deberías enviar el correo aquí
-        return back()->with('status', 'Enlace de recuperación: ' . $resetLink);
+        $usuario->notify(new ResetPasswordNotification($token));
+        return back()->with('status', 'Se ha enviado un enlace de recuperación a tu email.');
     }
 
     // Mostrar formulario para restablecer contraseña
@@ -134,9 +133,9 @@ class AuthController extends Controller
         }
 
         // Buscar el usuario y actualizar la contraseña
-        $usuario = \App\Models\Usuario::where('correo', $request->email)->first();
+        $usuario = \App\Models\Usuario::where('email', $request->email)->first();
         if (!$usuario) {
-            return back()->withErrors(['email' => 'No se encontró un usuario con ese correo.']);
+            return back()->withErrors(['email' => 'No se encontró un usuario con ese email.']);
         }
         $usuario->password = Hash::make($request->password);
         $usuario->save();
@@ -150,7 +149,7 @@ class AuthController extends Controller
     // Actualizar perfil de usuario
     public function updateProfile(Request $request)
     {
-        $user = Auth::user();
+        $user = Usuario::find(Auth::id());
         $request->validate([
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
