@@ -32,8 +32,8 @@
                     <label for="apellido">Apellido:</label>
                     <input type="text" name="apellido" id="apellido" required placeholder="Apellido">
 
-                    <label for="correo">Correo:</label>
-                    <input type="email" name="correo" id="correo" placeholder="Correo" required><br>
+                    <label for="email">Correo:</label>
+                    <input type="email" name="email" id="email" placeholder="Correo" required><br>
 
                     <label for="password">Contraseña:</label>
                     <input type="password" name="password" id="password" placeholder="Contraseña" required><br>
