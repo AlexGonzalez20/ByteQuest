@@ -1,0 +1,64 @@
+body {
+    background: linear-gradient(
+        to left bottom,
+        #46f0e4,
+        #40c8d7,
+        #54a0ba,
+        #5d7a91,
+        #545863
+    );
+}
+
+.navbar,
+.navbar-light.bg-light,
+footer.bg-dark {
+    background: #545863 !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: #fafafa !important;
+}
+
+.section-padding {
+    padding: 100px 0;
+    background: transparent;
+}
+
+.card,
+.card.text-white.bg-dark,
+.portfolio .card,
+.team .card {
+    background-color: #545863
+    !important;
+    color: #fff !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border: none;
+}
+
+.carousel-caption h5,
+.carousel-caption p {
+    color: #fff !important;
+    text-shadow: #545863 1px 0 10px;
+}
+
+footer.bg-dark,
+footer {
+background-color: #000000 !important;
+    color: #fff !important;
+}
+
+.text-warning,
+.navbar-brand .text-warning {
+    color: #46f0e4 !important;
+}
+
+.carousel-item {
+    height: 95vh;      
+    min-height: 300px;
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
