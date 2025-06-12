@@ -8,7 +8,7 @@ use App\Models\Usuario;
 
 // Redirigir la raíz al login
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('landing');
 });
 
 // Rutas de autenticación
