@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5 Responsive Landing Page Design</title>
+    <title>ByteQuest</title>
 
     <!-- All CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -25,13 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="#about">Sobre ByteQuest</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
+                        <a class="nav-link" href="#services">Servicios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#portfolio">Portafolio</a>
@@ -40,7 +40,7 @@
                         <a class="nav-link" href="#team">Equipo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="#contact">Contactanos</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Login</a>
@@ -65,7 +65,7 @@
             <div class="carousel-item active">
                 <img src="{{asset('img/home-1.jpg')}}" class="d-block w-100" alt="...">
                 <div class="carousel-caption">
-                    <h5>Your Dream House</h5>
+                    <h5>Aprende a Programar</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
                     <p><a href="#" class="btn btn-warning mt-3">Learn More</a></p>
                 </div>
@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="about-img">
-                        <img src="../../../public/img/about.jpg" alt="" class="img-fluid">
+                        <img src="{{asset('img/about.jpg')}}" alt="" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5">
@@ -180,7 +180,7 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="../../../public/img/project-1.jpg" class="img-fluid" alt="">
+                                <img src="{{asset('img/project-1.jpg')}}" class="img-fluid" alt="">
                             </div>
                             <h3 class="card-title">Building Make</h3>
                             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
@@ -192,7 +192,7 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="../../../public/img/project-2.jpg" class="img-fluid" alt="">
+                                <img src="{{asset('img/project-2.jpg')}}" class="img-fluid" alt="">
                             </div>
                             <h3 class="card-title">Building Make</h3>
                             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
@@ -204,7 +204,7 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="../../../public/img/project-3.jpg" class="img-fluid" alt="">
+                                <img src="{{asset('img/project-3.jpg')}}" class="img-fluid" alt="">
                             </div>
                             <h3 class="card-title">Building Make</h3>
                             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
@@ -216,91 +216,14 @@
         </div>
     </section>
     <!-- portfolio ends -->
-    <!-- team starts -->
-    <section class="team section-padding" id="team">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-header text-center pb-5">
-                        <h2>Our Team</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit. Non, quo.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <img src="../../../public/img/team-1.jpg" alt="" class="img-fluid rounded-circle">
-                            <h3 class="card-title py-2">Jack Wilson</h3>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
-
-
-                            <p class="socials">
-                                <i class="bi bi-twitter text-dark mx-1"></i>
-                                <i class="bi bi-facebook text-dark mx-1"></i>
-                                <i class="bi bi-linkedin text-dark mx-1"></i>
-                                <i class="bi bi-instagram text-dark mx-1"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <img src="../../../public/img/team-2.jpg" alt="" class="img-fluid rounded-circle">
-                            <h3 class="card-title py-2">Jack Wilson</h3>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
-                            <p class="socials">
-                                <i class="bi bi-twitter text-dark mx-1"></i>
-                                <i class="bi bi-facebook text-dark mx-1"></i>
-                                <i class="bi bi-linkedin text-dark mx-1"></i>
-                                <i class="bi bi-instagram text-dark mx-1"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <img src="../../../public/img/team-3.jpg" alt="" class="img-fluid rounded-circle">
-                            <h3 class="card-title py-2">Jack Wilson</h3>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
-                            <p class="socials">
-                                <i class="bi bi-twitter text-dark mx-1"></i>
-                                <i class="bi bi-facebook text-dark mx-1"></i>
-                                <i class="bi bi-linkedin text-dark mx-1"></i>
-                                <i class="bi bi-instagram text-dark mx-1"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <img src="../../../public/img/team-4.jpg" alt="" class="img-fluid rounded-circle">
-                            <h3 class="card-title py-2">Jack Wilson</h3>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
-                            <p class="socials">
-                                <i class="bi bi-twitter text-dark mx-1"></i>
-                                <i class="bi bi-facebook text-dark mx-1"></i>
-                                <i class="bi bi-linkedin text-dark mx-1"></i>
-                                <i class="bi bi-instagram text-dark mx-1"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- team ends -->
+    
     <!-- Contact starts -->
     <section id="contact" class="contact section-padding">
         <div class="container mt-5 mb-5">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-header text-center pb-5">
-                        <h2>Contact Us</h2>
+                        <h2>Contactanos</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit. Non, quo.</p>
                     </div>
                 </div>
@@ -334,7 +257,7 @@
     <!-- footer starts -->
     <footer class="bg-dark p-2 text-center">
         <div class="container">
-            <p class="text-white">All Right Reserved By ByteQuest</p>
+            <p class="text-white">ByteQuest 2025</p>
         </div>
     </footer>
     <!-- footer ends -->

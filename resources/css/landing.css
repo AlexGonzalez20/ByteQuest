@@ -12,19 +12,12 @@ body {
 .navbar,
 .navbar-light.bg-light,
 footer.bg-dark {
-    background: linear-gradient(
-        to left bottom,
-        #46f0e4,
-        #40c8d7,
-        #54a0ba,
-        #5d7a91,
-        #545863
-    ) !important;
+    background: #545863 !important;
 }
 
 .navbar-light .navbar-brand,
 .navbar-light .navbar-nav .nav-link {
-    color: #fff !important;
+    color: #fafafa !important;
 }
 
 .section-padding {
@@ -36,14 +29,8 @@ footer.bg-dark {
 .card.text-white.bg-dark,
 .portfolio .card,
 .team .card {
-    background: linear-gradient(
-        to left bottom,
-        #46f0e4,
-        #40c8d7,
-        #54a0ba,
-        #5d7a91,
-        #545863
-    ) !important;
+    background-color: #545863
+    !important;
     color: #fff !important;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border: none;
@@ -57,14 +44,7 @@ footer.bg-dark {
 
 footer.bg-dark,
 footer {
-    background: linear-gradient(
-        to left bottom,
-        #46f0e4,
-        #40c8d7,
-        #54a0ba,
-        #5d7a91,
-        #545863
-    ) !important;
+background-color: #000000 !important;
     color: #fff !important;
 }
 
@@ -74,8 +54,8 @@ footer {
 }
 
 .carousel-item {
-    height: 60vh;      /* Cambia 60vh por la altura que prefieras */
-    min-height: 300px; /* Puedes ajustar este valor también */
+    height: 95vh;      
+    min-height: 300px;
 }
 
 .carousel-item img {
