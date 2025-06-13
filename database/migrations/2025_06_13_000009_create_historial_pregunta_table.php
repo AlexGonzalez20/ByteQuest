@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lecciones', function (Blueprint $table) {
+        Schema::create('historial_pregunta', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('curso_id')->constrained()->onDelete('cascade');
-            $table->string('titulo');
-            $table->text('contenido')->nullable(); // o puedes usar un campo tipo JSON si es estructurado
+            $table->foreignId('historial_id')->constrained('historial')->onDelete('cascade');
+            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lecciones');
+        Schema::dropIfExists('historial_pregunta');
     }
 };
