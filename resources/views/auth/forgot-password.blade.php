@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    @vite('resources/css/forgot-reset.css')
 </head>
 <body>
     <div class="container">
         <h2>¿Olvidaste tu contraseña?</h2>
         <form method="POST" action="{{ route('password.email') }}">
+            <!-- {{ route('password.email') }}"= "/sendemail()" -->
             @csrf
             <input type="email" name="email" placeholder="Ingresa tu correo" required>
             <button type="submit">Enviar enlace de recuperación</button>
