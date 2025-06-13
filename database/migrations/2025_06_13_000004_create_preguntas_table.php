@@ -11,22 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('preguntas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('correo')->unique();
-            $table->string('password');
-            $table->timestamps(); // created_at y updated_at
+            $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
+            $table->text('pregunta');
+            $table->integer('nivel');
+            $table->timestamps();
         });
     }
 
-    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('preguntas');
     }
 };

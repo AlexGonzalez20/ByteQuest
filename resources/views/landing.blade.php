@@ -28,25 +28,22 @@
                         <a class="nav-link" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">Sobre ByteQuest</a>
+                        <a class="nav-link" href="#about">Sobre Nosotros</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#services">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portafolio</a>
+                        <a class="nav-link" href="#portfolio">Proyectos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#team">Equipo</a>
+                        <a class="nav-link" href="#contact">Contáctanos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contactanos</a>
+                        <a href="{{ route('login') }}" class="btn btn-byte me-2 btn-warning">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('register') }}" class="btn btn-warning">Registro</a>
+                        <a href="{{ route('register') }}" class="btn btn-byte btn-warning">Registro</a>
                     </li>
                 </ul>
             </div>
@@ -65,25 +62,25 @@
             <div class="carousel-item active">
                 <img src="{{asset('img/home-1.jpg')}}" class="d-block w-100" alt="...">
                 <div class="carousel-caption">
-                    <h5>Aprende a Programar</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                    <p><a href="#" class="btn btn-warning mt-3">Learn More</a></p>
+                    <h5>Aprende a Programar desde Cero</h5>
+                    <p>Descubre el mundo del desarrollo web, y de software con nuestros cursos prácticos, dinámicos y pensados para todos.</p>
+                    <p><a href="#" class="btn btn-warning mt-3">Explora nuestros cursos</a></p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{asset('img/home-2.jpg')}}" class="d-block w-100" alt="...">
                 <div class="carousel-caption">
-                    <h5>Always Dedicated</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                    <p><a href="#" class="btn btn-warning mt-3">Learn More</a></p>
+                    <h5>Comprometidos con tu Futuro</h5>
+                    <p>Nuestra misión es brindarte las herramientas necesarias para crecer profesionalmente en el sector tecnológico.</p>
+                    <p><a href="#" class="btn btn-warning mt-3">Ver más</a></p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{asset('img/home-3.jpg')}}" class="d-block w-100" alt="...">
                 <div class="carousel-caption">
-                    <h5>True Construction</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                    <p><a href="#" class="btn btn-warning mt-3">Learn More</a></p>
+                    <h5>Construimos Soluciones Reales</h5>
+                    <p>A través de proyectos colaborativos, nuestros estudiantes aplican sus conocimientos en escenarios reales.</p>
+                    <p><a href="#" class="btn btn-warning mt-3">Mira nuestros proyectos</a></p>
                 </div>
             </div>
         </div>
@@ -103,14 +100,14 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="about-img">
-                        <img src="{{asset('img/about.jpg')}}" alt="" class="img-fluid">
+                        <img src="{{asset('img/bytey.png')}}" alt="" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5">
                     <div class="about-text">
-                        <h2>We Provide the Best Quality <br /> Services Ever</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam, labore reiciendis. Assumenda eos quod animi! Soluta nesciunt inventore dolores excepturi provident, culpa beatae tempora, explicabo corporis quibusdam corrupti. Autem, quaerat. Assumenda quo aliquam vel, nostrum explicabo ipsum dolor, ipsa perferendis porro doloribus obcaecati placeat natus iste odio est non earum?</p>
-                        <a href="#" class="btn btn-warning">Learn More</a>
+                        <h2>Formación Tecnológica <br /> con Propósito</h2>
+                        <p>En ByteQuest, ofrecemos un enfoque educativo práctico y actualizado. Nuestro objetivo es formar desarrolladores capaces de enfrentar los desafíos del mundo digital actual, con habilidades técnicas, pensamiento crítico y trabajo en equipo.</p>
+                        <a href="#" class="btn btn-warning">Conoce nuestra filosofía</a>
                     </div>
                 </div>
             </div>
@@ -123,8 +120,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-header text-center pb-5">
-                        <h2>Our Services</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit. Non, quo.</p>
+                        <h2>Nuestros servicios</h2>
+                        <p>Formamos desarrolladores con visión de futuro,<br> combinando teoría, práctica y tecnología de punta. </p>
                     </div>
                 </div>
             </div>
@@ -133,9 +130,9 @@
                     <div class="card text-white text-center bg-dark pb-2">
                         <div class="card-body">
                             <i class="bi bi-laptop"></i>
-                            <h3 class="card-title">Best Quality</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">Read More</button>
+                            <h3 class="card-title">Formación de Alta Calidad</h3>
+                            <p class="lead">Cursos diseñados por profesionales del sector. Contenido actualizado, ejercicios reales y acompañamiento personalizado en cada etapa de tu aprendizaje.</p>
+                            <button class="btn bg-warning text-dark">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -143,9 +140,9 @@
                     <div class="card text-white text-center bg-dark pb-2">
                         <div class="card-body">
                             <i class="bi bi-journal"></i>
-                            <h3 class="card-title">Sustainability</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">Read More</button>
+                            <h3 class="card-title">Comunidad y Mentores</h3>
+                            <p class="lead">Únete a una comunidad activa de estudiantes, desarrolladores y mentores que te ayudarán a crecer en cada paso de tu formación.</p>
+                            <button class="btn bg-warning text-dark">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -153,9 +150,9 @@
                     <div class="card text-white text-center bg-dark pb-2">
                         <div class="card-body">
                             <i class="bi bi-intersect"></i>
-                            <h3 class="card-title">Integrity</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">Read More</button>
+                            <h3 class="card-title">Desarrollo Ético y Profesional</h3>
+                            <p class="lead">Fomentamos una formación basada en valores como la integridad, el respeto y la responsabilidad tecnológica.</p>
+                            <button class="btn bg-warning text-dark">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -170,8 +167,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-header text-center pb-5">
-                        <h2>Our Projects</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit. Non, quo.</p>
+                        <h2>Proyectos que Transforman</h2>
+                        <p>Descubre cómo nuestros estudiantes aplican sus conocimientos para resolver desafíos reales,<br>desarrollar soluciones digitales y crear tecnología con propósito.</p>
                     </div>
                 </div>
             </div>
@@ -180,11 +177,11 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="{{asset('img/project-1.jpg')}}" class="img-fluid" alt="">
+                                <img src="{{asset('img/card1.jpg')}}" class="img-fluid" alt="">
                             </div>
-                            <h3 class="card-title">Building Make</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">Learn More</button>
+                            <h3 class="card-title">Plataforma de Cursos Interactivos</h3>
+                            <p class="lead">Desarrollo de una aplicación web para cursos, con evaluaciones automáticas, foros y retroalimentación. Proyecto liderado por estudiantes.</p>
+                            <button class="btn bg-warning text-dark">Ver más</button>
                         </div>
                     </div>
                 </div>
@@ -192,11 +189,11 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="{{asset('img/project-2.jpg')}}" class="img-fluid" alt="">
+                                <img src="{{asset('img/face.jpg')}}" class="img-fluid" alt="">
                             </div>
-                            <h3 class="card-title">Building Make</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">learn More</button>
+                            <h3 class="card-title">Sistema de Gamificación para el Aprendizaje</h3>
+                            <p class="lead">ByteQuest sera una plataforma interactiva con mecánicas de juego diseñadas para motivar el aprendizaje de programación. Los usuarios ganarán puntos de experiencia, mantendrán rachas diarias, usarán vidas para intentos limitados, y desbloquearán logros al completar retos.</p>
+                            <button class="btn bg-warning text-dark">Ver más</button>
                         </div>
                     </div>
                 </div>
@@ -204,11 +201,11 @@
                     <div class="card text-light text-center bg-white pb-2">
                         <div class="card-body text-dark">
                             <div class="img-area mb-4">
-                                <img src="{{asset('img/project-3.jpg')}}" class="img-fluid" alt="">
+                                <img src="{{asset('img/chatbot.jpg')}}" class="img-fluid" alt="">
                             </div>
-                            <h3 class="card-title">Building Make</h3>
-                            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p>
-                            <button class="btn bg-warning text-dark">Learn More</button>
+                            <h3 class="card-title">Chatbot de Soporte Estudiantil</h3>
+                            <p class="lead">Asistente virtual basado en IA que responde dudas frecuentes y guía a nuevos estudiantes.</p>
+                            <button class="btn bg-warning text-dark">Ver más</button>
                         </div>
                     </div>
                 </div>
@@ -216,7 +213,7 @@
         </div>
     </section>
     <!-- portfolio ends -->
-    
+
     <!-- Contact starts -->
     <section id="contact" class="contact section-padding">
         <div class="container mt-5 mb-5">
@@ -224,7 +221,7 @@
                 <div class="col-md-12">
                     <div class="section-header text-center pb-5">
                         <h2>Contactanos</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit. Non, quo.</p>
+                        <p>¿Tienes dudas o ideas? ¡Estamos listos para escucharte y subir de nivel juntos!</p>
                     </div>
                 </div>
             </div>
@@ -234,19 +231,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <input class="form-control" placeholder="Full Name" required="" type="text">
+                                    <input class="form-control" placeholder="Ingresa tu nombre completo" required="" type="text">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <input class="form-control" placeholder="Email" required="" type="email">
+                                    <input class="form-control" placeholder="Ingresa tu correo de contacto" required="" type="email">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <textarea class="form-control" placeholder="Message" required="" rows="3"></textarea>
+                                    <textarea class="form-control" placeholder="Cuentanos como podemos ayudarte" required="" rows="3"></textarea>
                                 </div>
-                            </div><button class="btn btn-warning btn-lg btn-block mt-3" type="button">Send Now</button>
+                            </div><button class="btn btn-warning btn-lg btn-block mt-3" type="button">Contacta con nuestro equipo</button>
                         </div>
                     </form>
                 </div>

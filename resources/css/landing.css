@@ -29,9 +29,9 @@ footer.bg-dark {
 .card.text-white.bg-dark,
 .portfolio .card,
 .team .card {
-    background-color: #545863
+    background-color: #1e1b4b00
     !important;
-    color: #fff !important;
+    color: #ffffff !important;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border: none;
 }
@@ -61,4 +61,25 @@ background-color: #000000 !important;
 .carousel-item img {
     height: 100%;
     object-fit: cover;
+}
+
+/* Estilos personalizados para los botones de Login y Registro */
+.btn-byte {
+    background-color: #46f0e4;
+    
+}
+
+.btn-byte:hover,
+.btn-byte:focus {
+    background-color: #40c8d7;
+    color: #fff;
+    text-shadow: 0 1px 8px #545863;
+}
+
+.about-img img {
+    height: auto;
+    max-width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
