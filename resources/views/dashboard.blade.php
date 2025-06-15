@@ -17,21 +17,11 @@
             <img src="" alt="">
             <a href="">home</a>
             <a href="{{route('views.AdCourses')}}">administrar cursos</a>
-            <a href=""></a>
+            <a href="{{route('views.')}}">administrar usuarios</a>
             <a href="{{route('views.profile')}}">perfil</a>
         </div>
     </header>
-    @extends('layouts.app')
-    @section('content')
-        <div class="container">
-            <h1>Panel de Administración</h1>
-            {{-- Botón de Cerrar sesión --}}
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">
-                    Cerrar sesión
-                </button>
-            </form>
+    
     <footer>
         <h5>Derechos reservados ByteQuest &copy; 2025</h5>
     </footer>
