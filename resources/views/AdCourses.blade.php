@@ -15,7 +15,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#"><span class="text-warning">Byte</span>Quest</a>
-
+            <a class="nav-link" href="{{route('views.AdQuest')}}">Administrar Cursos</a>
             <a class="btn btn-byte mx-2" href="{{route('views.dashboard')}}">Volver</a>
         </div>
     </nav>
