@@ -12,7 +12,7 @@
 <body class="section-padding">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><span class="text-warning">Byte</span>Quest</a>
+            <a class="navbar-brand fw-bold" href="{{route('views.dashboard')}}"><span class="text-warning">Byte</span>Quest</a>
             <div>
                 <a class="btn btn-byte mx-2" href="{{route('views.AdCourses')}}">Volver</a>
             </div>
@@ -36,7 +36,7 @@
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
 
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -45,7 +45,8 @@
                     <th scope="row">1</th>
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+
+                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -54,11 +55,11 @@
                     <th scope="row">1</th>
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+
+                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
-                </tr>
                 </tr>
             </tbody>
         </table>

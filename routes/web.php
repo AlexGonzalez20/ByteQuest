@@ -47,5 +47,7 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/AdQuest', 'AdQuest')->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
+    Route::view('/EditCourses', 'edit.EditCourses')->name('views.EditCourses');
+    Route::view('/EditQuest', 'edit.EditQuest')->name('views.EditQuest');
     // Puedes agregar más rutas de vistas aquí
 });

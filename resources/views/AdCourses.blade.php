@@ -14,12 +14,11 @@
 <body class="section-padding">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><span class="text-warning">Byte</span>Quest</a>
-            <a class="nav-link" href="{{route('views.AdQuest')}}">Administrar Cursos</a>
+            <a class="navbar-brand" href="{{route('views.dashboard')}}"><span class="text-warning">Byte</span>Quest</a>
             <a class="btn btn-byte mx-2" href="{{route('views.dashboard')}}">Volver</a>
         </div>
     </nav>
-    <div class="container mt-5">
+    <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <h1 class="mb-4">Cursos</h1>
         <table class="table table-striped">
             <thead>
@@ -30,7 +29,7 @@
 
                     <th scope="col">edit</th>
                     <th scope="col">delete</th>
-                </tr>
+                </tr>       
             </thead>
             <tbody>
                 <tr>
@@ -38,7 +37,7 @@
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
 
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -47,7 +46,8 @@
                     <th scope="row">1</th>
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+
+                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -56,11 +56,11 @@
                     <th scope="row">1</th>
                     <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
                     <td>Otto</td>
-                    <td><a href=""><i class="fa-solid fa-pen-nib"></i></a>
+
+                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
                     </td>
                     <td><a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
-                </tr>
                 </tr>
             </tbody>
         </table>
