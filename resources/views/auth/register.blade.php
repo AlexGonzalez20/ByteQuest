@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <header class="header">
-            <h2>Registrarse</h2>
+            <h2><a href="{{ route('landing') }}">Registrarse</a></h2>
         </header>
         <div class="formulario">
 
