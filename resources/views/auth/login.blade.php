@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <header>¡Bienvenido a ByteQuest!</header>
+            <header><a href="{{ route('landing') }}">¡Bienvenido a ByteQuest!</a></header>
         </div>
 
         <div class="caja1">

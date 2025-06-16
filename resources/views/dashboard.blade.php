@@ -16,7 +16,7 @@
             <h1>¡Bienvenido a ByteQuest!</h1>
             <img src="" alt="">
             <a href="">home</a>
-            <a href="{{route('views.courses')}}">cursos</a>
+            <a href="{{route('views.AdCourses')}}">administrar cursos</a>
             <a href=""></a>
             <a href="{{route('views.profile')}}">perfil</a>
         </div>
@@ -32,33 +32,6 @@
                     Cerrar sesión
                 </button>
             </form>
-            <h2>Lista de Usuarios</h2>
-                <table cellpadding="8">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Correo</th>
-                            <th>Fecha de creación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($usuarios as $usuario)
-                            <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->correo }}</td>
-                                <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3">No hay usuarios registrados.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            <a href="inicio">Ir al inicio</a>
-        </div>
-        @csrf
-    @endsection
     <footer>
         <h5>Derechos reservados ByteQuest &copy; 2025</h5>
     </footer>
