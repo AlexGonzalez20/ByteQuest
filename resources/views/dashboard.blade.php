@@ -50,37 +50,45 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Usuarios</h5>
-                                <p class="card-text">150 registrados</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="card text-white bg-primary mb-3 hover-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Gestionar Usuarios</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                     <div class="col-md-3">
-                        <div class="card text-white bg-success mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Cursos</h5>
-                                <p class="card-text">12 disponibles</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="card text-white bg-success mb-3 hover-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Gestionar Cursos</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                     <div class="col-md-3">
-                        <div class="card text-white bg-info mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Progreso Promedio</h5>
-                                <p class="card-text">68%</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="card text-white bg-info mb-3 hover-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Progreso Promedio</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                     <div class="col-md-3">
-                        <div class="card text-white bg-warning mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Preguntas</h5>
-                                <p class="card-text">520 creadas</p>
+                        <a href="#" class="text-decoration-none">
+                            <div class="card text-white bg-warning mb-3 hover-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Preguntas</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                 </div>
 
                 <div class="row">
