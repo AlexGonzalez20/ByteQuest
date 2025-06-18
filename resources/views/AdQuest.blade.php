@@ -19,48 +19,35 @@
         </div>
     </nav>
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
-        <h1 class="mb-4">Cuestionarios</h1>
-         <table class="table table-striped">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Cuestionarios</h1>
+            <a href="{{ route('preguntas.create') }}" class="btn btn-byte">Añadir</a>
+        </div>
+        <p class="lead">Bienvenido, aquí puedes administrar los cuestionarios.</p>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">pregunta</th>
-                    <th scope="col">nivel</th>
-                    <th scope="col">edit</th>
-                    <th scope="col">delete</th>
+                    <th scope="col">Pregunta</th>
+                    <th scope="col">Nivel</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
+                
+                @foreach($preguntas as $pregunta)
                 <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
-                    </td>
+                    <th scope="row">{{ $pregunta->id }}</th>
+                    <td>{{ $pregunta->pregunta }}</td>
+                    <td>{{ $pregunta->nivel }}</td>
+                    <td>{{ $pregunta->curso->nombre ?? '-' }}</td>
+                    <td><a href="#" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-nib"></i></a></td>
+                    <td><a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditQuest')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
+                @endforeach
+                
             </tbody>
         </table>
     </div>
