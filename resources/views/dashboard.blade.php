@@ -4,64 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <title>ByteQuest Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @vite('resources/css/dashboard.css')
 
-    <title>DashBoard</title>
 </head>
 
 <body>
-    <header>
-        <div class="header">
-            <h1>¡Bienvenido a ByteQuest!</h1>
-            <img src="" alt="">
-            <a href="">home</a>
-            <a href="{{route('views.courses')}}">cursos</a>
-            <a href=""></a>
-            <a href="{{route('views.profile')}}">perfil</a>
+
+    <br>
+    <button class="btn btn-primary mx-3 mt-3" data-bs-toggle="offcanvas" data-bs-target="#intro">☰</button>
+
+    <div class="offcanvas offcanvas-start bg-dark text-white" id="intro">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title">
+                <button class="btn btn-primary mt-4" data-bs-dismiss="offcanvas">☰</button>
+            </div>
         </div>
-    </header>
-    @extends('layouts.app')
-    @section('content')
-        <div class="container">
-            <h1>Panel de Administración</h1>
-            {{-- Botón de Cerrar sesión --}}
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">
-                    Cerrar sesión
-                </button>
-            </form>
-            <h2>Lista de Usuarios</h2>
-                <table cellpadding="8">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Correo</th>
-                            <th>Fecha de creación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($usuarios as $usuario)
-                            <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->correo }}</td>
-                                <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3">No hay usuarios registrados.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            <a href="inicio">Ir al inicio</a>
+        <div>
+            <ul class="nav flex-column">
+                <li class="mt-3"></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#">Cursos</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#">Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#">Preguntas</a></li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-outline-light w-100 mt-3" type="submit">Cerrar sesión</button>
+
+                </form>
+            </ul>
         </div>
-        @csrf
-    @endsection
-    <footer>
-        <h5>Derechos reservados ByteQuest &copy; 2025</h5>
-    </footer>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Main content -->
+            <main class="col-12 col-md-10 offset-md-1 px-3 py-4">
+
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <a class="navbar-brand" href="{{route('landing')}}"><span class="text-warning">Byte</span><span class="quest">Quest</span></a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Usuarios</h5>
+                                <p class="card-text">150 registrados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cursos</h5>
+                                <p class="card-text">12 disponibles</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Progreso Promedio</h5>
+                                <p class="card-text">68%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Preguntas</h5>
+                                <p class="card-text">520 creadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header">Resumen de Actividad</div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <img src="https://uni.edu.gt/wp-content/uploads/sites/19/2024/10/grafica_barras-1024x569.png" alt="Illustration" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">Fuente de Usuarios</div>
+                            <div class="card-body">
+                                <div class="chart-placeholder"><img src="https://www.jaspersoft.com/content/dam/jaspersoft/images/graphics/infographics/pie-chart-example.svg" class="circular"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">Proyectos</div>
+                            <div class="card-body">
+                                <p>Integración API <span class="float-end">60%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-success" style="width: 60%"></div>
+                                </div>
+                                <p>Diseño UI <span class="float-end">85%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">Ilustraciones</div>
+                            <div class="chart-placeholder">
+                                <img src="https://png.pngtree.com/png-vector/20230531/ourmid/pngtree-robot-in-the-style-of-an-old-drawing-vector-png-image_6790636.png" alt="" class="img-fluid">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
 </body>
 
 </html>
