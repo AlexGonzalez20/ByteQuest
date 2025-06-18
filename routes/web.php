@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PreguntaController;
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -36,6 +37,9 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('cursos', CursoController::class);
     Route::resource('lecciones', LeccionController::class);
+    Route::get('/cuestionarios', [PreguntaController::class, 'index'])->name('preguntas.index');
+    Route::get('/cuestionarios/crear', [PreguntaController::class, 'create'])->name('preguntas.create');
+    Route::post('/cuestionarios', [PreguntaController::class, 'store'])->name('preguntas.store');
 });
 
 // Ruta para actualizar el perfil del usuario
@@ -43,11 +47,14 @@ Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('
 
 // Grupo de rutas para el módulo de vistas
 Route::prefix('views')->middleware(['auth'])->group(function () {
-    Route::view('/AdCourses', 'AdCourses')->name('views.AdCourses');
-    Route::view('/AdQuest', 'AdQuest')->name('views.AdQuest');
+    Route::get('/AdCourses', [CursoController::class, 'index'])->name('views.AdCourses');
+    Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
-    Route::view('/EditCourses', 'edit.EditCourses')->name('views.EditCourses');
+    Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/EditQuest', 'edit.EditQuest')->name('views.EditQuest');
     // Puedes agregar más rutas de vistas aquí
 });
+
+// Ruta para editar cursos
+Route::get('/courses/{curso}/edit', [CursoController::class, 'edit'])->name('courses.edit');

@@ -15,12 +15,18 @@ class DatabaseSeeder extends Seeder
     {
         
         Usuario::firstOrCreate(
-            ['email' => 'admin@bytequest.com'],
+            [
+                'email' => 'admin@bytequest.com'
+            ],
             [
                 'nombre' => 'Admin',
                 'apellido' => 'ByteQuest',
-                'password' => Hash::make('12345678')
+                'password' => Hash::make('12345678'),
+                'rol_id' => 2
+
             ]
         );
+
+        $this->call(\Database\Seeders\CursoPreguntaOpcionSeeder::class);
     }
 }

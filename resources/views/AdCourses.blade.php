@@ -2,66 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar Cursos</title>
-    <script src="https://kit.fontawesome.com/2ecd82a135.js" crossorigin="anonymous"></script>
-
-    @vite('resources/css/bootstrap.min.css')
-    @vite('resources/css/landing.css')
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Administrar Cursos</title>
+        @vite('resources/css/bootstrap.min.css')
+        @vite('resources/css/landing.css')
 </head>
-
 <body class="section-padding">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{{route('views.dashboard')}}"><span class="text-warning">Byte</span>Quest</a>
-            <a class="btn btn-byte mx-2" href="{{route('views.dashboard')}}">Volver</a>
+            <a class="navbar-brand fw-bold" href="#"><span class="text-warning">Byte</span>Quest</a>
+            <div>
+                <a class="btn btn-byte mx-2" href="{{ route('views.dashboard') }}">Volver</a>
+            </div>
         </div>
     </nav>
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
-        <h1 class="mb-4">Cursos</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Cursos</h1>
+            <a href="{{ route('cursos.create') }}" class="btn btn-byte">Añadir</a>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-
-                    <th scope="col">edit</th>
-                    <th scope="col">delete</th>
-                </tr>       
+                    <th scope="col">Nombre del Curso</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
             </thead>
             <tbody>
+                @foreach($cursos as $curso)
                 <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
+                    <th scope="row">{{ $curso->id }}</th>
+                    <td><a href="{{ route('views.AdQuest') }}">{{ $curso->nombre_curso }}</a></td>
+                    <td>{{ $curso->descripcion }}</td>
+                    <td><a href="{{ route('views.EditCourses', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
+                    <td>
+                        <form method="POST" action="{{ route('cursos.destroy', $curso->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a href="{{route('views.AdQuest')}} ">Mark</a></td>
-                    <td>Otto</td>
-
-                    <td><a href="{{route('views.EditCourses')}}"><i class="fa-solid fa-pen-nib"></i></a>
-                    </td>
-                    <td><a href=""><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

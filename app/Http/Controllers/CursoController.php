@@ -14,7 +14,7 @@ class CursoController extends Controller
     public function index()
     {
         $cursos = Curso::all();
-        return view('cursos.index', compact('cursos'));
+        return view('AdCourses', compact('cursos'));
     }
 
 
@@ -23,7 +23,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cursos.create');
     }
 
     /**
@@ -31,7 +31,12 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_curso' => 'required|string',
+            'descripcion' => 'required|string',
+        ]);
+        Curso::create($request->all());
+        return redirect()->route('views.AdCourses')->with('success', 'Curso añadido correctamente');
     }
 
     /**
@@ -47,7 +52,7 @@ class CursoController extends Controller
      */
     public function edit(Curso $curso)
     {
-        //
+        return view('courses.EditCourses', compact('curso'));
     }
 
     /**
@@ -55,7 +60,12 @@ class CursoController extends Controller
      */
     public function update(Request $request, Curso $curso)
     {
-        //
+        $request->validate([
+            'nombre_curso' => 'required|string',
+            'descripcion' => 'required|string',
+        ]);
+        $curso->update($request->all());
+        return redirect()->route('views.AdCourses')->with('success', 'Curso actualizado correctamente');
     }
 
     /**
@@ -63,6 +73,7 @@ class CursoController extends Controller
      */
     public function destroy(Curso $curso)
     {
-        //
+        $curso->delete();
+        return redirect()->route('views.AdCourses')->with('success', 'Curso eliminado correctamente');
     }
 }
