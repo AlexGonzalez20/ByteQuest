@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Administrar Cuestionarios</title>
-        <script src="https://kit.fontawesome.com/2ecd82a135.js" crossorigin="anonymous"></script>
 
-        @vite('resources/css/bootstrap.min.css')
-        @vite('resources/css/landing.css')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Cuestionarios</title>
+    <script src="https://kit.fontawesome.com/2ecd82a135.js" crossorigin="anonymous"></script>
+
+    @vite('resources/css/bootstrap.min.css')
+    @vite('resources/css/landing.css')
 </head>
+
 <body class="section-padding">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
@@ -24,6 +26,7 @@
             <a href="{{ route('preguntas.create') }}" class="btn btn-byte">Añadir</a>
         </div>
         <p class="lead">Bienvenido, aquí puedes administrar los cuestionarios.</p>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -52,4 +55,5 @@
         </table>
     </div>
 </body>
+
 </html>

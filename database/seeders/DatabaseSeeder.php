@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
                 'apellido' => 'ByteQuest',
                 'password' => Hash::make('12345678'),
                 'rol_id' => 2
+
             ]
         );
 
