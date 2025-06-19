@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Administrar Cursos</title>
         @vite('resources/css/bootstrap.min.css')
-        @vite('resources/css/courses.css')
+        @vite('resources/css/landing.css')
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@
                     <td>{{ $curso->descripcion }}</td>
                     <td><a href="{{ route('views.EditCourses', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
                     <td>
-                        <form method="POST" action="{{ route('cursos.destroy', $curso->id) }}">
+                        <form method="POST" action="{{ route('courses.destroy', $curso->id) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

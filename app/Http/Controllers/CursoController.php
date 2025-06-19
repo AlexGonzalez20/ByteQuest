@@ -23,7 +23,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        return view('cursos.create');
+        return view('courses.create');
     }
 
     /**
@@ -71,9 +71,9 @@ class CursoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Curso $curso)
-    {
-        $curso->delete();
+    public function destroy(Curso $course)
+{
+    $course->delete();
         return redirect()->route('views.AdCourses')->with('success', 'Curso eliminado correctamente');
     }
 }

@@ -60,4 +60,4 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
 });
 
 // Ruta para editar cursos
-Route::get('/courses/{curso}/edit', [CursoController::class, 'edit'])->name('courses.edit');
+Route::get('/courses/editCourses', [CursoController::class, 'edit'])->name('courses.edit');
