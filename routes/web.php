@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
 
 // Recursos protegidos por auth
 Route::middleware(['auth'])->group(function () {
-    Route::resource('cursos', CursoController::class);
+    Route::resource('courses', CursoController::class);
     Route::resource('lecciones', LeccionController::class);
     Route::get('/cuestionarios', [PreguntaController::class, 'index'])->name('preguntas.index');
     Route::get('/cuestionarios/crear', [PreguntaController::class, 'create'])->name('preguntas.create');
