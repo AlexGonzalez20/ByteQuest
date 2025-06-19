@@ -52,7 +52,7 @@ class CursoController extends Controller
      */
     public function edit(Curso $curso)
     {
-        return view('courses.EditCourses', compact('curso'));
+        return view('courses.edit', compact('curso'));
     }
 
     /**
@@ -64,6 +64,10 @@ class CursoController extends Controller
             'nombre_curso' => 'required|string',
             'descripcion' => 'required|string',
         ]);
+        // Si el id viene por input hidden, buscar el curso por id
+        if ($request->has('id')) {
+            $curso = Curso::findOrFail($request->input('id'));
+        }
         $curso->update($request->all());
         return redirect()->route('views.AdCourses')->with('success', 'Curso actualizado correctamente');
     }

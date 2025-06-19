@@ -26,32 +26,37 @@
             <h1 class="mb-0">Cursos</h1>
             <a href="{{ route('views.create') }}" class="btn btn-byte">Añadir</a>
         </div>
-        <table class="table table-striped">
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre del Curso</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
+                    <th>#</th>
+                    <th>Nombre del Curso</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
+                @if(count($cursos) > 0)
                 @foreach($cursos as $curso)
                 <tr>
-                    <th scope="row">{{ $curso->id }}</th>
-                    <td><a href="{{ route('views.AdQuest') }}">{{ $curso->nombre_curso }}</a></td>
+                    <td>{{ $curso->id }}</td>
+                    <td>{{ $curso->nombre_curso }}</td>
                     <td>{{ $curso->descripcion }}</td>
-                    <td><a href="{{ route('views.EditCourses', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
                     <td>
-                        <form method="POST" action="{{ route('courses.destroy', $curso->id) }}">
+                        <a href="{{ route('courses.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a> |
+                        <form method="POST" action="{{ route('courses.destroy', $curso->id) }}" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            <button type="submit" style="background:none;border:none;color:red;">Eliminar</button>
                         </form>
                     </td>
                 </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="4" align="center">No hay cursos registrados.</td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>

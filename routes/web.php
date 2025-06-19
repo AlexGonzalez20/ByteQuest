@@ -52,15 +52,12 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
-    Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/dash', 'dash')->name('views.dash');
     // Puedes agregar más rutas de vistas aquí
     Route::view('/create', 'courses.create')->name('views.create');
     Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
+        // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
 
     // Puedes agregar más rutas de vistas aquíz
 });
-
-// Ruta para editar cursos
-Route::get('/courses/editCourses', [CursoController::class, 'edit'])->name('courses.edit');
