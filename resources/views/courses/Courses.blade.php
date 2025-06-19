@@ -11,7 +11,7 @@
 <body class="section-padding">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><span class="text-warning">Byte</span>Quest</a>
+            <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="text-warning">Byte</span>Quest</a>
             <div>
                 <a class="btn btn-byte mx-2" href="{{ route('views.dashboard') }}">Volver</a>
             </div>
@@ -20,7 +20,7 @@
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Cursos</h1>
-            <a href="{{ route('cursos.create') }}" class="btn btn-byte">Añadir</a>
+            <a href="{{ route('couses.create') }}" class="btn btn-byte">Añadir</a>
         </div>
         <table class="table table-striped">
             <thead>

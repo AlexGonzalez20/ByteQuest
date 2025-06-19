@@ -14,7 +14,7 @@ class CursoController extends Controller
     public function index()
     {
         $cursos = Curso::all();
-        return view('AdCourses', compact('cursos'));
+        return view('courses.Courses', compact('cursos'));
     }
 
 
