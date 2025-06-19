@@ -16,13 +16,13 @@
 
             <div class="card-form">
                 @if ($errors->any())
-                <div style="color:red;font-size: 12px;">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                    <div style="color:red;font-size:20px;">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
                 <form method="POST" action="/register">
                     @csrf
@@ -39,7 +39,8 @@
                     <input type="password" name="password" id="password" placeholder="Contraseña" required><br>
 
                     <label for="password_confirmation">Confirmar Contraseña:</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Confirmar Contraseña"><br>
+                    <input type="password" name="password_confirmation" id="password_confirmation" required
+                        placeholder="Confirmar Contraseña"><br>
 
                     <button type="submit">Registrarse</button>
                 </form>

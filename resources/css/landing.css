@@ -1,50 +1,68 @@
 body {
-    background: linear-gradient(
-        to left bottom,
-        #46f0e4,
-        #40c8d7,
-        #54a0ba,
-        #5d7a91,
-        #545863
-    );
+    background: fixed
+        radial-gradient(circle, #3bb8af, #3b9fab, #4c869b, #566e81, #545863);
 }
 
 .navbar,
-.navbar-light.bg-light,
-footer.bg-dark {
-    background: #545863 !important;
+.navbar-light.bg-light {
+    background: fixed
+        linear-gradient(
+            to right bottom,
+            #545863,
+            #5d7a91,
+            #54a0ba,
+            #40c8d7,
+            #46f0e4
+        );
 }
 
 .navbar-light .navbar-brand,
 .navbar-light .navbar-nav .nav-link {
-    color: #fafafa !important;
+    color: #f9c846 !important;
 }
 
 .section-padding {
     padding: 100px 0;
     background: transparent;
 }
+.section-header {
+    color: whitesmoke;
+
+    text-shadow: 1px 1px 2px #f9c846, 0 0 1em #000000, 0 0 0.2em #46f0e4;
+}
 
 .card,
 .card.text-white.bg-dark,
 .portfolio .card,
 .team .card {
-    background-color: #1e1b4b00
-    !important;
-    color: #ffffff !important;
+    font-size: 2rem;
+    background-color: #46f0e4 !important    ;
+    color: #545863 !important;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border: none;
+    border: 2px solid #f9c846;
 }
-
+.card-body {
+    background-color: #3b9fab;
+    border-radius: 20px;
+}
+.card-body h3 {
+    color: #545863;
+    text-shadow: 1px 1px 2px #ffffff, 0 0 1em #ffffff, 0 0 0.1em #ffffff;
+}
+.card-body p {
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px #ffffff, 0 0 1em #ffffff, 0 0 0.2em #feffff;
+}
 .carousel-caption h5,
 .carousel-caption p {
-    color: #fff !important;
-    text-shadow: #545863 1px 0 10px;
+    color: whitesmoke !important;
+    text-shadow: 1px 1px 2px #f9c846, 0 0 1em #000000, 0 0 0.2em #46f0e4;
+    font-size: 20px !important  ;
 }
 
 footer.bg-dark,
 footer {
-background-color: #000000 !important;
+    background-color: #000000 !important;
     color: #fff !important;
 }
 
@@ -54,7 +72,7 @@ background-color: #000000 !important;
 }
 
 .carousel-item {
-    height: 95vh;      
+    height: 95vh;
     min-height: 300px;
 }
 
@@ -64,16 +82,31 @@ background-color: #000000 !important;
 }
 
 /* Estilos personalizados para los botones de Login y Registro */
+.btn {
+    background-color: #545863 !important   ;
+    color: #f9c846 !important;
+    border-bottom: 2px solid #46f0e4 !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.btn:hover {
+    background-color: whitesmoke !important;
+    color: #3b9fab !important;
+    text-shadow: 0 1px 8px #545863;
+    box-shadow: rgba(252, 251, 251, 0.16) 0px 1px 4px, #f9c846 0px 0px 0px 3px;
+}
 .btn-byte {
     background-color: #46f0e4;
-    
 }
 
 .btn-byte:hover,
 .btn-byte:focus {
-    background-color: #40c8d7;
-    color: #fff;
+    background-color: whitesmoke !important;
+    color: #3b9fab !important;
     text-shadow: 0 1px 8px #545863;
+    box-shadow: rgba(99, 99, 99, 0.16) 0px 1px 4px,
+        rgb(132, 246, 246) 0px 0px 0px 3px;
 }
 
 .about-img img {
@@ -82,4 +115,7 @@ background-color: #000000 !important;
     height: auto;
     display: block;
     margin: 0 auto;
+}
+.footer.bg-dark {
+    background: #000;
 }
