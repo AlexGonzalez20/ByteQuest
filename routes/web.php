@@ -12,6 +12,7 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
+
 // Rutas de autenticación
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -52,6 +53,7 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
+    Route::view('/dash', 'dash')->name('views.dash');
     Route::view('/EditQuest', 'edit.EditQuest')->name('views.EditQuest');
     // Puedes agregar más rutas de vistas aquí
 });

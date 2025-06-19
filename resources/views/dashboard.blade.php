@@ -47,6 +47,8 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <a class="navbar-brand" href="{{route('landing')}}"><span class="text-warning">Byte</span><span class="quest">Quest</span></a>
                 </div>
+            <a href="{{route('views.dash')}}">Dash</a>
+
 
                 <div class="row">
                     <div class="col-md-3">
