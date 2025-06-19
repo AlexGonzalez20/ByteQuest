@@ -25,10 +25,10 @@
         <div>
             <ul class="nav flex-column">
                 <li class="mt-3"></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Usuarios</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Cursos</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Lecciones</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Preguntas</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.selectCourse') }}">Preguntas</a></li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-outline-light w-100 mt-3" type="submit">Cerrar sesión</button>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <a href="#" class="text-decoration-none">
+                        <a href="{{ route('views.AdCourses') }}" class="text-decoration-none">
                             <div class="card text-white bg-success mb-3 hover-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Gestionar Cursos</h5>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <a href="#" class="text-decoration-none">
+                        <a href="{{ route('views.selectCourse') }}" class="text-decoration-none">
                             <div class="card text-white bg-warning mb-3 hover-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Preguntas</h5>
