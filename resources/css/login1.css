@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    background: linear-gradient(
+            to left bottom,
+            #46f0e4,
+            #40c8d7,
+            #54a0ba,
+            #5d7a91,
+            #545863
+        )
+        fixed;
+    color: white;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+.header {
+    text-align: center;
+    font-weight: bold;
+    text-shadow: #545863 1px 0 10px;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: whitesmoke !important;
+}
+
+.header a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+/* Imagen robot */
+.caja1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.caja1 img {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    margin-top: 40px;
+}
+
+/* Card del formulario */
+.card {
+    background: transparent;
+    box-shadow: none;
+}
+
+.card-form {
+    width: 500px;
+    border-radius: 30px;
+    background: linear-gradient(
+            to left bottom,
+            #46f0e4,
+            #40c8d7,
+            #54a0ba,
+            #5d7a91,
+            #545863
+        )
+        fixed;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.card-form h2 {
+    font-size: 30px;
+    margin-bottom: 1rem;
+}
+
+.card-form input {
+    width: 400px;
+    max-width: 100%;
+    border: none;
+    border-radius: 15px;
+    height: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-bottom: #545863 solid 3px;
+    padding: 0.3rem;
+}
+
+.card-form .btn {
+    width: 400px;
+    max-width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 1rem;
+    border: none;
+    margin-top: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-bottom: #545863 solid 3px;
+    background-color: #545863;
+    color: #333;
+}
+
+.card-form button:hover {
+    color: white;
+    background-color: #9fe0f6;
+    transition: all 0.5s ease-in-out;
+}
+
+.card-form a {
+    display: block;
+    color: whitesmoke;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.card-form a:hover {
+    text-decoration: none;
+}
