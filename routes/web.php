@@ -52,6 +52,7 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
+    Route::view('/create', 'courses.create')->name('views.create');
     Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
     Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
 
