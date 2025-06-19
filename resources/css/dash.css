@@ -1,0 +1,9 @@
+.carousel-img-fix {
+    height: 500px;    
+    width: 100%;     /* Ajusta el valor según lo que necesites */
+    object-fit: cover;     /* Mantiene la proporción y recorta si es necesario */
+}
+
+.nav-link{
+    color: white;
+}
