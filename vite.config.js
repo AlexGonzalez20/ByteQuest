@@ -6,8 +6,9 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/css/login.css',  // Agrega aquí tu login.css
-                'resources/js/app.js',
+                'resources/css/login.css',
+                'resources/css/crearUsuario.css',
+                'resources/js/app.js'
             ],
             refresh: true,
         }),
