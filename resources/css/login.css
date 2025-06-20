@@ -14,8 +14,8 @@ body {
 }
 .container a {
     text-decoration: none;
-    text-shadow: #46f0e4;
     font-size: 25px;
+    text-shadow: #f9c846 1px 0 10px;
 }
 .header a {
     color: whitesmoke;
@@ -50,6 +50,7 @@ body {
 }
 
 .card .boton {
+    background-color: #f9c846;
     border: none;
     border-bottom: 2px solid #fefefe;
 }
