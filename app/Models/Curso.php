@@ -2,28 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Curso extends Model
 {
-    //
+    use HasFactory;
+
+    // Tabla asociada
     protected $table = 'cursos';
 
+    // Campos que se pueden asignar masivamente
     protected $fillable = [
-        'id',
         'nombre_curso',
         'descripcion',
     ];
-
-    public function lecciones()
-    {
-        return $this->hasMany(Leccion::class);
-    }
-    
-    public function preguntas()
-    {
-        return $this->hasMany(Pregunta::class);
-    }
 }
-
-// Archivo renombrado a Course.php y clase a Course. Eliminar este archivo si ya no es necesario.

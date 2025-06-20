@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
@@ -63,6 +64,8 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/EliminarUsuario', 'CrudUsuarios.EliminarUsuario')->name('views.EliminarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::resource('usuarios', UsuarioController::class);
+    Route::resource('cursos', CursoController::class);
+
 
 
     Route::view('/dash', 'dash')->name('views.dash');

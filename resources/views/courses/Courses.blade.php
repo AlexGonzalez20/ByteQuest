@@ -26,20 +26,7 @@
             <h1 class="mb-0">Cursos</h1>
             <a href="{{ url('courses/create') }}" class="btn btn-byte">Añadir</a>
         </div>
-<<<<<<< HEAD
-        @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
-        <form method="GET" action="{{ route('courses.edit') }}">
-            <div class="input-group mb-3" style="max-width:300px;">
-                <input type="number" class="form-control" name="course_id" placeholder="ID del curso" required>
-                <button type="submit" class="btn btn-byte">Editar por ID</button>
-            </div>
-        </form>
-        <table class="table table-striped">
-=======
         <table class="table table-bordered">
->>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7
             <thead>
                 <tr>
                     <th>#</th>
@@ -49,20 +36,6 @@
                 </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-                @foreach($courses as $course)
-                <tr>
-                    <th scope="row">{{ $course->id }}</th>
-                    <td><a href="#">{{ $course->nombre_curso }}</a></td>
-                    <td>{{ $course->descripcion }}</td>
-                    <td>
-                        <form method="GET" action="{{ url('courses/' . $course->id . '/edit') }}" style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-warning">Editar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="POST" action="{{ route('courses.destroy', $course->id) }}">
-=======
                 @if(count($cursos) > 0)
                 @foreach($cursos as $curso)
                 <tr>
@@ -72,7 +45,6 @@
                     <td>
                         <a href="{{ route('courses.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a> |
                         <form method="POST" action="{{ route('courses.destroy', $curso->id) }}" style="display:inline;">
->>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7
                             @csrf
                             @method('DELETE')
                             <button type="submit" style="background:none;border:none;color:red;">Eliminar</button>

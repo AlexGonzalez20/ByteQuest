@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <a href="{{ route('views.AdCourses') }}" class="text-decoration-none">
+                        <a href="{{ route('cursos.index') }}" class="text-decoration-none">
                             <div class="card text-white bg-success mb-3 hover-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Gestionar Cursos</h5>
@@ -82,7 +82,7 @@
                         <a href="#" class="text-decoration-none">
                             <div class="card text-white bg-info mb-3 hover-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Progreso Promedio</h5>
+                                    <h5 class="card-title">Gestionar Preguntas</h5>
                                 </div>
                             </div>
                         </a>
@@ -92,7 +92,7 @@
                         <a href="{{ route('views.selectCourse') }}" class="text-decoration-none">
                             <div class="card text-white bg-warning mb-3 hover-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Preguntas</h5>
+                                    <h5 class="card-title">Generar Reporte</h5>
                                 </div>
                             </div>
                         </a>
