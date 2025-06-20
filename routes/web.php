@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
@@ -37,7 +38,7 @@ Route::get('/dashboard', function () {
 
 // Recursos protegidos por auth
 Route::middleware(['auth'])->group(function () {
-    Route::resource('courses', CursoController::class);
+    Route::resource('courses', CourseController::class);
     Route::resource('lecciones', LeccionController::class);
     Route::get('/cuestionarios', [PreguntaController::class, 'index'])->name('preguntas.index');
     Route::get('/cuestionarios/crear', [PreguntaController::class, 'create'])->name('preguntas.create');
@@ -52,7 +53,7 @@ Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('
 
 // Grupo de rutas para el módulo de vistas
 Route::prefix('views')->middleware(['auth'])->group(function () {
-    Route::get('/Courses', [CursoController::class, 'index'])->name('views.AdCourses');
+    Route::get('/courses', [CourseController::class, 'index'])->name('views.AdCourses');
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
@@ -68,10 +69,10 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     // Puedes agregar más rutas de vistas aquí
     Route::view('/create', 'courses.create')->name('views.create');
     Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
+        // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
 
     // Puedes agregar más rutas de vistas aquíz
 });
 
-// Ruta para editar cursos
-Route::get('/courses/editCourses', [CursoController::class, 'edit'])->name('courses.edit');
+// Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
