@@ -24,8 +24,17 @@
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Cursos</h1>
-            <a href="{{ route('views.create') }}" class="btn btn-byte">Añadir</a>
+            <a href="{{ route('courses.create') }}" class="btn btn-byte">Añadir</a>
         </div>
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+        <form method="GET" action="{{ route('courses.edit') }}">
+            <div class="input-group mb-3" style="max-width:300px;">
+                <input type="number" class="form-control" name="curso_id" placeholder="ID del curso" required>
+                <button type="submit" class="btn btn-byte">Editar por ID</button>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -42,7 +51,7 @@
                     <th scope="row">{{ $curso->id }}</th>
                     <td><a href="{{ route('views.AdQuest') }}">{{ $curso->nombre_curso }}</a></td>
                     <td>{{ $curso->descripcion }}</td>
-                    <td><a href="{{ route('views.EditCourses', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
+                    <td><a href="{{ route('courses.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
                     <td>
                         <form method="POST" action="{{ route('courses.destroy', $curso->id) }}">
                             @csrf
@@ -50,7 +59,7 @@
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                         </form>
                     </td>
-                </tr>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

@@ -8,6 +8,7 @@ class Curso extends Model
 {
     //
     protected $fillable = [
+        'id',
         'nombre_curso',
         'descripcion',
     ];

@@ -36,7 +36,7 @@ class CursoController extends Controller
             'descripcion' => 'required|string',
         ]);
         Curso::create($request->all());
-        return redirect()->route('views.AdCourses')->with('success', 'Curso añadido correctamente');
+        return redirect()->route('courses.index')->with('success', 'Curso añadido correctamente');
     }
 
     /**
@@ -50,8 +50,12 @@ class CursoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Curso $curso)
+    public function edit($id)
     {
+        $curso = Curso::find($id);
+        if (!$curso) {
+            return redirect()->route('courses.index')->with('error', 'El curso no existe.');
+        }
         return view('courses.EditCourses', compact('curso'));
     }
 
@@ -65,15 +69,15 @@ class CursoController extends Controller
             'descripcion' => 'required|string',
         ]);
         $curso->update($request->all());
-        return redirect()->route('views.AdCourses')->with('success', 'Curso actualizado correctamente');
+        return redirect()->route('courses.index')->with('success', 'Curso actualizado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Curso $course)
-{
-    $course->delete();
-        return redirect()->route('views.AdCourses')->with('success', 'Curso eliminado correctamente');
+    {
+        $course->delete();
+        return redirect()->route('courses.index')->with('success', 'Curso eliminado correctamente');
     }
 }
