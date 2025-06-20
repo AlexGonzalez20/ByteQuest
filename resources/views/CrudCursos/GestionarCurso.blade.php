@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionar Cursos</title>
+    <title>Gestion de Cursos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2ecd82a135.js" crossorigin="anonymous"></script>
     @vite('resources/css/gestionarCurso.css')
@@ -15,7 +15,7 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="text-primary">Byte</span>Quest</a>
             <div>
-                <a class="btn btn-info mx-2" href="{{ route('views.dashboard') }}">Volver</a>
+                <a class="btn btn-info mx-2" href="{{ route('views.dashboard') }}">Regresar a dashboard</a>
             </div>
         </div>
     </nav>

@@ -41,9 +41,6 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('courses', CourseController::class);
     Route::resource('lecciones', LeccionController::class);
-    Route::get('/cuestionarios', [PreguntaController::class, 'index'])->name('preguntas.index');
-    Route::get('/cuestionarios/crear', [PreguntaController::class, 'create'])->name('preguntas.create');
-    Route::post('/cuestionarios', [PreguntaController::class, 'store'])->name('preguntas.store');
 });
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
@@ -65,6 +62,8 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('cursos', CursoController::class);
+    Route::resource('preguntas', PreguntaController::class);
+
 
 
 
@@ -72,7 +71,7 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     // Puedes agregar más rutas de vistas aquí
     Route::view('/create', 'courses.create')->name('views.create');
     Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
-        // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
+    // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
 
     // Puedes agregar más rutas de vistas aquíz
