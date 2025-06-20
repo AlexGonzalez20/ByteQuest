@@ -77,4 +77,5 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     // Puedes agregar más rutas de vistas aquíz
 });
 
+
 // Eliminar referencias a CursoController y rutas personalizadas antiguas si existen

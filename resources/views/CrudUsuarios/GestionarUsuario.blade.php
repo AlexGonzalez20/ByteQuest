@@ -16,7 +16,7 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{route('landing')}}"><span class="text-warning">Byte</span>Quest</a>
             <div>
-                <a class="btn btn-info mx-2" href="{{route('views.dashboard')}}">Volver</a>
+                <a class="btn btn-info mx-2" href="{{route('views.dashboard')}}">Regresar a Dashboard</a>
             </div>
         </div>
     </nav>
