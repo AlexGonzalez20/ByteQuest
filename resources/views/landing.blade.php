@@ -130,7 +130,7 @@
     <section class="services section-padding" id="services">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 ">
                     <div class="section-header text-center pb-5">
                         <h2>Nuestros servicios</h2>
                         <p>Formamos desarrolladores con visión de futuro,<br> combinando teoría, práctica y tecnología
@@ -167,7 +167,8 @@
                             <i class="bi bi-intersect"></i>
                             <h3 class="card-title">Desarrollo Ético y Profesional</h3>
                             <p class="lead">Fomentamos una formación basada en valores como la integridad, el respeto y
-                                la responsabilidad tecnológica.</p>
+                                la responsabilidad
+                                tecnológica.</p>
                             <button class="btn">Ver detalles</button>
                         </div>
                     </div>
@@ -191,10 +192,10 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-4">
-                    <div class="card text-light text-center bg-white pb-2">
-                        <div class="card-body text-dark">
+                    <div class="card text-light text-center  pb-2">
+                        <div class="card2">
                             <div class="img-area mb-4">
-                                <img src="{{asset('img/card1.jpg')}}" class="img-fluid" alt="">
+                                <img src="{{asset('img/card1.jpg')}}" class="img-fluid rounded-4" alt="">
                             </div>
                             <h3 class="card-title">Plataforma de Cursos Interactivos</h3>
                             <p class="lead">Desarrollo de una aplicación web para cursos, con evaluaciones automáticas,
@@ -204,8 +205,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4">
-                    <div class="card text-light text-center bg-white pb-2">
-                        <div class="card-body text-dark">
+                    <div class="card text-light text-center pb-2">
+                        <div class="card2 ">
                             <div class="img-area mb-4">
                                 <img src="{{asset('img/face.jpg')}}" class="img-fluid" alt="">
                             </div>
@@ -219,8 +220,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4">
-                    <div class="card text-light text-center bg-white pb-2">
-                        <div class="card-body text-dark">
+                    <div class="card text-light text-center  pb-2">
+                        <div class="card2 ">
                             <div class="img-area mb-4">
                                 <img src="{{asset('img/chatbot.jpg')}}" class="img-fluid" alt="">
                             </div>
