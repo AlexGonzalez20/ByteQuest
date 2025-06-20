@@ -24,14 +24,14 @@
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Cursos</h1>
-            <a href="{{ route('courses.create') }}" class="btn btn-byte">Añadir</a>
+            <a href="{{ url('courses/create') }}" class="btn btn-byte">Añadir</a>
         </div>
         @if(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
         <form method="GET" action="{{ route('courses.edit') }}">
             <div class="input-group mb-3" style="max-width:300px;">
-                <input type="number" class="form-control" name="curso_id" placeholder="ID del curso" required>
+                <input type="number" class="form-control" name="course_id" placeholder="ID del curso" required>
                 <button type="submit" class="btn btn-byte">Editar por ID</button>
             </div>
         </form>
@@ -46,14 +46,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($cursos as $curso)
+                @foreach($courses as $course)
                 <tr>
-                    <th scope="row">{{ $curso->id }}</th>
-                    <td><a href="{{ route('views.AdQuest') }}">{{ $curso->nombre_curso }}</a></td>
-                    <td>{{ $curso->descripcion }}</td>
-                    <td><a href="{{ route('courses.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a></td>
+                    <th scope="row">{{ $course->id }}</th>
+                    <td><a href="#">{{ $course->nombre_curso }}</a></td>
+                    <td>{{ $course->descripcion }}</td>
                     <td>
-                        <form method="POST" action="{{ route('courses.destroy', $curso->id) }}">
+                        <form method="GET" action="{{ url('courses/' . $course->id . '/edit') }}" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-warning">Editar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ route('courses.destroy', $course->id) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Curso extends Model
+class Course extends Model
 {
-    //
+    protected $table = 'cursos'; // Usar la tabla en español
     protected $fillable = [
-        'id',
         'nombre_curso',
         'descripcion',
     ];
@@ -23,5 +22,3 @@ class Curso extends Model
         return $this->hasMany(Pregunta::class);
     }
 }
-
-// Archivo renombrado a Course.php y clase a Course. Eliminar este archivo si ya no es necesario.

@@ -21,19 +21,19 @@
     </nav>
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <h2 class="mb-4">Editar Curso</h2>
-        <form method="POST" action="{{ route('courses.update', $curso->id) }}">
+        <form method="POST" action="{{ route('courses.update', $course->id) }}">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="nombre_curso" class="form-label">Nombre del Curso</label>
-                <input type="text" class="form-control" id="nombre_curso" name="nombre_curso" value="{{ $curso->nombre_curso }}" required>
+                <input type="text" class="form-control" id="nombre_curso" name="nombre_curso" value="{{ $course->nombre_curso }}" required>
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ $curso->descripcion }}</textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ $course->descripcion }}</textarea>
             </div>
             <button type="submit" class="btn btn-byte">Guardar Cambios</button>
-            <a href="{{ route('courses.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ url('courses') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>
