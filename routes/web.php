@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CourseController;
+
+use App\Http\Controllers\CursoController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
@@ -43,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cuestionarios', [PreguntaController::class, 'store'])->name('preguntas.store');
 });
 
+Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+
+
 // Ruta para actualizar el perfil del usuario
 Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 
@@ -52,10 +57,14 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
-<<<<<<< HEAD
-    // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
-=======
->>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7
+    Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
+    // Route::view('/GestionarUsuario', 'CrudUsuarios.GestionarUsuario')->name('views.GestionarUsuario');
+    Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
+    Route::view('/EliminarUsuario', 'CrudUsuarios.EliminarUsuario')->name('views.EliminarUsuario');
+    Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
+    Route::resource('usuarios', UsuarioController::class);
+
+
     Route::view('/dash', 'dash')->name('views.dash');
     // Puedes agregar más rutas de vistas aquí
     Route::view('/create', 'courses.create')->name('views.create');
@@ -65,8 +74,5 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
 
     // Puedes agregar más rutas de vistas aquíz
 });
-<<<<<<< HEAD
 
 // Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
-=======
->>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7

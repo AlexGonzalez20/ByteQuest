@@ -54,12 +54,12 @@
                     <a class="navbar-brand" href="{{route('landing')}}"><span class="text-warning">Byte</span><span
                             class="quest">Quest</span></a>
                 </div>
-            <a href="{{route('views.dash')}}">Dash</a>
+                <a href="{{route('views.dash')}}">Dash</a>
 
 
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="#" class="text-decoration-none">
+                        <a href="{{ route('usuarios.index') }}">
                             <div class="card text-white bg-primary mb-3 hover-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Gestionar Usuarios</h5>
