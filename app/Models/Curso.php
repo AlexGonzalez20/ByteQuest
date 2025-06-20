@@ -21,4 +21,12 @@ class Curso extends Model
     {
         return $this->hasMany(Pregunta::class);
     }
+
+    // Curso.php
+public function Usuario()
+{
+    return $this->belongsToMany(Usuario::class, 'curso_Usuario');
+}
+
+
 }

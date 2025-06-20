@@ -32,7 +32,7 @@
                 <li class="mt-3"></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Usuarios</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('reporteCursos') }}">Lecciones</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.selectCourse') }}">Preguntas</a></li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
