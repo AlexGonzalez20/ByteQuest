@@ -26,6 +26,7 @@
             <h1 class="mb-0">Cursos</h1>
             <a href="{{ url('courses/create') }}" class="btn btn-byte">Añadir</a>
         </div>
+<<<<<<< HEAD
         @if(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
@@ -36,16 +37,19 @@
             </div>
         </form>
         <table class="table table-striped">
+=======
+        <table class="table table-bordered">
+>>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre del Curso</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
+                    <th>#</th>
+                    <th>Nombre del Curso</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
                 @foreach($courses as $course)
                 <tr>
                     <th scope="row">{{ $course->id }}</th>
@@ -58,13 +62,29 @@
                     </td>
                     <td>
                         <form method="POST" action="{{ route('courses.destroy', $course->id) }}">
+=======
+                @if(count($cursos) > 0)
+                @foreach($cursos as $curso)
+                <tr>
+                    <td>{{ $curso->id }}</td>
+                    <td>{{ $curso->nombre_curso }}</td>
+                    <td>{{ $curso->descripcion }}</td>
+                    <td>
+                        <a href="{{ route('courses.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a> |
+                        <form method="POST" action="{{ route('courses.destroy', $curso->id) }}" style="display:inline;">
+>>>>>>> 859b0f61bffa35ef6d9025b8fa70f1682e6175e7
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            <button type="submit" style="background:none;border:none;color:red;">Eliminar</button>
                         </form>
                     </td>
                     </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="4" align="center">No hay cursos registrados.</td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>

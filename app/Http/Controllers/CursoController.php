@@ -65,6 +65,10 @@ class CursoController extends Controller
             'nombre_curso' => 'required|string',
             'descripcion' => 'required|string',
         ]);
+        // Si el id viene por input hidden, buscar el curso por id
+        if ($request->has('id')) {
+            $curso = Curso::findOrFail($request->input('id'));
+        }
         $curso->update($request->all());
         return redirect()->route('courses.index')->with('success', 'Curso actualizado correctamente');
     }
