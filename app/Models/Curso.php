@@ -9,12 +9,16 @@ class Curso extends Model
 {
     use HasFactory;
 
-    // Tabla asociada
     protected $table = 'cursos';
+    protected $fillable = ['nombre_curso', 'descripcion'];
 
-    // Campos que se pueden asignar masivamente
-    protected $fillable = [
-        'nombre_curso',
-        'descripcion',
-    ];
+    public function usuarios()
+    {
+        return $this->belongsToMany(
+            Usuario::class,
+            'usuario_curso',    // tabla pivote
+            'curso_id',         // FK de este modelo
+            'usuario_id'        // FK del modelo contrario
+        )->withTimestamps();
+    }
 }
