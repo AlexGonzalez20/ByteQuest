@@ -16,7 +16,6 @@
 
 <body>
 
-    <br>
     <button class="btn btn-primary mx-3 mt-3" data-bs-toggle="offcanvas" data-bs-target="#intro"><i class='bx bx-menu'
             style='color:#000000'></i></button>
 
@@ -31,9 +30,11 @@
             <ul class="nav flex-column">
                 <li class="mt-3"></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Usuarios</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a>
+                </li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Lecciones</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.selectCourse') }}">Preguntas</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('preguntas.index') }}">Preguntas</a>
+                </li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-outline-light w-100 mt-3" type="submit">Cerrar sesión</button>
@@ -44,63 +45,62 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row gy-4">
 
             <!-- Main content -->
-            <main class="col-12 col-md-10 offset-md-1 px-3 py-4">
+            <main class="col-12 col-md-10 offset-md-1 px-3 py-4 gy-4">
 
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <a class="navbar-brand" href="{{route('landing')}}"><span class="text-warning">Byte</span><span
+                    <a class="navbar-brand" href="{{ route('landing') }}"><span class="text-warning">Byte</span><span
                             class="quest">Quest</span></a>
                 </div>
-                <a href="{{route('views.dash')}}">Dash</a>
+                <a href="{{ route('views.dash') }}">Dash</a>
 
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <a href="{{ route('usuarios.index') }}">
-                            <div class="card text-white bg-primary mb-3 hover-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Gestionar Usuarios</h5>
+                <div class="row g-3">
+                    <div class="col-md-3 d-flex">
+                        <a href="{{ route('usuarios.index') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-primary hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Gestionar Usuarios</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
 
-                    <div class="col-md-3">
-                        <a href="{{ route('cursos.index') }}" class="text-decoration-none">
-                            <div class="card text-white bg-success mb-3 hover-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Gestionar Cursos</h5>
+                    <div class="col-md-3 d-flex">
+                        <a href="{{ route('cursos.index') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-success hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Gestionar Cursos</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
 
-                    <div class="col-md-3">
-                        <a href="{{ route('preguntas.index') }}" class="text-decoration-none">
-                            <div class="card text-white bg-info mb-3 hover-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Gestionar Preguntas</h5>
+                    <div class="col-md-3 d-flex">
+                        <a href="{{ route('preguntas.index') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-info hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Gestionar Preguntas</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
 
-                    <div class="col-md-3">
-                        <a href="{{ route('views.selectCourse') }}" class="text-decoration-none">
-                            <div class="card text-white bg-warning mb-3 hover-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Generar Reporte</h5>
+                    <div class="col-md-3 d-flex">
+                        <a href="{{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-warning hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Generar Reporte Usuarios</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
-
                 </div>
 
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-md-8">
                         <div class="card mb-4">
                             <div class="card-header">Resumen de Actividad</div>
@@ -154,6 +154,12 @@
             </main>
         </div>
     </div>
+
+    <form action="{{ route('imagen.upload') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="imagen" required>
+        <button type="submit">Subir imagen</button>
+    </form>
 
 </body>
 

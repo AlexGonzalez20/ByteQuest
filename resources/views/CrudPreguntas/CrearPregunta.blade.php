@@ -62,6 +62,7 @@
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{{ route('preguntas.index') }}" class="btn btn-danger">Cancelar</a>
             </div>
+            
         </form>
     </div>
 </body>

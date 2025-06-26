@@ -8,6 +8,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\ReporteUsuariosController;
+use App\Http\Controllers\ImagenesController;
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -58,7 +60,6 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     // Route::view('/GestionarUsuario', 'CrudUsuarios.GestionarUsuario')->name('views.GestionarUsuario');
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
-    Route::view('/EliminarUsuario', 'CrudUsuarios.EliminarUsuario')->name('views.EliminarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('cursos', CursoController::class);
@@ -76,6 +77,15 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
 
     // Puedes agregar más rutas de vistas aquíz
 });
+
+Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])
+    ->name('reportes.usuarios.index');
+
+Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
+    ->name('reportes.usuarios.pdf');
+
+Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
+
 
 
 // Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
