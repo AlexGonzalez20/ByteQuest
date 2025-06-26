@@ -9,6 +9,7 @@ use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\ReporteUsuariosController;
+use App\Http\Controllers\ImagenesController;
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -82,6 +83,8 @@ Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'in
 
 Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
     ->name('reportes.usuarios.pdf');
+
+Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
 
 
 
