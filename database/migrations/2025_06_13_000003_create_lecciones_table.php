@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('lecciones', function (Blueprint $table) {
             $table->id(); // Clave primaria obligatoria
-            $table->string('nombre_leccion');
+            $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
+            $table->string('nombre_leccion');            
             $table->text('descripcion');
             $table->timestamps();
         });

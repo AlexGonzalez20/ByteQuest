@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('opciones', function (Blueprint $table) {
+        Schema::create('respuesta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
             $table->text('texto_opcion');

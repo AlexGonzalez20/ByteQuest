@@ -12,7 +12,8 @@ class Pregunta extends Model
     protected $fillable = [
         'curso_id',
         'pregunta',
-        'nivel',
+        'leccion_id',
+        'img'
     ];
 
     public function curso()
