@@ -54,15 +54,45 @@
             </div>
 
             <div class="mb-3">
-                <label for="nivel" class="form-label">Nivel</label>
+                <label for="nivel" class="form-label">Lección</label>
                 <input type="number" class="form-control" id="nivel" name="nivel" min="1" max="10" value="{{ old('nivel') }}" required>
             </div>
+
+                <input type="hidden" name="action" value="{{ route('imagen.upload') }}">
+                @csrf
+                <input type="file" name="imagen" required>
+
+            <div class="mt-4 d-flex flex-column">
+                <label class="mb-4">
+                    <input type="radio" name="respuesta" value="1">
+                    Opción 1
+                    <input type="text" name="respuesta1">
+                </label>
+                <label class="mb-4">
+                    <input type="radio" name="respuesta" value="1">
+                    Opción 2
+                    <input type="text" name="respuesta2">
+                </label>
+                <label class="mb-4">
+                    <input type="radio" name="respuesta" value="1">
+                    Opción 3
+                    <input type="text" name="respuesta3">
+                </label>
+                <label class="mb-4">
+                    <input type="radio" name="respuesta" value="1">
+                    Opción 4
+                    <input type="text" name="respuesta4">
+                </label>
+            </div>
+
 
             <div class="mt-4">
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{{ route('preguntas.index') }}" class="btn btn-danger">Cancelar</a>
             </div>
-            
+
+
+
         </form>
     </div>
 </body>
