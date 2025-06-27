@@ -13,7 +13,8 @@ class LeccionController extends Controller
      */
     public function index()
     {
-        //
+        $lecciones = Leccion::all();
+        return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
     }
 
     /**
@@ -21,7 +22,7 @@ class LeccionController extends Controller
      */
     public function create()
     {
-        //
+    return view('CrudLecciones.CrearLeccion');
     }
 
     /**
@@ -29,23 +30,21 @@ class LeccionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+    $request->validate([
+            'nombre_leccion' => 'required|string|max:255',
+            'descripcion'  => 'nullable|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Leccion $leccion)
-    {
-        //
-    }
+        Leccion::create($request->all());
 
+        return redirect()->route('lecciones.index')->with('success', 'leccion creado correctamente.');
+    }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Leccion $leccion)
     {
-        //
+        return view('CrudLecciones.EditarLeccion', compact('leccion'));
     }
 
     /**
@@ -53,7 +52,14 @@ class LeccionController extends Controller
      */
     public function update(Request $request, Leccion $leccion)
     {
-        //
+         $request->validate([
+            'nombre_leccion' => 'required|string|max:255',
+            'descripcion'  => 'nullable|string',
+        ]);
+
+        $leccion->update($request->all());
+
+        return redirect()->route('lecciones.index')->with('success', 'leccion actualizado correctamente.');
     }
 
     /**
@@ -61,6 +67,9 @@ class LeccionController extends Controller
      */
     public function destroy(Leccion $leccion)
     {
-        //
+        $leccion->delete();
+        return redirect()->route('lecciones.index')->with('success', 'leccion eliminado correctamente.');
     }
+
 }
+

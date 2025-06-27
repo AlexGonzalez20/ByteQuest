@@ -1,3 +1,0 @@
-<?php
-// Adaptar nombre de tabla a courses
-// ...existing code...
