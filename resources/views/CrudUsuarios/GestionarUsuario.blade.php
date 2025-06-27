@@ -16,14 +16,14 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{route('landing')}}"><span class="text-warning">Byte</span>Quest</a>
             <div>
-                <a class="btn btn-info mx-2" href="{{route('views.dashboard')}}">Volver</a>
+                <a class="btn btn-info mx-2" href="{{route('views.dashboard')}}">Regresar a Dashboard</a>
             </div>
         </div>
     </nav>
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Gestion de Usuarios</h1>
-            <a href="{{route('views.CrearUsuario')}}" class="btn btn-info">Añadir</a>
+            <a href="{{route('views.CrearUsuario')}}" class="btn btn-info">Añadir Usuario</a>
         </div>
         <p class="lead">Bienvenido, aquí puedes administrar los usuarios.</p>
 
@@ -54,9 +54,10 @@
                         <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+
                         </form>
                     </td>
                 </tr>

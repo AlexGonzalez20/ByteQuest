@@ -3,82 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los cursos.
      */
     public function index()
     {
         $cursos = Curso::all();
-        return view('courses.Courses', compact('cursos'));
+        return view('CrudCursos.GestionarCurso', compact('cursos'));
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un curso.
      */
     public function create()
     {
-        return view('courses.create');
+        return view('CrudCursos.CrearCurso');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo curso.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'nombre_curso' => 'required|string',
-            'descripcion' => 'required|string',
+            'nombre_curso' => 'required|string|max:255',
+            'descripcion'  => 'nullable|string',
         ]);
+
         Curso::create($request->all());
-        return redirect()->route('courses.index')->with('success', 'Curso añadido correctamente');
+
+        return redirect()->route('cursos.index')->with('success', 'Curso creado correctamente.');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el formulario para editar un curso.
      */
-    public function show(Curso $curso)
+    public function edit(Curso $curso)
     {
-        //
+        return view('CrudCursos.EditarCurso', compact('curso'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $curso = Curso::findOrFail($id);
-        return view('courses.EditCourses', compact('curso'));
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Actualiza un curso.
      */
     public function update(Request $request, Curso $curso)
     {
         $request->validate([
-            'nombre_curso' => 'required|string',
-            'descripcion' => 'required|string',
+            'nombre_curso' => 'required|string|max:255',
+            'descripcion'  => 'nullable|string',
         ]);
-        // Si el id viene por input hidden, buscar el curso por id
-        if ($request->has('id')) {
-            $curso = Curso::findOrFail($request->input('id'));
-        }
+
         $curso->update($request->all());
-        return redirect()->route('courses.index')->with('success', 'Curso actualizado correctamente');
+
+        return redirect()->route('cursos.index')->with('success', 'Curso actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un curso.
      */
-    public function destroy(Curso $course)
+    public function destroy(Curso $curso)
     {
-        $course->delete();
-        return redirect()->route('courses.index')->with('success', 'Curso eliminado correctamente');
+        $curso->delete();
+        return redirect()->route('cursos.index')->with('success', 'Curso eliminado correctamente.');
     }
 }

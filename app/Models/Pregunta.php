@@ -9,7 +9,6 @@ class Pregunta extends Model
 {
     use HasFactory;
 
-    protected $table = 'preguntas';
     protected $fillable = [
         'curso_id',
         'pregunta',
@@ -18,6 +17,6 @@ class Pregunta extends Model
 
     public function curso()
     {
-        return $this->belongsTo(Curso::class, 'curso_id');
+        return $this->belongsTo(Curso::class);
     }
 }
