@@ -1,10 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\ReporteUsuariosController;
+use App\Http\Controllers\ImagenesController;
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -36,31 +41,51 @@ Route::get('/dashboard', function () {
 
 // Recursos protegidos por auth
 Route::middleware(['auth'])->group(function () {
-    Route::resource('courses', CursoController::class);
-    Route::resource('lecciones', LeccionController::class);
-    Route::get('/cuestionarios', [PreguntaController::class, 'index'])->name('preguntas.index');
-    Route::get('/cuestionarios/crear', [PreguntaController::class, 'create'])->name('preguntas.create');
-    Route::post('/cuestionarios', [PreguntaController::class, 'store'])->name('preguntas.store');
+    Route::resource('courses', CourseController::class);
+    
 });
+
+Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+
 
 // Ruta para actualizar el perfil del usuario
 Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 
 // Grupo de rutas para el módulo de vistas
 Route::prefix('views')->middleware(['auth'])->group(function () {
-    Route::get('/Courses', [CursoController::class, 'index'])->name('views.AdCourses');
+    Route::get('/courses', [CourseController::class, 'index'])->name('views.AdCourses');
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
+    // Route::view('/GestionarUsuario', 'CrudUsuarios.GestionarUsuario')->name('views.GestionarUsuario');
+    Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
+    Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('cursos', CursoController::class);
+    Route::resource('preguntas', PreguntaController::class);
+    Route::resource('lecciones', LeccionController::class)->parameters(['lecciones' => 'leccion']);
+
+
+
     Route::view('/dash', 'dash')->name('views.dash');
     // Puedes agregar más rutas de vistas aquí
     Route::view('/create', 'courses.create')->name('views.create');
     Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
+    // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
     Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
 
     // Puedes agregar más rutas de vistas aquíz
 });
 
-// Ruta para editar cursos
-Route::get('/courses/editCourses', [CursoController::class, 'edit'])->name('courses.edit');
+Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])
+    ->name('reportes.usuarios.index');
+
+Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
+    ->name('reportes.usuarios.pdf');
+
+Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
+
+
+
+// Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
