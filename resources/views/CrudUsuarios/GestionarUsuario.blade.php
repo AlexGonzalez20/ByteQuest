@@ -14,7 +14,7 @@
 <body class="section-padding">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{route('landing')}}"><span class="text-warning">Byte</span>Quest</a>
+            <a class="navbar-brand fw-bold" href="{{route('views.dashboard')}}"><span class="text-warning">Byte</span>Quest</a>
             <div>
                 <a class="btn btn-info mx-2" href="{{route('views.dashboard')}}">Regresar a Dashboard</a>
             </div>

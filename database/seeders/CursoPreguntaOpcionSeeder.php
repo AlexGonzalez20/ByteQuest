@@ -17,13 +17,13 @@ class CursoPreguntaOpcionSeeder extends Seeder
         ]);
 
         // Insertar pregunta
-        $preguntaId = DB::table('preguntas')->insertGetId([
-            'curso_id' => $cursoId,
-            'pregunta' => '¿Cuánto es 2 + 2?',
-            'nivel' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $preguntaId = DB::table('preguntas')->insert([
+    'leccion_id' => 1, // Usa un ID válido de la tabla lecciones
+    'pregunta' => '¿Cuánto es 2 + 2?',
+    'img' => null, // O la ruta de la imagen si tienes una
+    'created_at' => now(),
+    'updated_at' => now(),
+]);
 
         // Insertar opciones
         DB::table('opciones')->insert([

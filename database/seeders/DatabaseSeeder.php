@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(\Database\Seeders\CursoPreguntaOpcionSeeder::class);
         $this->call(CursoSeeder::class);
+        $this->call(LeccionSeeder::class);
     }
 }

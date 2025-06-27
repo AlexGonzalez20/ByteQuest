@@ -33,20 +33,8 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('preguntas.store') }}">
+        <form method="POST" action="{{ route('preguntas.store') }}" enctype="multipart/form-data">
             @csrf
-
-            <div class="mb-3">
-                <label for="curso_id" class="form-label">Curso</label>
-                <select class="form-control" name="curso_id" id="curso_id" required>
-                    <option value="">Seleccione un curso</option>
-                    @foreach ($cursos as $curso)
-                    <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
-                        {{ $curso->nombre_curso }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
 
             <div class="mb-3">
                 <label for="pregunta" class="form-label">Enunciado</label>
@@ -54,45 +42,37 @@
             </div>
 
             <div class="mb-3">
-                <label for="nivel" class="form-label">Lección</label>
-                <input type="number" class="form-control" id="nivel" name="nivel" min="1" max="10" value="{{ old('nivel') }}" required>
+                <label for="leccion_id" class="form-label">Lección</label>
+                <select class="form-control" name="leccion_id" id="leccion_id" required>
+                    <option value="">Seleccione una lección</option>
+                    @foreach ($lecciones as $leccion)
+                    <option value="{{ $leccion->id }}" {{ old('leccion_id') == $leccion->id ? 'selected' : '' }}>
+                        {{ $leccion->nombre_leccion }}
+                    </option>
+                    @endforeach
+                </select>
             </div>
 
-                <input type="hidden" name="action" value="{{ route('imagen.upload') }}">
-                @csrf
-                <input type="file" name="imagen" required>
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Imagen</label>
+                <input type="file" class="form-control" name="imagen" id="imagen" required>
+            </div>
 
             <div class="mt-4 d-flex flex-column">
-                <label class="mb-4">
-                    <input type="radio" name="respuesta" value="1">
-                    Opción 1
-                    <input type="text" name="respuesta1">
-                </label>
-                <label class="mb-4">
-                    <input type="radio" name="respuesta" value="1">
-                    Opción 2
-                    <input type="text" name="respuesta2">
-                </label>
-                <label class="mb-4">
-                    <input type="radio" name="respuesta" value="1">
-                    Opción 3
-                    <input type="text" name="respuesta3">
-                </label>
-                <label class="mb-4">
-                    <input type="radio" name="respuesta" value="1">
-                    Opción 4
-                    <input type="text" name="respuesta4">
-                </label>
-            </div>
 
+                @for ($i = 1; $i <= 4; $i++)
+                    <label class="mb-4">
+                    <input type="radio" name="correcta" value="{{ $i }}">
+                    Opción {{ $i }}
+                    <input type="text" name="opciones[]" required>
+                    </label>
+                    @endfor
+            </div>
 
             <div class="mt-4">
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <a href="{{ route('preguntas.index') }}" class="btn btn-danger">Cancelar</a>
             </div>
-
-
-
         </form>
     </div>
 </body>
