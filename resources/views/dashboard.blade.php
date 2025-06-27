@@ -32,9 +32,10 @@
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Usuarios</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a>
                 </li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('lecciones.index') }}">Lecciones</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('preguntas.index') }}">Preguntas</a>
                 </li>
+                
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-outline-light w-100 mt-3" type="submit">Cerrar sesión</button>
