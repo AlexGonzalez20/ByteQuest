@@ -35,7 +35,7 @@
         <tbody>
             @foreach ($cursos as $curso)
                 <tr>
-                    <td>{{ $curso->nombre_curso }}</td>
+                    <td>{{ $curso->nombre }}</td>
                     <td>{{ $curso->usuarios_count }}</td>
                 </tr>
             @endforeach

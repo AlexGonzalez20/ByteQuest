@@ -14,13 +14,14 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_rol');
+            $table->string('nombre'); // Ej: Admin, User
             $table->timestamps();
         });
+
         // Insertar roles por defecto
         DB::table('roles')->insert([
-            ['id' => 1, 'nombre_rol' => 'aprendiz', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 2, 'nombre_rol' => 'admin', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'nombre' => 'estudiante', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'nombre' => 'admin', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
-            $table->string('texto_opcion');
+            $table->string('texto');
             $table->boolean('es_correcta')->default(false);
+            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
             $table->timestamps();
         });
     }

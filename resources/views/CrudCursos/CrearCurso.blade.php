@@ -38,8 +38,8 @@
             @csrf
 
             <div class="mb-3">
-                <label for="nombre_curso" class="form-label">Nombre del Curso</label>
-                <input type="text" class="form-control" id="nombre_curso" name="nombre_curso" value="{{ old('nombre_curso') }}" required>
+                <label for="nombre" class="form-label">Nombre del Curso</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre_curso') }}" required>
             </div>
 
             <div class="mb-3">

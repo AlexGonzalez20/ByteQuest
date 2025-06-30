@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\LeccionController;
@@ -41,7 +40,6 @@ Route::get('/dashboard', function () {
 
 // Recursos protegidos por auth
 Route::middleware(['auth'])->group(function () {
-    Route::resource('courses', CourseController::class);
     
 });
 
@@ -53,12 +51,9 @@ Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('
 
 // Grupo de rutas para el módulo de vistas
 Route::prefix('views')->middleware(['auth'])->group(function () {
-    Route::get('/courses', [CourseController::class, 'index'])->name('views.AdCourses');
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
     Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
-    Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
-    // Route::view('/GestionarUsuario', 'CrudUsuarios.GestionarUsuario')->name('views.GestionarUsuario');
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::resource('usuarios', UsuarioController::class);
@@ -66,16 +61,6 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::resource('preguntas', PreguntaController::class);
     Route::resource('lecciones', LeccionController::class)->parameters(['lecciones' => 'leccion']);
 
-
-
-    Route::view('/dash', 'dash')->name('views.dash');
-    // Puedes agregar más rutas de vistas aquí
-    Route::view('/create', 'courses.create')->name('views.create');
-    Route::view('/EditQuest', 'quest.EditQuest')->name('views.EditQuest');
-    // Route::view('/EditCourses', 'courses.EditCourses')->name('views.EditCourses');
-    Route::view('/selectCourse', 'quest.selectCourse')->name('views.selectCourse');
-
-    // Puedes agregar más rutas de vistas aquíz
 });
 
 Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])

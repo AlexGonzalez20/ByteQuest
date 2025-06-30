@@ -25,13 +25,13 @@
         <h2 class="mb-4">Editar Curso</h2>
 
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <form method="POST" action="{{ route('cursos.update', $curso->id) }}">
@@ -39,8 +39,9 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="nombre_curso" class="form-label">Nombre del Curso</label>
-                <input type="text" class="form-control" id="nombre_curso" name="nombre_curso" value="{{ old('nombre_curso', $curso->nombre_curso) }}" required>
+                <label for="nombre" class="form-label">Nombre del Curso</label>
+                <input type="text" class="form-control" id="nombre" name="nombre"
+                    value="{{ old('nombre', $curso->nombre) }}" required>
             </div>
 
             <div class="mb-3">

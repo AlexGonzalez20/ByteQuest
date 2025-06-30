@@ -29,13 +29,15 @@
         <div>
             <ul class="nav flex-column">
                 <li class="mt-3"></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('logout') }}">Usuarios</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('views.AdCourses') }}">Cursos</a>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('usuarios.index') }}">Usuarios</a>
                 </li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('lecciones.index') }}">Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('cursos.index') }}">Cursos</a>
+                </li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('lecciones.index') }}">Lecciones</a>
+                </li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('preguntas.index') }}">Preguntas</a>
                 </li>
-                
+
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-outline-light w-100 mt-3" type="submit">Cerrar sesión</button>

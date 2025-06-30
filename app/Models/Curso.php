@@ -2,23 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Curso extends Model
 {
     use HasFactory;
 
     protected $table = 'cursos';
-    protected $fillable = ['nombre_curso', 'descripcion'];
+
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+    ];
+
+    public function lecciones()
+    {
+        return $this->hasMany(Leccion::class, 'curso_id');
+    }
 
     public function usuarios()
     {
-        return $this->belongsToMany(
-            Usuario::class,
-            'usuario_curso',    // tabla pivote
-            'curso_id',         // FK de este modelo
-            'usuario_id'        // FK del modelo contrario
-        )->withTimestamps();
+        return $this->belongsToMany(Usuario::class, 'curso_usuario')
+            ->withPivot(['leccion_actual_id', 'pregunta_actual_id'])
+            ->withTimestamps();
     }
 }

@@ -45,7 +45,7 @@
                 @forelse($cursos as $curso)
                 <tr>
                     <td>{{ $curso->id }}</td>
-                    <td>{{ $curso->nombre_curso }}</td>
+                    <td>{{ $curso->nombre }}</td>
                     <td>{{ $curso->descripcion }}</td>
                     <td>
                         <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-sm btn-warning">

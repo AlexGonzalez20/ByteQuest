@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Gestión de Preguntas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
     @vite('resources/css/gestionarPregunta.css')
 </head>
@@ -26,13 +25,12 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Gestión de Preguntas</h1>
             <a href="{{ route('preguntas.create') }}" class="btn btn-success">Añadir Pregunta</a>
-
         </div>
 
         @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
         <table class="table table-striped">
@@ -40,38 +38,50 @@
                 <tr>
                     <th>#</th>
                     <th>Curso</th>
+                    <th>Lección</th>
                     <th>Pregunta</th>
-                    <th>Nivel</th>
+                    <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($preguntas as $pregunta)
-                <tr>
-                    <th scope="row">{{ $pregunta->id }}</th>
-                    <td>{{ $pregunta->curso->nombre_curso ?? 'Sin curso' }}</td>
-                    <td>{{ $pregunta->pregunta }}</td>
-                    <td>{{ $pregunta->nivel }}</td>
-                    <td class="d-flex gap-2">
-                        <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
-                            <i class="fa-solid fa-pen-nib"></i> Editar
-                        </a>
-                        <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST" onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+                @forelse($preguntas as $pregunta)
+                    <tr>
+                        <th scope="row">{{ $pregunta->id }}</th>
+                        <td>{{ $pregunta->leccion->curso->nombre ?? 'Sin curso' }}</td>
+                        <td>{{ $pregunta->leccion->nombre ?? 'Sin lección' }}</td>
+                        <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
+                        <td>
+                            @if ($pregunta->imagen)
+                                <span class="badge bg-success">Sí</span>
+                                <a href="{{ asset($pregunta->imagen) }}" target="_blank"
+                                    class="btn btn-sm btn-primary mt-2">
+                                    Ver imagen
+                                </a>
+                            @else
+                                <span class="badge bg-secondary">No</span>
+                            @endif
+                        </td>
 
-                @if ($preguntas->isEmpty())
-                <tr>
-                    <td colspan="5" class="text-center">No hay preguntas registradas.</td>
-                </tr>
-                @endif
+                        <td class="d-flex gap-2">
+                            <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
+                                <i class="fa-solid fa-pen-nib"></i> Editar
+                            </a>
+                            <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST"
+                                onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No hay preguntas registradas.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

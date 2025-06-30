@@ -30,7 +30,7 @@ class CursoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre_curso' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
             'descripcion'  => 'nullable|string',
         ]);
 
@@ -53,7 +53,7 @@ class CursoController extends Controller
     public function update(Request $request, Curso $curso)
     {
         $request->validate([
-            'nombre_curso' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
             'descripcion'  => 'nullable|string',
         ]);
 
