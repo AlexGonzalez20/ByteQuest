@@ -56,8 +56,6 @@
                     <a class="navbar-brand" href="{{ route('landing') }}"><span class="text-warning">Byte</span><span
                             class="quest">Quest</span></a>
                 </div>
-                <a href="{{ route('views.dash') }}">Dash</a>
-
 
                 <div class="row g-3">
                     <div class="col-md-3 d-flex">
@@ -75,6 +73,16 @@
                             <div class="card text-white bg-success hover-card h-100">
                                 <div class="card-body d-flex align-items-center justify-content-center">
                                     <h5 class="card-title mb-0">Gestionar Cursos</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 d-flex">
+                        <a href="{{ route('lecciones.index') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-primary hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Gestionar Lecciones</h5>
                                 </div>
                             </div>
                         </a>

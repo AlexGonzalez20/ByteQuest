@@ -10,15 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-   {
-    Schema::create('preguntas', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('leccion_id')->constrained('lecciones')->onDelete('cascade');
-        $table->text('pregunta');
-        $table->string('img')->nullable();// 1, 2, 3 o 4
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('preguntas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('leccion_id')->constrained('lecciones')->onDelete('cascade');
+            $table->text('pregunta');
+            $table->string('imagen')->nullable();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

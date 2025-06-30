@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         Usuario::firstOrCreate(
             [
                 'email' => 'admin@bytequest.com'
@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $this->call(\Database\Seeders\CursoPreguntaOpcionSeeder::class);
         $this->call(CursoSeeder::class);
         $this->call(LeccionSeeder::class);
+        $this->call(PreguntaSeeder::class);
     }
 }

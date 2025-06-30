@@ -9,18 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
-{
-    Schema::create('respuestas', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
-        $table->string('texto_opcion');
-        $table->boolean('es_correcta')->default(false);
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('respuestas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
+            $table->string('texto_opcion');
+            $table->boolean('es_correcta')->default(false);
+            $table->timestamps();
+        });
+    }
 
-public function down()
-{
-    Schema::dropIfExists('respuestas');
-}};
+    public function down()
+    {
+        Schema::dropIfExists('respuestas');
+    }
+};
