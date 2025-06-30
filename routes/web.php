@@ -39,9 +39,7 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 // Recursos protegidos por auth
-Route::middleware(['auth'])->group(function () {
-    
-});
+Route::middleware(['auth'])->group(function () {});
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
@@ -59,9 +57,15 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('cursos', CursoController::class);
     Route::resource('preguntas', PreguntaController::class);
-    Route::resource('lecciones', LeccionController::class)->parameters(['lecciones' => 'leccion']);
-
 });
+
+Route::prefix('views')->middleware(['auth'])->group(function () {
+    // Otras rutas...
+    Route::resource('lecciones', LeccionController::class)->parameters([
+        'lecciones' => 'leccion'
+    ]);
+});
+
 
 Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])
     ->name('reportes.usuarios.index');

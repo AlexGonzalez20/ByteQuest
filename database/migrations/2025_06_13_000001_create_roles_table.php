@@ -20,8 +20,8 @@ return new class extends Migration
 
         // Insertar roles por defecto
         DB::table('roles')->insert([
-            ['id' => 1, 'nombre' => 'estudiante', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 2, 'nombre' => 'admin', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'nombre' => 'Estudiante', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'nombre' => 'Administrador', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 

@@ -45,7 +45,7 @@
                 @forelse($lecciones as $leccion)
                 <tr>
                     <td>{{ $leccion->id }}</td>
-                    <td>{{ $leccion->nombre_leccion }}</td>
+                    <td>{{ $leccion->nombre }}</td>
                     <td>{{ $leccion->descripcion }}</td>
                     <td>
                         <a href="{{ route('lecciones.edit', $leccion->id) }}" class="btn btn-sm btn-warning">

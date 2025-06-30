@@ -28,5 +28,8 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call(CursosSeeder::class);
+        $this->call(LeccionesSeeder::class);
+        $this->call(PreguntaSeeder::class);
+        
     }
 }

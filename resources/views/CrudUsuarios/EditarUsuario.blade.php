@@ -59,8 +59,8 @@
             <div class="mb-3">
                 <label for="rol_id" class="form-label">Rol</label>
                 <select class="form-control mb-4" id="rol_id" name="rol_id" required>
-                    <option value="1" {{ $usuario->rol_id == 1 ? 'selected' : '' }}>Administrador</option>
-                    <option value="2" {{ $usuario->rol_id == 2 ? 'selected' : '' }}>Usuario</option>
+                    <option value="1" {{ $usuario->rol_id == 1 ? 'selected' : '' }}>Estudiante</option>
+                    <option value="2" {{ $usuario->rol_id == 2 ? 'selected' : '' }}>Administrador</option>
                 </select>
             </div>
 

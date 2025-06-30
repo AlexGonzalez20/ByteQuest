@@ -30,7 +30,8 @@ return new class extends Migration
                 'nombre'      => 'Admin',
                 'apellido'    => 'ByteQuest',
                 'email'       => 'admin@bytequest.com',
-                'password'    => Hash::make('12345678'), // Encriptar contraseña
+                'password'    => Hash::make('12345678'),
+                'rol_id'       => 2,
                 'created_at'  => now(),
                 'updated_at'  => now(),
             ],
