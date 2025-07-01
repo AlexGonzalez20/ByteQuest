@@ -27,7 +27,16 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            $usuario = Auth::user();
+        if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario 
+            $usuarios = Usuario::all();
+            return view('Usuarios.home', compact('usuarios'));
+        } elseif ($usuario->rol_id == 2) { 
+            $usuarios = Usuario::all();// 2 = administrador
+            return view('dashboard', compact('usuarios'));
+        } else {
+            return redirect()->route('login')->with('error', 'Acceso no autorizado');
+        }
         }
 
         return back()->withErrors([

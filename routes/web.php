@@ -39,7 +39,11 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 // Recursos protegidos por auth
-Route::middleware(['auth'])->group(function () {});
+Route::middleware(['auth'])->group(function () {
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('cursos', CursoController::class);
+    Route::resource('preguntas', PreguntaController::class);
+});
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
@@ -54,9 +58,8 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
-    Route::resource('usuarios', UsuarioController::class);
-    Route::resource('cursos', CursoController::class);
-    Route::resource('preguntas', PreguntaController::class);
+    Route::view('/home', 'Usuarios.home')->name('views.UsuarioHome');
+
 });
 
 Route::prefix('views')->middleware(['auth'])->group(function () {
