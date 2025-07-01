@@ -59,6 +59,12 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::view('/home', 'Usuarios.home')->name('views.UsuarioHome');
+    Route::view('/camino', 'Usuarios.camino')->name('views.UCamino');
+    Route::view('/cursos', 'Usuarios.cursos')->name('views.UCursos');
+    Route::view('/miscursos', 'Usuarios.miscursos')->name('views.UMisCursos');
+    Route::view('/perfil', 'Usuarios.perfil')->name('views.UPerfil');
+    Route::view('/preguntas', 'Usuarios.preguntas')->name('views.UPreguntas');
+
 
 });
 
