@@ -64,8 +64,6 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/miscursos', 'Usuarios.miscursos')->name('views.UMisCursos');
     Route::view('/perfil', 'Usuarios.perfil')->name('views.UPerfil');
     Route::view('/preguntas', 'Usuarios.preguntas')->name('views.UPreguntas');
-
-
 });
 
 Route::prefix('views')->middleware(['auth'])->group(function () {
@@ -84,6 +82,9 @@ Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class,
 
 Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
 
+Route::get('/views/usuario-gestion', function () {
+    return view('gestion');
+})->name('gestion');
 
 
-// Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
+

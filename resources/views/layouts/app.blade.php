@@ -18,15 +18,15 @@
                 <span class="text-info">Byte</span>Quest
             </a>
             @auth
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            Cerrar Sesión
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                    </li>
-                </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Cerrar Sesión
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                </li>
+            </ul>
             @endauth
         </div>
     </nav>
