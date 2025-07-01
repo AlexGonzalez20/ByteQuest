@@ -22,21 +22,26 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => [
+                'required',
+                'string',
+                'min:8'
+                // Al menos una mayúscula y un número
+            ],
         ]);
 
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             $usuario = Auth::user();
-        if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario 
-            $usuarios = Usuario::all();
-            return view('Usuarios.home', compact('usuarios'));
-        } elseif ($usuario->rol_id == 2) { 
-            $usuarios = Usuario::all();// 2 = administrador
-            return view('dashboard', compact('usuarios'));
-        } else {
-            return redirect()->route('login')->with('error', 'Acceso no autorizado');
-        }
+            if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario 
+                $usuarios = Usuario::all();
+                return view('Usuarios.home', compact('usuarios'));
+            } elseif ($usuario->rol_id == 2) {
+                $usuarios = Usuario::all(); // 2 = administrador
+                return view('dashboard', compact('usuarios'));
+            } else {
+                return redirect()->route('login')->with('error', 'Acceso no autorizado');
+            }
         }
 
         return back()->withErrors([
@@ -64,9 +69,27 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
-            'email' => 'required|email|unique:usuarios,email',
-            'password' => 'required|min:6|confirmed',
-        ]);
+            'email' => [
+                'required',
+                'email',
+                'unique:usuarios,email',
+                'regex:/^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:15',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/',
+                'confirmed'
+            ],
+        ],[
+        'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
+        'email.unique' => 'Este correo ya está registrado.',
+        'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
+        'password.confirmed' => 'Las contraseñas no coinciden.'
+        // Otros mensajes personalizados...
+    ]);
 
 
         if ($validator->fails()) {
