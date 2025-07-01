@@ -166,11 +166,6 @@
         </div>
     </div>
 
-    <form action="{{ route('imagen.upload') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="imagen" required>
-        <button type="submit">Subir imagen</button>
-    </form>
 
 </body>
 

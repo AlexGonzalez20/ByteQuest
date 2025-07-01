@@ -91,7 +91,7 @@
                                                 Seleccione un rol</option>
                                             <option value="1" {{ old('rol_id') == 1 ? 'selected' : '' }}>Administrador
                                             </option>
-                                            <option value="2" {{ old('rol_id') == 2 ? 'selected' : '' }}>Usuario
+                                            <option value="2" {{ old('rol_id') == 2 ? 'selected' : '' }}>Estudiante
                                             </option>
                                         </select>
                                         <label for="rol_id">Rol</label>
