@@ -129,10 +129,51 @@ class PreguntaController extends Controller
         return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
     }
 
+public function mostrarPregunta(Request $request)
+{
+    $resultado = null;
+    $mensaje = null;
 
-    public function destroy(Pregunta $pregunta)
-    {
-        $pregunta->delete();
-        return redirect()->route('preguntas.index')->with('success', 'Pregunta eliminada correctamente.');
+    // Obtener preguntas respondidas de la sesión
+    $respondidas = session('preguntas_respondidas', []);
+
+    if ($request->isMethod('post')) {
+        $pregunta = \App\Models\Pregunta::with('respuestas')->find($request->input('pregunta_id'));
+        $respuestaId = $request->input('respuesta');
+        $respuesta = $pregunta ? $pregunta->respuestas->where('id', $respuestaId)->first() : null;
+
+        if ($respuesta && $respuesta->es_correcta) {
+            $resultado = 'correcto';
+            $mensaje = '¡Respuesta correcta!';
+            // Agregar la pregunta a las respondidas
+            $respondidas[] = $pregunta->id;
+            $respondidas = array_unique($respondidas);
+            session(['preguntas_respondidas' => $respondidas]);
+        } else {
+            $resultado = 'incorrecto';
+            $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
+        }
     }
+
+    // Si ya respondió 5 preguntas, limpiar progreso y mostrar mensaje final
+    if (count($respondidas) >= 5) {
+        session()->forget('preguntas_respondidas');
+        return redirect()->route('views.UCamino')->with('finalizado', '¡Completaste las 5 preguntas correctamente!');
+    }
+
+    // Buscar una pregunta no respondida
+    $pregunta = \App\Models\Pregunta::with('respuestas')
+        ->whereNotIn('id', $respondidas)
+        ->inRandomOrder()
+        ->first();
+
+    // Barajar respuestas
+    if ($pregunta && $pregunta->respuestas) {
+        $pregunta->respuestas = $pregunta->respuestas->shuffle();
+    }
+
+    return view('Usuarios.preguntas', compact('pregunta'))
+        ->with('resultado', $resultado)
+        ->with('mensaje', $mensaje);
+}
 }
