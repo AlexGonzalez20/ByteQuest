@@ -2,24 +2,39 @@
 @section('title', 'Preguntas')
 @section('content')
 <div class="question-box">
-    <h4 class="mb-4">Pregunta de ejemplo</h4>
-    <form method="POST" action="">
-        @csrf
-        <input type="hidden" name="respuesta" id="respuesta">
-        <button type="button" class="btn btn-outline-primary option-btn" value="A" onclick="selectOption(this)">Opción A</button>
-        <button type="button" class="btn btn-outline-primary option-btn" value="B" onclick="selectOption(this)">Opción B</button>
-        <button type="button" class="btn btn-outline-primary option-btn" value="C" onclick="selectOption(this)">Opción C</button>
-        <button type="button" class="btn btn-outline-primary option-btn" value="D" onclick="selectOption(this)">Opción D</button>
-        <div class="mt-4">
-            <button type="submit" class="btn btn-success w-100">Enviar</button>
-        </div>
-    </form>
-    @if(session('resultado'))
-        <div class="alert mt-3 {{ session('resultado') == 'correcto' ? 'alert-success' : 'alert-danger' }}">
-            {{ session('mensaje') }}
-        </div>
+    @if(isset($finalizado) && $finalizado)
+        <div class="alert alert-success text-center mb-3">¡Has completado todas las preguntas y el repaso!</div>
+        <form method="GET" action="{{ route('views.UCamino') }}">
+            <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
+        </form>
+    @else
+        @if(isset($mensaje_repaso) && $mensaje_repaso)
+            <div class="alert alert-info text-center small mb-3">{{ $mensaje_repaso }}</div>
+        @endif
+        <h4 class="mb-4">@if(isset($pregunta)) {{ $pregunta->pregunta }} @else Pregunta de ejemplo @endif</h4>
+        <form method="POST" action="">
+            @csrf
+            @if(isset($pregunta))
+                <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
+                <input type="hidden" name="respuesta" id="respuesta">
+                @foreach($pregunta->respuestas as $respuesta)
+                    <button type="button" class="btn btn-outline-primary option-btn" value="{{ $respuesta->id }}" onclick="selectOption(this)">{{ $respuesta->texto }}</button>
+                @endforeach
+            @else
+                <div class="alert alert-success">¡No hay más preguntas!</div>
+            @endif
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success w-100">Enviar</button>
+            </div>
+        </form>
+        @if(session('resultado'))
+            <div class="alert mt-3 {{ session('resultado') == 'correcto' ? 'alert-success' : 'alert-danger' }}">
+                {{ session('mensaje') }}
+            </div>
+        @endif
     @endif
 </div>
+
 @endsection
 @section('head')
 <style>
@@ -31,10 +46,12 @@
         max-width: 500px;
         margin: 3rem auto;
     }
+
     .option-btn {
         width: 100%;
         margin-bottom: 1rem;
     }
+
     .option-btn.selected {
         background: #ffc107;
         color: #222;

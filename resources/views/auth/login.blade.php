@@ -10,9 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     @vite('resources/css/login.css')
 </head>
 
@@ -39,14 +36,6 @@
                 <div class="card shadow-lg p-4 w-100" style="max-width: 400px;">
                     <h2 class="mb-4 text-center">Inicio de Sesión</h2>
                     <div class="text-center">
-                        <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">Nuevo user?
-                            Registrate ahora</a>
-                        @if(session('error'))
-                            <div class="alert alert-danger text-center">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-3">
@@ -69,6 +58,13 @@
                                     class="d-block text-decoration-none">¿Olvidaste tu
                                     contraseña?</a>
                             </div>
+                            <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">Nuevo user?
+                            Registrate ahora</a>
+                        @if(session('error'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         </form>
                     </div>
                 </div>
