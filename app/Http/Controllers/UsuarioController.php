@@ -92,4 +92,58 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente');
     }
+
+    /**
+     * Permite al usuario autenticado seguir un curso.
+     */
+    public function seguirCurso($curso_id)
+    {
+        $user = auth()->user();
+        if ($user && ! $user->cursos()->where('curso_id', $curso_id)->exists()) {
+            $user->cursos()->attach($curso_id);
+        }
+        return back()->with('success', '¡Curso agregado a Mis Cursos!');
+    }
+
+    /**
+     * Permite al usuario dejar de seguir un curso.
+     */
+    public function dejarCurso($curso_id)
+    {
+        $user = auth()->user();
+        if ($user && $user->cursos()->where('curso_id', $curso_id)->exists()) {
+            $user->cursos()->detach($curso_id);
+        }
+        return back()->with('success', 'Has dejado de seguir el curso.');
+    }
+
+    /**
+     * Muestra los cursos seguidos por el usuario autenticado.
+     */
+    public function misCursos()
+    {
+        $user = auth()->user();
+        $cursos = $user ? $user->cursos : collect();
+        return view('Usuarios.miscursos', compact('cursos'));
+    }
+
+    /**
+     * Muestra el catálogo de cursos y cuáles sigue el usuario.
+     */
+    public function catalogoCursos()
+    {
+        $user = auth()->user();
+        $cursos = \App\Models\Curso::all();
+        $cursosSeguidos = $user ? $user->cursos->pluck('id')->toArray() : [];
+        return view('Usuarios.cursos', compact('cursos', 'cursosSeguidos'));
+    }
+
+    /**
+     * Muestra el camino de aprendizaje para un curso específico.
+     */
+    public function caminoCurso($curso_id)
+    {
+        $curso = \App\Models\Curso::findOrFail($curso_id);
+        return view('Usuarios.camino', compact('curso'));
+    }
 }

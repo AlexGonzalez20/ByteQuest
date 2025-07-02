@@ -38,4 +38,11 @@ class Usuario extends Authenticatable
             ->withPivot(['leccion_actual_id', 'pregunta_actual_id'])
             ->withTimestamps();
     }
+
+    public function lecciones()
+    {
+        return $this->belongsToMany(\App\Models\Leccion::class, 'leccion_usuario')
+            ->withPivot('xp_reclamada')
+            ->withTimestamps();
+    }
 }

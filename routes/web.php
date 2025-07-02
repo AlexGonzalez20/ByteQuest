@@ -59,12 +59,11 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
     Route::view('/home', 'Usuarios.home')->name('views.UsuarioHome');
     Route::view('/camino', 'Usuarios.camino')->name('views.UCamino');
-    Route::view ('/cursos', 'Usuarios.cursos')->name('views.UCursos');
-    Route::view('/miscursos', 'Usuarios.miscursos')->name('views.UMisCursos');
+    // Catálogo de cursos usando el controlador para pasar cursos y cursosSeguidos
+    Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos')->middleware('auth');
+    // Vista de Mis Cursos ahora usa el controlador para pasar los cursos seguidos
+    Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos')->middleware('auth');
     Route::view('/perfil', 'Usuarios.perfil')->name('views.UPerfil');
-
-
-    Route::view('/prueba', 'prueba')->name('views.prueba');
 
 
 });
@@ -88,6 +87,3 @@ Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imag
 Route::get('/views/usuario-gestion', function () {
     return view('gestion');
 })->name('gestion');
-
-
-

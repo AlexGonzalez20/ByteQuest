@@ -87,4 +87,24 @@ class LeccionController extends Controller
         $leccion->delete();
         return redirect()->route('lecciones.index')->with('success', 'leccion eliminado correctamente.');
     }
+
+    /**
+     * Reclama experiencia por completar una lección.
+     * Solo permite reclamar una vez por usuario y lección.
+     */
+    public function reclamarXP($leccion_id)
+    {
+        $user = auth()->user();
+        $leccion = \App\Models\Leccion::findOrFail($leccion_id);
+        // Verificar si ya reclamó la XP
+        $yaReclamada = $user->lecciones()->where('leccion_id', $leccion_id)->wherePivot('xp_reclamada', true)->exists();
+        if ($yaReclamada) {
+            return back()->with('info', 'Ya reclamaste la experiencia de esta lección.');
+        }
+        // Marcar como reclamada y sumar XP
+        $user->lecciones()->syncWithoutDetaching([$leccion_id => ['xp_reclamada' => true]]);
+        $user->experiencia += 100; // Puedes ajustar el valor de XP
+        $user->save();
+        return back()->with('success', '¡Has reclamado 100 XP por completar la lección!');
+    }
 }
