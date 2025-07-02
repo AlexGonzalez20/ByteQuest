@@ -8,6 +8,7 @@
     @vite('resources/css/profile.css')
 </head>
 <body>
+    
     <div class="profile-container">
         <h2>Mi Perfil</h2>
         <form class="profile-form" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
