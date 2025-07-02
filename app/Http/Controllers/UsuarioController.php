@@ -124,7 +124,7 @@ class UsuarioController extends Controller
     {
         $user = auth()->user();
         $cursos = $user ? $user->cursos : collect();
-        return view('Usuarios.miscursos', compact('cursos'));
+        return view('VistasEstudiante.miscursos', compact('cursos'));
     }
 
     /**
@@ -135,7 +135,7 @@ class UsuarioController extends Controller
         $user = auth()->user();
         $cursos = \App\Models\Curso::all();
         $cursosSeguidos = $user ? $user->cursos->pluck('id')->toArray() : [];
-        return view('Usuarios.cursos', compact('cursos', 'cursosSeguidos'));
+        return view('VistasEstudiante.cursos', compact('cursos', 'cursosSeguidos'));
     }
 
     /**
@@ -144,6 +144,6 @@ class UsuarioController extends Controller
     public function caminoCurso($curso_id)
     {
         $curso = \App\Models\Curso::findOrFail($curso_id);
-        return view('Usuarios.camino', compact('curso'));
+        return view('VistasEstudiante.camino', compact('curso'));
     }
 }

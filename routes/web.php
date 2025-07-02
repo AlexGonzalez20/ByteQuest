@@ -57,14 +57,15 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
-    Route::view('/home', 'Usuarios.home')->name('views.UsuarioHome');
-    Route::view('/camino', 'Usuarios.camino')->name('views.UCamino');
+    Route::view('/home', 'VistasEstudiante.home')->name('views.UsuarioHome');
+    Route::view('/camino', 'VistasEstudiante.camino')->name('views.UCamino');
     // Catálogo de cursos usando el controlador para pasar cursos y cursosSeguidos
     Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos')->middleware('auth');
     // Vista de Mis Cursos ahora usa el controlador para pasar los cursos seguidos
     Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos')->middleware('auth');
-    Route::view('/perfil', 'Usuarios.perfil')->name('views.UPerfil');
+    Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
 
+    Route::view('/prueba', 'prueba')->name('views.prueba');
 
 });
 
@@ -84,6 +85,17 @@ Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class,
 
 Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
 
-Route::get('/views/usuario-gestion', function () {
-    return view('gestion');
-})->name('gestion');
+
+// Ruta para que el usuario siga un curso (ahora usando el controlador)
+Route::post('/usuarios/seguir-curso/{curso_id}', [UsuarioController::class, 'seguirCurso'])
+    ->name('usuarios.seguirCurso')->middleware('auth');
+
+// Ruta para dejar de seguir un curso
+Route::post('/usuarios/dejar-curso/{curso_id}', [UsuarioController::class, 'dejarCurso'])
+    ->name('usuarios.dejarCurso')->middleware('auth');
+
+// Ruta para ver el camino de un curso específico
+Route::get('/camino/{curso_id}', [UsuarioController::class, 'caminoCurso'])->name('usuarios.caminoCurso')->middleware('auth');
+
+// Ruta para reclamar experiencia por lección
+Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])->name('lecciones.reclamarXP')->middleware('auth');

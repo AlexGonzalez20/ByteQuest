@@ -131,7 +131,7 @@ class PreguntaController extends Controller
 
     public function mostrarPregunta(Request $request)
     {
-        $leccionId = 1;
+        $leccionId = 1; // Mostrar solo preguntas de la lección 1
         $resultado = null;
         $mensaje = null;
         $repaso = false;
@@ -162,7 +162,6 @@ class PreguntaController extends Controller
             } elseif ($pregunta) {
                 $resultado = 'incorrecto';
                 $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
-                // Guardar pregunta como fallida si no está ya
                 if (!in_array($pregunta->id, $fallidas)) {
                     $fallidas[] = $pregunta->id;
                     session(['preguntas_fallidas' => $fallidas]);
@@ -173,7 +172,6 @@ class PreguntaController extends Controller
             }
         }
 
-        // Si ya respondió 5 preguntas y no está en repaso, pasar a repaso
         $totalPreguntas = \App\Models\Pregunta::where('leccion_id', $leccionId)->count();
 
         // Si ya respondió todas las preguntas y no está en repaso, pasar a repaso si hay fallidas
@@ -229,7 +227,6 @@ class PreguntaController extends Controller
 
         // Buscar pregunta
         if ($en_repaso || $repaso) {
-            // Mostrar solo preguntas fallidas no respondidas en repaso
             $pregunta = \App\Models\Pregunta::with('respuestas')
                 ->where('leccion_id', $leccionId)
                 ->whereIn('id', $fallidas)
@@ -238,7 +235,6 @@ class PreguntaController extends Controller
                 ->first();
             $mensaje_repaso = 'Repasemos las que fallaste:';
         } else {
-            // Normal: mostrar pregunta no respondida
             $pregunta = \App\Models\Pregunta::with('respuestas')
                 ->where('leccion_id', $leccionId)
                 ->whereNotIn('id', $respondidas)
@@ -247,7 +243,6 @@ class PreguntaController extends Controller
             $mensaje_repaso = null;
         }
 
-        // Barajar respuestas
         if ($pregunta && $pregunta->respuestas) {
             $pregunta->respuestas = $pregunta->respuestas->shuffle();
         }

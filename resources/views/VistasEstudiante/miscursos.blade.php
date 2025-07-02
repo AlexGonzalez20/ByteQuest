@@ -1,5 +1,4 @@
 @extends('layouts.estudiante')
-
 @section('title', 'Mis Cursos')
 @section('content')
     <h2 class="mb-4">Mis Cursos</h2>
@@ -7,7 +6,6 @@
         <div class="alert alert-info">Aún no has seguido ningún curso.</div>
     @else
         <div class="row g-4">
-            <!-- Ejemplo de cursos, reemplaza por tu lógica de cursos -->
             @foreach ($cursos as $curso)
                 <div class="col-12 col-md-4">
                     <div class="card course-card">

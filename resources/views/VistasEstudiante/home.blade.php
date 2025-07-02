@@ -35,7 +35,6 @@
             </a>
         </div>
     </div>
-    </div>
 @endsection
 @section('head')
     <style>
