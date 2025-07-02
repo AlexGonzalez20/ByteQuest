@@ -4,6 +4,9 @@
 <div class="question-box">
     @if(isset($finalizado) && $finalizado)
         <div class="alert alert-success text-center mb-3">¡Has completado todas las preguntas y el repaso!</div>
+        @if(isset($xp_mensaje) && $xp_mensaje)
+            <div class="alert alert-warning text-center mb-3">{{ $xp_mensaje }}</div>
+        @endif
         <form method="GET" action="{{ route('views.UCamino') }}">
             <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
         </form>

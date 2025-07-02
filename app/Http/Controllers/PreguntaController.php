@@ -131,6 +131,7 @@ class PreguntaController extends Controller
 
     public function mostrarPregunta(Request $request)
     {
+        $leccionId = 1; // Mostrar solo preguntas de la lección 1
         $resultado = null;
         $mensaje = null;
         $repaso = false;
@@ -139,11 +140,11 @@ class PreguntaController extends Controller
         $respondidas = session('preguntas_respondidas', []);
         $fallidas = session('preguntas_fallidas', []);
         $en_repaso = session('en_repaso', false);
+        $bien_respondidas = session('bien_respondidas', []);
 
         if ($request->isMethod('post')) {
-            // Si el usuario pulsa el botón para volver a empezar (sin pregunta_id)
             if (!$request->has('pregunta_id')) {
-                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
+                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso', 'bien_respondidas']);
                 return redirect()->route('pregunta.mostrar');
             }
             $pregunta = \App\Models\Pregunta::with('respuestas')->find($request->input('pregunta_id'));
@@ -155,70 +156,100 @@ class PreguntaController extends Controller
                 $mensaje = '¡Respuesta correcta!';
                 $respondidas[] = $pregunta->id;
                 $respondidas = array_unique($respondidas);
-                session(['preguntas_respondidas' => $respondidas]);
+                $bien_respondidas[] = $pregunta->id;
+                $bien_respondidas = array_unique($bien_respondidas);
+                session(['preguntas_respondidas' => $respondidas, 'bien_respondidas' => $bien_respondidas]);
             } elseif ($pregunta) {
                 $resultado = 'incorrecto';
                 $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
-                // Guardar pregunta como fallida si no está ya
                 if (!in_array($pregunta->id, $fallidas)) {
                     $fallidas[] = $pregunta->id;
                     session(['preguntas_fallidas' => $fallidas]);
                 }
+                $respondidas[] = $pregunta->id;
+                $respondidas = array_unique($respondidas);
+                session(['preguntas_respondidas' => $respondidas]);
             }
         }
 
-        // Si ya respondió 5 preguntas y no está en repaso, pasar a repaso
-        if (count($respondidas) >= 5 && !$en_repaso) {
+        $totalPreguntas = \App\Models\Pregunta::where('leccion_id', $leccionId)->count();
+
+        // Si ya respondió todas las preguntas y no está en repaso, pasar a repaso si hay fallidas
+        if (count($respondidas) >= $totalPreguntas && !$en_repaso) {
             if (!empty($fallidas)) {
                 session(['en_repaso' => true]);
                 $repaso = true;
                 $respondidas = [];
                 session(['preguntas_respondidas' => $respondidas]);
             } else {
-                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
-                return redirect()->route('views.UCamino')->with('finalizado', '¡Completaste las 5 preguntas correctamente!');
+                // Calcular XP y reclamar si corresponde
+                $user = auth()->user();
+                $bien = count($bien_respondidas);
+                if ($bien >= 4) {
+                    // Reclamar XP solo si no se ha reclamado
+                    $yaReclamada = $user->lecciones()->where('leccion_id', $leccionId)->wherePivot('xp_reclamada', true)->exists();
+                    if (!$yaReclamada) {
+                        $user->lecciones()->syncWithoutDetaching([$leccionId => ['xp_reclamada' => true]]);
+                        $user->experiencia += 50;
+                        $user->save();
+                        $mensaje = '¡Has ganado 50 XP por tu desempeño en la lección!';
+                    }
+                }
+                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso', 'bien_respondidas']);
+                return redirect()->route('views.UCamino')->with('finalizado', '¡Completaste todas las preguntas de la lección 1 correctamente!' . (isset($mensaje) ? ' ' . $mensaje : ''));
             }
         }
 
         // Si está en repaso y ya no quedan fallidas, terminar y permitir reinicio
         if ($en_repaso && empty($fallidas)) {
-            session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
-            // Mostrar mensaje y botón para volver a empezar
+            // Sumar XP si el usuario alcanzó 4 o más correctas (incluyendo repaso)
+            $user = auth()->user();
+            $bien = count(session('bien_respondidas', []));
+            if ($bien >= 4) {
+                $yaReclamada = $user->lecciones()->where('leccion_id', $leccionId)->wherePivot('xp_reclamada', true)->exists();
+                if (!$yaReclamada) {
+                    $user->lecciones()->syncWithoutDetaching([$leccionId => ['xp_reclamada' => true]]);
+                    $user->experiencia += 50;
+                    $user->save();
+                    $mensaje = '¡Has ganado 50 XP por tu desempeño en la lección!';
+                }
+            }
+            session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso', 'bien_respondidas']);
             return view('Usuarios.preguntas', [
                 'pregunta' => null,
                 'resultado' => null,
                 'mensaje' => null,
                 'mensaje_repaso' => null,
-                'finalizado' => true
+                'finalizado' => true,
+                'xp_mensaje' => isset($mensaje) ? $mensaje : null
             ]);
         }
 
         // Buscar pregunta
         if ($en_repaso || $repaso) {
-            // Mostrar solo preguntas fallidas no respondidas en repaso
             $pregunta = \App\Models\Pregunta::with('respuestas')
+                ->where('leccion_id', $leccionId)
                 ->whereIn('id', $fallidas)
                 ->whereNotIn('id', $respondidas)
                 ->inRandomOrder()
                 ->first();
             $mensaje_repaso = 'Repasemos las que fallaste:';
         } else {
-            // Normal: mostrar pregunta no respondida
             $pregunta = \App\Models\Pregunta::with('respuestas')
+                ->where('leccion_id', $leccionId)
                 ->whereNotIn('id', $respondidas)
                 ->inRandomOrder()
                 ->first();
             $mensaje_repaso = null;
         }
 
-        // Barajar respuestas
         if ($pregunta && $pregunta->respuestas) {
             $pregunta->respuestas = $pregunta->respuestas->shuffle();
         }
 
-        return view('Usuarios.preguntas', compact('pregunta'))
+        return view('Usuarios.preguntas', compact('pregunta', 'totalPreguntas'))
             ->with('resultado', $resultado)
             ->with('mensaje', $mensaje)
-            ->with('mensaje_repaso', $mensaje_repaso ?? null);
+            ->with('mensaje_repaso', ($en_repaso || $repaso) ? $mensaje_repaso : null);
     }
 }
