@@ -129,51 +129,96 @@ class PreguntaController extends Controller
         return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
     }
 
-public function mostrarPregunta(Request $request)
-{
-    $resultado = null;
-    $mensaje = null;
+    public function mostrarPregunta(Request $request)
+    {
+        $resultado = null;
+        $mensaje = null;
+        $repaso = false;
 
-    // Obtener preguntas respondidas de la sesión
-    $respondidas = session('preguntas_respondidas', []);
+        // Obtener preguntas respondidas y fallidas de la sesión
+        $respondidas = session('preguntas_respondidas', []);
+        $fallidas = session('preguntas_fallidas', []);
+        $en_repaso = session('en_repaso', false);
 
-    if ($request->isMethod('post')) {
-        $pregunta = \App\Models\Pregunta::with('respuestas')->find($request->input('pregunta_id'));
-        $respuestaId = $request->input('respuesta');
-        $respuesta = $pregunta ? $pregunta->respuestas->where('id', $respuestaId)->first() : null;
+        if ($request->isMethod('post')) {
+            // Si el usuario pulsa el botón para volver a empezar (sin pregunta_id)
+            if (!$request->has('pregunta_id')) {
+                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
+                return redirect()->route('pregunta.mostrar');
+            }
+            $pregunta = \App\Models\Pregunta::with('respuestas')->find($request->input('pregunta_id'));
+            $respuestaId = $request->input('respuesta');
+            $respuesta = $pregunta ? $pregunta->respuestas->where('id', $respuestaId)->first() : null;
 
-        if ($respuesta && $respuesta->es_correcta) {
-            $resultado = 'correcto';
-            $mensaje = '¡Respuesta correcta!';
-            // Agregar la pregunta a las respondidas
-            $respondidas[] = $pregunta->id;
-            $respondidas = array_unique($respondidas);
-            session(['preguntas_respondidas' => $respondidas]);
-        } else {
-            $resultado = 'incorrecto';
-            $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
+            if ($pregunta && $respuesta && $respuesta->es_correcta) {
+                $resultado = 'correcto';
+                $mensaje = '¡Respuesta correcta!';
+                $respondidas[] = $pregunta->id;
+                $respondidas = array_unique($respondidas);
+                session(['preguntas_respondidas' => $respondidas]);
+            } elseif ($pregunta) {
+                $resultado = 'incorrecto';
+                $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
+                // Guardar pregunta como fallida si no está ya
+                if (!in_array($pregunta->id, $fallidas)) {
+                    $fallidas[] = $pregunta->id;
+                    session(['preguntas_fallidas' => $fallidas]);
+                }
+            }
         }
+
+        // Si ya respondió 5 preguntas y no está en repaso, pasar a repaso
+        if (count($respondidas) >= 5 && !$en_repaso) {
+            if (!empty($fallidas)) {
+                session(['en_repaso' => true]);
+                $repaso = true;
+                $respondidas = [];
+                session(['preguntas_respondidas' => $respondidas]);
+            } else {
+                session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
+                return redirect()->route('views.UCamino')->with('finalizado', '¡Completaste las 5 preguntas correctamente!');
+            }
+        }
+
+        // Si está en repaso y ya no quedan fallidas, terminar y permitir reinicio
+        if ($en_repaso && empty($fallidas)) {
+            session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso']);
+            // Mostrar mensaje y botón para volver a empezar
+            return view('Usuarios.preguntas', [
+                'pregunta' => null,
+                'resultado' => null,
+                'mensaje' => null,
+                'mensaje_repaso' => null,
+                'finalizado' => true
+            ]);
+        }
+
+        // Buscar pregunta
+        if ($en_repaso || $repaso) {
+            // Mostrar solo preguntas fallidas no respondidas en repaso
+            $pregunta = \App\Models\Pregunta::with('respuestas')
+                ->whereIn('id', $fallidas)
+                ->whereNotIn('id', $respondidas)
+                ->inRandomOrder()
+                ->first();
+            $mensaje_repaso = 'Repasemos las que fallaste:';
+        } else {
+            // Normal: mostrar pregunta no respondida
+            $pregunta = \App\Models\Pregunta::with('respuestas')
+                ->whereNotIn('id', $respondidas)
+                ->inRandomOrder()
+                ->first();
+            $mensaje_repaso = null;
+        }
+
+        // Barajar respuestas
+        if ($pregunta && $pregunta->respuestas) {
+            $pregunta->respuestas = $pregunta->respuestas->shuffle();
+        }
+
+        return view('Usuarios.preguntas', compact('pregunta'))
+            ->with('resultado', $resultado)
+            ->with('mensaje', $mensaje)
+            ->with('mensaje_repaso', $mensaje_repaso ?? null);
     }
-
-    // Si ya respondió 5 preguntas, limpiar progreso y mostrar mensaje final
-    if (count($respondidas) >= 5) {
-        session()->forget('preguntas_respondidas');
-        return redirect()->route('views.UCamino')->with('finalizado', '¡Completaste las 5 preguntas correctamente!');
-    }
-
-    // Buscar una pregunta no respondida
-    $pregunta = \App\Models\Pregunta::with('respuestas')
-        ->whereNotIn('id', $respondidas)
-        ->inRandomOrder()
-        ->first();
-
-    // Barajar respuestas
-    if ($pregunta && $pregunta->respuestas) {
-        $pregunta->respuestas = $pregunta->respuestas->shuffle();
-    }
-
-    return view('Usuarios.preguntas', compact('pregunta'))
-        ->with('resultado', $resultado)
-        ->with('mensaje', $mensaje);
-}
 }
