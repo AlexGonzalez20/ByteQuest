@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id(); // Clave primaria obligatoria
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->text('descripcion');
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-@extends('layouts.usuario')
+@extends('layouts.estudiante')
 @section('title', 'Home Usuario')
 @section('content')
     <div class="row g-4 justify-content-center">
@@ -19,10 +19,10 @@
             </a>
         </div>
         <div class="col-6 col-md-3">
-                <div class="card icon-card text-center p-4">
-                    <i class='bx bx-question-mark text-info'></i>
-                    <div class="mt-2">Preguntas</div>
-                </div>
+            <div class="card icon-card text-center p-4">
+                <i class='bx bx-question-mark text-info'></i>
+                <div class="mt-2">Preguntas</div>
+            </div>
             </a>
         </div>
         <div class="col-6 col-md-3">
@@ -34,7 +34,7 @@
             </a>
         </div>
     </div>
-</div>
+    </div>
 @endsection
 @section('head')
     <style>

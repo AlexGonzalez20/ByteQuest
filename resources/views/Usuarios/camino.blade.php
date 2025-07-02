@@ -1,4 +1,4 @@
-@extends('layouts.usuario')
+@extends('layouts.estudiante')
 @section('title', 'Camino')
 @section('content')
 <h2 class="mb-4">Camino de Aprendizaje</h2>

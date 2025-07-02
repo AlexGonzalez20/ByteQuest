@@ -1,4 +1,6 @@
-@extends('Usuarios.layout')
+@extends('layouts.estudiante')
+
+
 @section('title', 'Perfil de Usuario')
 @section('content')
 <div class="profile-container">

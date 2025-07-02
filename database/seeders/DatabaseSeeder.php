@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
                 'rol_id' => 1
             ]
         );
-
+        Usuario::factory()->count(100)->create();
         $this->call(CursosSeeder::class);
         $this->call(LeccionesSeeder::class);
         $this->call(PreguntaSeeder::class);

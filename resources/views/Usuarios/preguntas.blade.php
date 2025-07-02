@@ -1,4 +1,4 @@
-@extends('Usuarios.layout')
+@extends('layouts.estudiante')
 @section('title', 'Preguntas')
 @section('content')
 <div class="question-box">
