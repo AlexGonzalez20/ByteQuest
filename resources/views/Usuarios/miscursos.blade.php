@@ -2,40 +2,24 @@
 @section('title', 'Mis Cursos')
 @section('content')
 <h2 class="mb-4">Mis Cursos</h2>
+@if($cursos->isEmpty())
+    <div class="alert alert-info">Aún no has seguido ningún curso.</div>
+@else
 <div class="row g-4">
-    <!-- Ejemplo de cursos, reemplaza por tu lógica de cursos -->
+    @foreach($cursos as $curso)
     <div class="col-12 col-md-4">
         <div class="card course-card">
-            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" class="course-img" alt="Curso 1">
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" class="course-img" alt="{{ $curso->nombre }}">
             <div class="card-body">
-                <h5 class="card-title">Curso de Programación</h5>
-                <p class="card-text">Aprende los fundamentos de la programación moderna.</p>
-                <a href="#" class="btn btn-primary w-100">Ir al curso</a>
+                <h5 class="card-title">{{ $curso->nombre }}</h5>
+                <p class="card-text">{{ $curso->descripcion }}</p>
+                 <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso->id]) }}" class="btn btn-primary w-100">Ir al curso</a>
             </div>
         </div>
     </div>
-    <div class="col-12 col-md-4">
-        <div class="card course-card">
-            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" class="course-img" alt="Curso 2">
-            <div class="card-body">
-                <h5 class="card-title">Curso de Diseño</h5>
-                <p class="card-text">Explora el mundo del diseño gráfico y digital.</p>
-                <a href="#" class="btn btn-success w-100">Ir al curso</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-md-4">
-        <div class="card course-card">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" class="course-img" alt="Curso 3">
-            <div class="card-body">
-                <h5 class="card-title">Curso de Matemáticas</h5>
-                <p class="card-text">Domina los conceptos clave de las matemáticas.</p>
-                <a href="#" class="btn btn-info w-100">Ir al curso</a>
-            </div>
-        </div>
-    </div>
-    <!-- Fin ejemplo -->
+    @endforeach
 </div>
+@endif
 @endsection
 @section('head')
 <style>

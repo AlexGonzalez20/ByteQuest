@@ -19,7 +19,12 @@
         </a>
     </div>
     <div class="col-6 col-md-3">
-      
+      <a href="{{ route('views.UCursos') }}" class="text-decoration-none">
+            <div class="card icon-card text-center p-4">
+                <i class='bx bx-book text-success'></i>
+                <div class="mt-2">Cursos</div>
+            </div>
+        </a>
     </div>
     <div class="col-6 col-md-3">
         <a href="{{ route('views.UPerfil') }}" class="text-decoration-none">

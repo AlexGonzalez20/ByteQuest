@@ -1,7 +1,12 @@
 @extends('Usuarios.layout')
 @section('title', 'Camino')
 @section('content')
-<h2 class="mb-4">Camino de Aprendizaje</h2>
+<h2 class="mb-4">
+    Camino de Aprendizaje
+    @if(isset($curso))
+        <span class="text-secondary" style="font-size:1.1rem; font-weight:normal;">— {{ $curso->nombre }}</span>
+    @endif
+</h2>
 <div class="path-container">
     <div class="circle" style="top:10%;left:10%;" onclick="window.location.href='{{ route('pregunta.mostrar') }}'">1</div>
     <div class="circle" style="top:25%;left:25%;">2</div>

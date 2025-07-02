@@ -13,6 +13,12 @@
 <body>  
 <div class="container-fluid">
     <div class="row">
+        <!-- XP Box -->
+        <div class="w-100 d-flex justify-content-end align-items-center" style="height:48px;">
+            <span class="bg-warning text-dark rounded-pill shadow-sm px-3 py-1 fw-bold d-flex align-items-center me-3 mt-2" style="font-size:1rem; min-width:60px; min-height:32px; border:2px solid #fff;">
+                <i class='bx bxs-star' style="font-size:1.2rem;margin-right:4px;"></i> {{ auth()->user()->experiencia ?? 0 }} XP
+            </span>
+        </div>
         <!-- Sidebar -->
         <nav class="col-md-2 d-none d-md-block sidebar py-4">
             <div class="position-sticky">
@@ -21,14 +27,16 @@
                         <a class="nav-link @if(Route::currentRouteName() == 'views.UsuarioHome') active @endif" href="{{ route('views.UsuarioHome') }}"><i class='bx bx-home'></i> Home</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link @if(Route::currentRouteName() == 'views.UCamino') active @endif" href="{{ route('views.UCamino') }}"><i class='bx bx-git-branch'></i> Camino</a>
+                        <a class="nav-link @if(Route::currentRouteName() == 'views.UMisCursos') active @endif" href="{{ route('views.UMisCursos') }}"><i class='bx bx-book'></i> Mis Cursos</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link @if(Route::currentRouteName() == 'views.UMisCursos') active @endif" href="{{ route('views.UMisCursos') }}"><i class='bx bx-book'></i> Mis Cursos</a>
+                        <a class="nav-link @if(Route::currentRouteName() == 'views.UCursos') active @endif" href="{{ route('views.UCursos') }}"><i class='bx bx-user'></i>cursos</a>
                     </li>
                     <li class="nav-item mb-2">
                         <a class="nav-link @if(Route::currentRouteName() == 'views.UPerfil') active @endif" href="{{ route('views.UPerfil') }}"><i class='bx bx-user'></i> Perfil</a>
                     </li>
+                    
+                    
                     <li class="nav-item mt-4">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
