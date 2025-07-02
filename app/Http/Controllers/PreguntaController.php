@@ -215,7 +215,7 @@ class PreguntaController extends Controller
                 }
             }
             session()->forget(['preguntas_respondidas', 'preguntas_fallidas', 'en_repaso', 'bien_respondidas']);
-            return view('Usuarios.preguntas', [
+            return view('VistasEstudiante.preguntas', [
                 'pregunta' => null,
                 'resultado' => null,
                 'mensaje' => null,
@@ -247,7 +247,7 @@ class PreguntaController extends Controller
             $pregunta->respuestas = $pregunta->respuestas->shuffle();
         }
 
-        return view('Usuarios.preguntas', compact('pregunta', 'totalPreguntas'))
+        return view('VistasEstudiante.preguntas', compact('pregunta', 'totalPreguntas'))
             ->with('resultado', $resultado)
             ->with('mensaje', $mensaje)
             ->with('mensaje_repaso', ($en_repaso || $repaso) ? $mensaje_repaso : null);

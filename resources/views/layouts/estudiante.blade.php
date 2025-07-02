@@ -29,7 +29,7 @@
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UCursos') active @endif"
-                                href="{{ route('views.UCursos') }}"><i class='bx bx-user'></i>cursos</a>
+                                href="{{ route('views.UCursos') }}"><i class='bx bx-user'></i>Cursos</a>
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UPerfil') active @endif"
@@ -62,18 +62,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a href="{{ route('usuarios.index') }}" class="nav-link">Usuarios</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('cursos.index') }}" class="nav-link">Cursos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('lecciones.index') }}" class="nav-link">Lecciones</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('preguntas.index') }}" class="nav-link">Preguntas</a>
-                                </li>
+
 
                             </ul>
                             <a href="" class="btn btn-info m-2">
@@ -83,11 +72,13 @@
                                 <i class="fa-solid fa-heart"></i>
                                 Vidas</a>
 
-                            <span
-                                class="bg-warning text-dark rounded-pill shadow-sm px-3 py-1 fw-bold d-flex align-items-center me-3 mt-2"
-                                style="font-size:1rem; min-width:60px; min-height:32px; border:2px solid #fff;">
-                                <i class='bx bxs-star' style="font-size:1.2rem;margin-right:4px;"></i>
-                                {{ auth()->user()->experiencia ?? 0 }} XP
+
+                            <span class="m-2">
+                                <button class="btn btn-warning">
+                                    <i class='bx bx-user-circle'></i>
+                                    {{ auth()->user()->nombre }}
+                                </button>
+
                             </span>
 
                         </div>

@@ -65,7 +65,6 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos')->middleware('auth');
     Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
 
-    Route::view('/prueba', 'prueba')->name('views.prueba');
 
 });
 

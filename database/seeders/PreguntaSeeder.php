@@ -11,7 +11,7 @@ class PreguntaSeeder extends Seeder
     public function run(): void
     {
         // ⚡ Lección 1 de PHP => id = 1 (ajusta si es diferente)
-        $leccionId = 1;
+        $pruebaId = 1;
 
         // Preguntas de ejemplo
         $preguntas = [
@@ -64,7 +64,7 @@ class PreguntaSeeder extends Seeder
 
         foreach ($preguntas as $q) {
             $pregunta = Pregunta::create([
-                'leccion_id' => $leccionId,
+                'prueba_id' => $pruebaId,
                 'pregunta' => $q['pregunta'],
                 'imagen' => null, // Si no hay imagen
             ]);

@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,9 +40,19 @@ class DatabaseSeeder extends Seeder
                 'rol_id' => 1
             ]
         );
-        Usuario::factory()->count(100)->create();
+
+
+
         $this->call(CursosSeeder::class);
         $this->call(LeccionesSeeder::class);
+        DB::table('pruebas')->insert([
+            'nombre' => 'Prueba 1',
+            'descripcion' => 'Prueba de variables',
+            'leccion_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
         $this->call(PreguntaSeeder::class);
+        Usuario::factory()->count(100)->create();
     }
 }

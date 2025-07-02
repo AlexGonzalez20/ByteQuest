@@ -35,7 +35,7 @@ class AuthController extends Controller
             $usuario = Auth::user();
             if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario 
                 $usuarios = Usuario::all();
-                return view('Usuarios.home', compact('usuarios'));
+                return view('VistasEstudiante.home', compact('usuarios'));
             } elseif ($usuario->rol_id == 2) {
                 $usuarios = Usuario::all(); // 2 = administrador
                 return view('dashboard', compact('usuarios'));
