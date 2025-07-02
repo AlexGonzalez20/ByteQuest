@@ -1,18 +1,11 @@
-@extends('layouts.admin')
-
-@section('title', 'Gestión de Usuarios')
-
-@section('head')
-
-@endsection
-
+@extends('layouts.layout')
+@section('title', 'Home')
 @section('content')
 <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Gestión de Usuarios</h1>
-        <a href="{{ route('views.CrearUsuario') }}" class="btn btn-info">Añadir Usuario</a>
+        <h1 class="mb-0">Gestion de Usuarios</h1>
+        <a href="{{route('views.CrearUsuario')}}" class="btn btn-info">Añadir Usuario</a>
     </div>
-
     <p class="lead">Bienvenido, aquí puedes administrar los usuarios.</p>
 
     <table class="table table-striped">
@@ -23,8 +16,6 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Rol</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +38,7 @@
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
                             <i class="fa-solid fa-trash"></i>
                         </button>
+
                     </form>
                 </td>
             </tr>
