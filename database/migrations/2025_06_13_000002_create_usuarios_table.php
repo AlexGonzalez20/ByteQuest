@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('dias_racha')->default(0);
+            $table->integer('vidas')->default(5);
+            $table->integer('experiencia')->default(0);
             $table->date('ultimo_dia_activo')->nullable();
             $table->foreignId('rol_id')->default(1)->constrained('roles')->onDelete('cascade');
             $table->timestamps(); // created_at y updated_at

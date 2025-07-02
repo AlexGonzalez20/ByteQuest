@@ -17,6 +17,8 @@ class Usuario extends Authenticatable
         'apellido',
         'email',
         'password',
+        'vidas',
+        'experiencia',
         'role_id',
     ];
 
