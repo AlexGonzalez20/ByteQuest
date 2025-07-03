@@ -179,7 +179,7 @@
     <!-- services section Ends -->
 
     <!-- portfolio strats -->
-    <section id="portafolio" class="portafolio section-padding">
+    <section id="portfolio" class="portafolio section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

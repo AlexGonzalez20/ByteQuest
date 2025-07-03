@@ -1,19 +1,15 @@
 body {
-    background: fixed
-        radial-gradient(circle, #3bb8af, #3b9fab, #4c869b, #566e81, #545863);
+    background: fixed radial-gradient(circle, #3bb8af, #3b9fab, #4c869b, #566e81, #545863);
 }
 
 .navbar,
 .navbar-light.bg-light {
-    background: fixed
-        linear-gradient(
-            to right bottom,
+    background: fixed linear-gradient(to right bottom,
             #545863,
             #5d7a91,
             #54a0ba,
             #40c8d7,
-            #46f0e4
-        );
+            #252746);
 }
 
 .navbar-light .navbar-brand,
@@ -25,27 +21,31 @@ body {
     padding: 100px 0;
     background: transparent;
 }
+
 .section-header {
     color: whitesmoke;
 
     text-shadow: 1px 1px 2px #f9c846, 0 0 1em #000000, 0 0 0.2em #46f0e4;
 }
+
 .carousel-caption h5,
 .carousel-caption p {
     color: whitesmoke;
     text-shadow: 1px 1px 2px #000000, 0 0 1em #000000, 0 0 0.2em #000000;
-    font-size: 20px !important  ;
+    font-size: 20px !important;
 }
+
 .card,
 .card.text-white.bg-dark,
 .portfolio .card,
 .team .card {
     border-radius: 15px;
     font-size: 2rem;
-    background-color: #3b9fab !important    ;
+    background-color: #3b9fab !important;
     color: #545863 !important;
     box-shadow: 0 3px 6px #e1212129, 0 3px 6px rgba(0, 0, 0, 0.23);
 }
+
 .card-body {
     height: 300px;
     background-color: #3b9fab;
@@ -58,6 +58,7 @@ body {
     color: #545863;
     text-shadow: 1px 1px 2px #ffffff, 0 0 1em #ffffff, 0 0 0.1em #ffffff;
 }
+
 .card-body p {
     color: whitesmoke;
     text-shadow: 1px 1px 2px #000000, 0 0 1em #000000, 0 0 0.2em #000000;
@@ -83,6 +84,7 @@ footer {
     height: 100%;
     object-fit: cover;
 }
+
 .img-fluid {
     width: 100%;
     height: auto;
@@ -90,7 +92,7 @@ footer {
 
 /* Estilos personalizados para los botones de Login y Registro */
 .btn {
-    background-color: #545863 !important   ;
+    background-color: #545863 !important;
     color: #f9c846 !important;
     border-bottom: 2px solid #46f0e4 !important;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -103,6 +105,7 @@ footer {
     text-shadow: 0 1px 8px #545863;
     box-shadow: rgba(252, 251, 251, 0.16) 0px 1px 4px, #f9c846 0px 0px 0px 3px;
 }
+
 .btn-byte {
     background-color: #46f0e4;
 }
@@ -123,17 +126,21 @@ footer {
     display: block;
     margin: 0 auto;
 }
+
 .footer.bg-dark {
     background: #000;
 }
+
 /* Segundas cards de la pagina */
 .card2 {
     border-radius: 20px;
     max-width: 100%;
 }
+
 .card2 img {
     border-radius: 5px;
 }
+
 .card2 h3,
 p {
     color: whitesmoke;

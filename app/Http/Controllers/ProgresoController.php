@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pregunta;
 use App\Models\ProgresoPregunta;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ProgresoController extends Controller
 {
@@ -61,6 +63,7 @@ class ProgresoController extends Controller
     }
 
 
+
     public function responderPregunta(Request $request)
     {
         $usuario = auth()->user();
@@ -83,13 +86,36 @@ class ProgresoController extends Controller
 
         // 🚫 Si ya no tiene vidas, termina la prueba a la fuerza
         if ($usuario->vidas <= 0) {
-            // Limpia progreso parcial
             $usuario->progresoPreguntas()->delete();
 
             return view('VistasEstudiante.sinvidas', [
                 'curso_id' => $usuario->cursos()->first()->id,
                 'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.'
             ]);
+        }
+
+        // ✅ Racha: sólo si la respuesta es correcta
+        if ($resultado === 'correcto') {
+            $hoy = Carbon::today();
+            $ultimoDia = $usuario->ultimo_dia_activo ? Carbon::parse($usuario->ultimo_dia_activo) : null;
+
+            if ($ultimoDia) {
+                $diff = $hoy->diffInDays($ultimoDia);
+
+                if ($diff == 1) {
+                    // Aumenta la racha
+                    $usuario->dias_racha += 1;
+                } elseif ($diff > 1) {
+                    // Reinicia racha
+                    $usuario->dias_racha = 1;
+                }
+                // diff == 0 => hoy mismo, no cambia
+            } else {
+                $usuario->dias_racha = 1;
+            }
+
+            $usuario->ultimo_dia_activo = $hoy;
+            $usuario->save();
         }
 
         return redirect()->back()

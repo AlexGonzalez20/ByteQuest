@@ -83,13 +83,13 @@ class AuthController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/',
                 'confirmed'
             ],
-        ],[
-        'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
-        'email.unique' => 'Este correo ya está registrado.',
-        'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
-        'password.confirmed' => 'Las contraseñas no coinciden.'
-        // Otros mensajes personalizados...
-    ]);
+        ], [
+            'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
+            'email.unique' => 'Este correo ya está registrado.',
+            'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
+            'password.confirmed' => 'Las contraseñas no coinciden.'
+            // Otros mensajes personalizados...
+        ]);
 
 
         if ($validator->fails()) {

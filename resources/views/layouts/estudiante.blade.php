@@ -51,66 +51,66 @@
             <div class="col-md-10 px-0">
                 <!-- Navbar alineada a la derecha del sidebar -->
                 <nav class="navbar navbar-expand-lg" style="background-color: rgb(51, 54, 97)">
-                    <div class="container-fluid">
-                        <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span
-                                class="text-info">Byte</span>Quest</a>
+                    <div class="container-fluid m-2">
+                        <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}">
+                            <span class="text-info">Byte</span><span class="text-light">Quest</span>
+                        </a>
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
+
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <!-- Dropdown de cursos -->
-                                <div class="dropdown m-2">
+                            <!-- Elementos alineados a la izquierda -->
+                            <ul class="navbar-nav mb-2 mb-lg-0">
+                                <!-- Aquí pueden ir links a la izquierda si quieres -->
+                            </ul>
+
+                            <!-- Elementos alineados a la derecha -->
+                            <div class="d-flex ms-auto align-items-center">
+                                <!-- Dropdown de cursos alineado a la derecha -->
+                                <div class="dropdown me-3">
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Mis Cursos
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownCursos">
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownCursos">
                                         @forelse ($cursos as $curso)
-                                            <li>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('usuarios.caminoCurso', $curso->id) }}">
-                                                    {{ $curso->nombre }}
-                                                </a>
-                                            </li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                                {{ $curso->nombre }}
+                                            </a>
+                                        </li>
                                         @empty
-                                            <li>
-                                                <span class="dropdown-item text-muted">No tienes cursos</span>
-                                            </li>
+                                        <li>
+                                            <span class="dropdown-item text-muted">No tienes cursos</span>
+                                        </li>
                                         @endforelse
                                     </ul>
                                 </div>
 
+                                <a href="#" class="btn btn-info me-3">
+                                    <i class="fa-solid fa-bolt"></i>
+                                    Racha: {{ auth()->user()->dias_racha }} días
+                                </a>
 
+                                <a href="#" class="btn btn-danger me-3">
+                                    <i class="fa-solid fa-heart"></i>
+                                    Vidas: {{ auth()->user()->vidas }}
+                                </a>
 
-
-                            </ul>
-                            <a href="#" class="btn btn-info m-2">
-                                <i class="fa-solid fa-bolt"></i>
-                                Racha: {{ auth()->user()->dias_racha }} días
-                            </a>
-
-                            <a href="#" class="btn btn-danger">
-                                <i class="fa-solid fa-heart"></i>
-                                Vidas: {{ auth()->user()->vidas }}
-                            </a>
-
-
-
-                            <span class="m-2">
                                 <button class="btn btn-warning">
                                     <i class='bx bx-user-circle'></i>
                                     {{ auth()->user()->nombre }}
                                 </button>
-
-                            </span>
-
+                            </div>
                         </div>
                     </div>
                 </nav>
+
 
                 <!-- Contenido principal -->
                 <main class="px-4 py-5" style="background-color: rgb(37, 39, 70);">
