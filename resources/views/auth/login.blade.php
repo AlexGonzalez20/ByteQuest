@@ -60,9 +60,9 @@
                             </div>
                             <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">Nuevo user?
                             Registrate ahora</a>
-                        @if(session('error'))
+                        @if($errors->any())
                             <div class="alert alert-danger text-center">
-                                {{ session('error') }}
+                                Correo o contraseña incorrectos.
                             </div>
                         @endif
                         </form>
