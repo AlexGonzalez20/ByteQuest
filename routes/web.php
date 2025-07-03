@@ -9,6 +9,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\ReporteUsuariosController;
 use App\Http\Controllers\ImagenesController;
+use App\Http\Controllers\PruebaController;
+
+
 use App\Models\Usuario;
 
 // Redirigir la raíz al login
@@ -53,7 +56,6 @@ Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('
 // Grupo de rutas para el módulo de vistas
 Route::prefix('views')->middleware(['auth'])->group(function () {
     Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
-    Route::view('/profile', 'profile')->name('views.profile');
     Route::view('/dashboard', 'dashboard')->name('views.dashboard');
     Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
     Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
@@ -64,8 +66,6 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
     // Vista de Mis Cursos ahora usa el controlador para pasar los cursos seguidos
     Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos')->middleware('auth');
     Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
-
-
 });
 
 Route::prefix('views')->middleware(['auth'])->group(function () {
@@ -98,3 +98,7 @@ Route::get('/camino/{curso_id}', [UsuarioController::class, 'caminoCurso'])->nam
 
 // Ruta para reclamar experiencia por lección
 Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])->name('lecciones.reclamarXP')->middleware('auth');
+
+Route::resource('pruebas', PruebaController::class);
+
+Route::get('/camino-curso/{id}', [UsuarioController::class, 'caminoCurso'])->name('views.caminoCurso');

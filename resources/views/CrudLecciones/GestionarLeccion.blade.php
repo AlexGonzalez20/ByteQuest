@@ -13,7 +13,7 @@
             <a href="{{ route('lecciones.create') }}" class="btn btn-success">Añadir lección</a>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
@@ -23,6 +23,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Curso</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Acciones</th>
@@ -32,16 +33,19 @@
                 @forelse($lecciones as $leccion)
                     <tr>
                         <td>{{ $leccion->id }}</td>
+                        <td>{{ $leccion->curso->nombre ?? 'Sin curso' }}</td>
                         <td>{{ $leccion->nombre }}</td>
                         <td>{{ $leccion->descripcion }}</td>
                         <td>
                             <a href="{{ route('lecciones.edit', $leccion->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fa-solid fa-pen-nib"></i>
                             </a>
-                            <form action="{{ route('lecciones.destroy', $leccion->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('lecciones.destroy', $leccion->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta lección?')">
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('¿Estás seguro de eliminar esta lección?')">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>

@@ -3,7 +3,6 @@
 @section('title', 'Gestión de Preguntas')
 
 @section('head')
-
 @endsection
 
 @section('content')
@@ -14,9 +13,9 @@
     </div>
 
     @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
     <table class="table table-striped">
@@ -25,6 +24,7 @@
                 <th>#</th>
                 <th>Curso</th>
                 <th>Lección</th>
+                <th>Prueba (Orden)</th>
                 <th>Pregunta</th>
                 <th>Imagen</th>
                 <th>Acciones</th>
@@ -32,41 +32,40 @@
         </thead>
         <tbody>
             @forelse($preguntas as $pregunta)
-            <tr>
-                <th scope="row">{{ $pregunta->id }}</th>
-                <td>{{ $pregunta->leccion->curso->nombre ?? 'Sin curso' }}</td>
-                <td>{{ $pregunta->leccion->nombre ?? 'Sin lección' }}</td>
-                <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
-                <td>
-                    @if ($pregunta->imagen)
-                    <span class="badge bg-success">Sí</span>
-                    <a href="{{ asset($pregunta->imagen) }}" target="_blank"
-                        class="btn btn-sm btn-primary mt-2">
-                        Ver Imagen
-                    </a>
-                    @else
-                    <span class="badge bg-secondary">No</span>
-                    @endif
-                </td>
-
-                <td class="d-flex gap-2">
-                    <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
-                        <i class="fa-solid fa-pen-nib"></i> Editar
-                    </a>
-                    <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST"
-                        onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            <i class="fa-solid fa-trash"></i> Eliminar
-                        </button>
-                    </form>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">{{ $pregunta->id }}</th>
+                    <td>{{ $pregunta->prueba->leccion->curso->nombre ?? 'Sin curso' }}</td>
+                    <td>{{ $pregunta->prueba->leccion->nombre ?? 'Sin lección' }}</td>
+                    <td>Prueba #{{ $pregunta->prueba->orden ?? 'Sin prueba' }}</td>
+                    <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
+                    <td>
+                        @if ($pregunta->imagen)
+                            <span class="badge bg-success">Sí</span>
+                            <a href="{{ asset($pregunta->imagen) }}" target="_blank" class="btn btn-sm btn-primary mt-2">
+                                Ver Imagen
+                            </a>
+                        @else
+                            <span class="badge bg-secondary">No</span>
+                        @endif
+                    </td>
+                    <td class="d-flex gap-2">
+                        <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
+                            <i class="fa-solid fa-pen-nib"></i> Editar
+                        </a>
+                        <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST"
+                            onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fa-solid fa-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             @empty
-            <tr>
-                <td colspan="6" class="text-center">No hay preguntas registradas.</td>
-            </tr>
+                <tr>
+                    <td colspan="7" class="text-center">No hay preguntas registradas.</td>
+                </tr>
             @endforelse
         </tbody>
     </table>

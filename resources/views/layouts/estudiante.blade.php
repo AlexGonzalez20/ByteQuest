@@ -62,6 +62,25 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <!-- Dropdown de cursos -->
+                                <div class="dropdown m-2">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mis Cursos
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownCursos">
+                                        @forelse($cursos as $curso)
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    {{ $curso->nombre }}
+                                                </a>
+                                            </li>
+                                        @empty
+                                            <li><span class="dropdown-item text-muted">No tienes cursos</span></li>
+                                        @endforelse
+                                    </ul>
+                                </div>
+
 
 
                             </ul>
@@ -94,6 +113,8 @@
     </div>
 
     @yield('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

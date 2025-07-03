@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Respuesta extends Model
 {
     use HasFactory;
-
-    protected $table = 'respuestas';
 
     protected $fillable = [
         'texto',
@@ -17,8 +15,11 @@ class Respuesta extends Model
         'pregunta_id',
     ];
 
+    /**
+     * Una respuesta pertenece a una pregunta.
+     */
     public function pregunta()
     {
-        return $this->belongsTo(Pregunta::class, 'pregunta_id');
+        return $this->belongsTo(Pregunta::class);
     }
 }

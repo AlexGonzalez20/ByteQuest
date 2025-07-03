@@ -127,6 +127,10 @@ class UsuarioController extends Controller
         return view('VistasEstudiante.miscursos', compact('cursos'));
     }
 
+    // UsuarioController.php
+
+
+
     /**
      * Muestra el catálogo de cursos y cuáles sigue el usuario.
      */

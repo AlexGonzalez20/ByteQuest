@@ -30,12 +30,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="leccion_id" class="form-label">Lección</label>
-                <select class="form-control" name="leccion_id" id="leccion_id" required>
-                    @foreach ($lecciones as $leccion)
-                        <option value="{{ $leccion->id }}"
-                            {{ $pregunta->leccion_id == $leccion->id ? 'selected' : '' }}>
-                            {{ $leccion->nombre }}
+                <label for="prueba_id" class="form-label">Prueba</label>
+                <select class="form-control" name="prueba_id" id="prueba_id" required>
+                    @foreach ($pruebas as $prueba)
+                        <option value="{{ $prueba->id }}"
+                            {{ $pregunta->prueba_id == $prueba->id ? 'selected' : '' }}>
+                            Prueba #{{ $prueba->id }} - Lección: {{ $prueba->leccion->nombre ?? 'N/A' }}
                         </option>
                     @endforeach
                 </select>

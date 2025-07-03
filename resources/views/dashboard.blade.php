@@ -101,6 +101,16 @@
                     </div>
 
                     <div class="col-md-3 d-flex">
+                        <a href="{{ route('pruebas.index') }}" class="w-100 text-decoration-none">
+                            <div class="card text-white bg-info hover-card h-100">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <h5 class="card-title mb-0">Gestionar Pruebas</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 d-flex">
                         <a href="{{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
                             <div class="card text-white bg-warning hover-card h-100">
                                 <div class="card-body d-flex align-items-center justify-content-center">

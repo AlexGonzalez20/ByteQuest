@@ -2,28 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Pregunta extends Model
 {
     use HasFactory;
 
-    protected $table = 'preguntas';
-
     protected $fillable = [
         'pregunta',
         'imagen',
-        'leccion_id',
+        'prueba_id',
     ];
 
-    public function leccion()
+    /**
+     * Una pregunta pertenece a una prueba.
+     */
+    public function prueba()
     {
-        return $this->belongsTo(Leccion::class, 'leccion_id');
+        return $this->belongsTo(Prueba::class);
     }
 
+    /**
+     * Una pregunta tiene muchas respuestas.
+     */
     public function respuestas()
     {
-        return $this->hasMany(Respuesta::class, 'pregunta_id');
+        return $this->hasMany(Respuesta::class);
     }
 }

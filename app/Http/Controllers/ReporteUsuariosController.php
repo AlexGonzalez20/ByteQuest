@@ -16,7 +16,7 @@ class ReporteUsuariosController extends Controller
         // Trae todos los cursos con su conteo de usuarios
         $cursos = Curso::withCount('usuarios')->get();
 
-        return view('reportes.usuarios_por_curso', compact('cursos'));
+        return view('Reportes.usuarios_por_curso', compact('cursos'));
     }
 
     /**

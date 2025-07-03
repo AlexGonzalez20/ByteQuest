@@ -15,12 +15,12 @@ return new class extends Migration {
     {
         Schema::create('pruebas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->text('descripcion')->nullable();
+            $table->integer('orden')->default(1);
+            $table->integer('xp')->default(10);
             $table->foreignId('leccion_id')->constrained('lecciones')->onDelete('cascade');
+            $table->unique(['leccion_id', 'orden']);
             $table->timestamps();
         });
-
     }
 
     /**

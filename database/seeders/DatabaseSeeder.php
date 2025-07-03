@@ -46,8 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CursosSeeder::class);
         $this->call(LeccionesSeeder::class);
         DB::table('pruebas')->insert([
-            'nombre' => 'Prueba 1',
-            'descripcion' => 'Prueba de variables',
             'leccion_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),

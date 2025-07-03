@@ -35,14 +35,7 @@ class Usuario extends Authenticatable
     public function cursos()
     {
         return $this->belongsToMany(Curso::class, 'curso_usuario')
-            ->withPivot(['leccion_actual_id', 'pregunta_actual_id'])
-            ->withTimestamps();
-    }
-
-    public function lecciones()
-    {
-        return $this->belongsToMany(\App\Models\Leccion::class, 'leccion_usuario')
-            ->withPivot('xp_reclamada')
+            ->withPivot(['leccion_actual_id', 'prueba_actual_id'])
             ->withTimestamps();
     }
 }

@@ -35,6 +35,9 @@
                         <a href="{{ route('lecciones.index') }}" class="nav-link">Lecciones</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('pruebas.index') }}" class="nav-link">Pruebas</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('preguntas.index') }}" class="nav-link">Preguntas</a>
                     </li>
 

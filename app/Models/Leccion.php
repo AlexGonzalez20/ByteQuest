@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Leccion extends Model
 {
@@ -17,13 +17,19 @@ class Leccion extends Model
         'curso_id',
     ];
 
+    /**
+     * Una lección pertenece a un curso.
+     */
     public function curso()
     {
-        return $this->belongsTo(Curso::class, 'curso_id');
+        return $this->belongsTo(Curso::class);
     }
 
-    public function preguntas()
+    /**
+     * Una lección tiene muchas pruebas.
+     */
+    public function pruebas()
     {
-        return $this->hasMany(Pregunta::class, 'leccion_id');
+        return $this->hasMany(Prueba::class);
     }
 }

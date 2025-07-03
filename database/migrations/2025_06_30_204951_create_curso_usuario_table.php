@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
             $table->foreignId('leccion_actual_id')->nullable()->constrained('lecciones')->onDelete('set null');
-            $table->foreignId('prueba_id')->nullable()->constrained('pruebas')->onDelete('set null');
+            $table->foreignId('prueba_actual_id')->nullable()->constrained('pruebas')->onDelete('set null');
             $table->timestamps();
         });
     }
