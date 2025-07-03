@@ -14,7 +14,7 @@ use App\Http\Controllers\CaminoController;
 use App\Http\Controllers\ProgresoController;
 
 use App\Models\Usuario;
-
+use App\Http\Controllers\TablaController;
 // 🌟 Landing
 Route::get('/', fn() => view('landing'))->name('landing');
 
@@ -102,3 +102,6 @@ Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrar
 Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrarPregunta'])
     ->name('pregunta.mostrar')
     ->middleware('auth');
+    
+// ✅ graficas
+Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');

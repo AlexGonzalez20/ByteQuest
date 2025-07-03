@@ -127,8 +127,7 @@
                             <div class="card-header">Resumen de Actividad</div>
                             <div class="card-body">
                                 <div class="chart-placeholder">
-                                    <img src="https://uni.edu.gt/wp-content/uploads/sites/19/2024/10/grafica_barras-1024x569.png"
-                                        alt="Illustration" class="img-fluid">
+                                    <a href="{{ route('CDashboard.grafica') }}"><img src="" alt="grafica"></a>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +143,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card mb-4">
@@ -174,9 +172,6 @@
                 </div>
             </main>
         </div>
-    </div>
-
-
 </body>
 
 </html>
