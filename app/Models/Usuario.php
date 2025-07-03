@@ -20,6 +20,7 @@ class Usuario extends Authenticatable
         'vidas',
         'experiencia',
         'role_id',
+        'imagen',
     ];
 
     protected $hidden = [

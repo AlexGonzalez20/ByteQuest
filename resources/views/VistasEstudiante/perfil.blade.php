@@ -7,7 +7,7 @@
         <h2 class="mb-4">👤 Mi Perfil</h2>
 
         <div class="profile-picture mb-3">
-            <img src="{{ Auth::user()->imagen ? asset('storage/' . Auth::user()->imagen) : asset('img/robot.png') }}"
+            <img src="{{ asset('img/robots/' . (Auth::user()->imagen ?? 'amarillo.PNG')) }}"
                 alt="Foto de perfil" class="profile-img">
         </div>
 
@@ -20,14 +20,25 @@
             </div>
         </div>
 
-        <form class="profile-form text-start" method="POST" action="{{ route('profile.update') }}"
-            enctype="multipart/form-data">
+        <form class="profile-form text-start" method="POST" action="{{ route('profile.update') }}">
             @csrf
             @method('POST')
 
             <div class="mb-3">
-                <label for="imagen" class="form-label">Imagen de perfil</label>
-                <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*">
+                <label class="form-label">Imagen de perfil</label>
+                <div class="d-flex justify-content-between flex-wrap">
+                    @php
+                        $opciones = ['amarillo.PNG', 'azulito.PNG', 'verde.PNG', 'rojo.PNG'];
+                    @endphp
+                    @foreach ($opciones as $img)
+                        <label class="me-2 mb-2 avatar-holder {{ Auth::user()->imagen === $img ? 'selected' : '' }}"
+                            style="cursor:pointer;">
+                            <input type="radio" name="imagen" value="{{ $img }}" class="d-none"
+                                {{ Auth::user()->imagen === $img ? 'checked' : '' }}>
+                            <img src="{{ asset('img/robots/' . $img) }}" alt="{{ $img }}" width="60" height="60">
+                        </label>
+                    @endforeach
+                </div>
             </div>
 
             <div class="mb-3">
@@ -95,5 +106,36 @@
         .progress-bar {
             font-weight: bold;
         }
+
+        .avatar-holder {
+            display: inline-block;
+            padding: 6px;
+            border-radius: 50%;
+            border: 3px solid #ccc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .avatar-holder.selected,
+        .avatar-holder input:checked+img {
+            border-color: #ffc107 !important;
+            box-shadow: 0 0 12px #ffc107;
+            background: #fffbe6;
+        }
+
+        .avatar-holder img {
+            border-radius: 50%;
+            display: block;
+        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const holders = document.querySelectorAll('.avatar-holder');
+            holders.forEach(holder => {
+                holder.addEventListener('click', function () {
+                    holders.forEach(h => h.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
 @endsection
