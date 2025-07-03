@@ -185,18 +185,15 @@ class AuthController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen' => 'required|in:amarillo.PNG,azulito.PNG,verde.PNG,rojo.PNG',
         ]);
 
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
-
-        if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('profile', 'public');
-            $user->imagen = $path;
-        }
+        $user->imagen = $request->imagen;
 
         $user->save();
+        \Auth::setUser($user); // Refresca la sesión con los nuevos datos
         return back()->with('success', 'Perfil actualizado correctamente.');
     }
 }
