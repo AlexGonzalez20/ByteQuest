@@ -1,112 +1,110 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-    font-family: Montserrat, Arial;
-    font-size: 20px;
-    height: auto;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 18px;
+}
+
+body {
+  background-color: #252746;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
-    width: 100%;
-    height: 920px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: fixed
-        linear-gradient(
-            to left bottom,
-            #46f0e4,
-            #40c8d7,
-            #54a0ba,
-            #5d7a91,
-            #545863
-        );
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
 }
+
 .header {
-    color: whitesmoke;
-    border: none;
-    text-align: center;
-    justify-content: center;
-    grid-area: header;
-    background: fixed
-        linear-gradient(
-            to left bottom,
-            #46f0e4,
-            #40c8d7,
-            #54a0ba,
-            #5d7a91,
-            #545863
-        );
+  text-align: center;
+  margin-bottom: 1rem;
 }
-.header h2 {
-    text-shadow: #46f0e4 1px 0 10px;
-    padding-bottom: 20px;
+
+.header-link {
+  color: #00e6e6;
+  text-decoration: none;
+  text-shadow: #46f0e4 1px 0 10px;
 }
 
 .formulario {
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
+
 .card-form {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    border-radius: 15px;
-    width: 400px;
-    height: 520px;
-    background: fixed
-        linear-gradient(
-            to left bottom,
-            #46f0e4,
-            #40c8d7,
-            #54a0ba,
-            #5d7a91,
-            #545863
-        );
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    grid-area: card-f;
+  background-color: #5d7a91;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+  width: 100%;
+  max-width: 400px;
 }
 
 .card-form label {
-    color: whitesmoke;
-    font-size: 20px;
-    float: left;
-    margin-top: 15px;
+  display: block;
+  color: #fff;
+  margin-top: 1rem;
 }
+
 .card-form input {
-    text-align: center;
-    float: inline-end;
-    inline-size: 100%;
-    padding: 0.4rem;
-    border: none;
-    margin-top: 20px;
-    border-bottom: 2px solid #000;
-    border-radius: 15px;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
 }
+
 .card-form button {
-    inline-size: 80%;
-    border: none;
-    padding: 15px;
-    margin-left: 2rem;
-    margin-top: 30px;
-    border-radius: 15px;
-    padding: 1rem;
-    cursor: pointer;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #252746;
+  color: #fff;
+  font-weight: 600;
 }
+
 .card-form button:hover {
-    color: white;
-    background-color: #5d7a91;
-    transition: all 0.5s ease-in-out;
-    opacity: 1;
+  background-color: #1b1d38;
+  transition: 0.3s ease-in-out;
 }
+
 .card-form a {
-    color: whitesmoke;
-    margin-left: 2rem;
-    text-shadow: #46f0e4 1px 0 10px;
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.errors {
+  color: #f8d7da;
+  background-color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 16px;
+  }
+
+  .card-form {
+    padding: 1.5rem;
+  }
 }
