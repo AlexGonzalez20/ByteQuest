@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Models\Curso;
+use App\Models\Leccion;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -98,12 +100,23 @@ class UsuarioController extends Controller
      */
     public function seguirCurso($curso_id)
     {
-        $user = auth()->user();
-        if ($user && ! $user->cursos()->where('curso_id', $curso_id)->exists()) {
-            $user->cursos()->attach($curso_id);
-        }
-        return back()->with('success', '¡Curso agregado a Mis Cursos!');
+        $usuario = auth()->user();
+
+        $curso = Curso::with(['lecciones.pruebas'])->findOrFail($curso_id);
+
+        $primeraLeccion = $curso->lecciones->sortBy('id')->first();
+
+        $primeraPrueba = $primeraLeccion->pruebas->sortBy('orden')->first();
+
+        // Conecta el curso con el usuario y guarda la lección/prueba actual:
+        $usuario->cursos()->attach($curso_id, [
+            'leccion_actual_id' => $primeraLeccion->id,
+            'prueba_actual_id' => $primeraPrueba->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Te has inscrito correctamente al curso.');
     }
+
 
     /**
      * Permite al usuario dejar de seguir un curso.
@@ -145,9 +158,20 @@ class UsuarioController extends Controller
     /**
      * Muestra el camino de aprendizaje para un curso específico.
      */
+
+
     public function caminoCurso($curso_id)
     {
-        $curso = \App\Models\Curso::findOrFail($curso_id);
-        return view('VistasEstudiante.camino', compact('curso'));
+        $curso = Curso::with('lecciones.pruebas')->findOrFail($curso_id);
+
+        // Aquí garantizas que cada lección trae sus pruebas ordenadas por 'orden'
+        $lecciones = Leccion::where('curso_id', $curso_id)
+            ->with(['pruebas' => function ($query) {
+                $query->orderBy('orden'); // Solo ordena las pruebas
+            }])
+            ->get();
+
+
+        return view('VistasEstudiante.camino', compact('curso', 'lecciones'));
     }
 }

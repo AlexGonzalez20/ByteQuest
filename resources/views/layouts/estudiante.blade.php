@@ -50,7 +50,7 @@
             <!-- Contenedor derecho -->
             <div class="col-md-10 px-0">
                 <!-- Navbar alineada a la derecha del sidebar -->
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <nav class="navbar navbar-expand-lg" style="background-color: rgb(51, 54, 97)">
                     <div class="container-fluid">
                         <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span
                                 class="text-info">Byte</span>Quest</a>
@@ -69,17 +69,21 @@
                                         Mis Cursos
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownCursos">
-                                        @forelse($cursos as $curso)
+                                        @forelse ($cursos as $curso)
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('usuarios.caminoCurso', $curso->id) }}">
                                                     {{ $curso->nombre }}
                                                 </a>
                                             </li>
                                         @empty
-                                            <li><span class="dropdown-item text-muted">No tienes cursos</span></li>
+                                            <li>
+                                                <span class="dropdown-item text-muted">No tienes cursos</span>
+                                            </li>
                                         @endforelse
                                     </ul>
                                 </div>
+
 
 
 
@@ -105,7 +109,7 @@
                 </nav>
 
                 <!-- Contenido principal -->
-                <main class="px-4 py-5">
+                <main class="px-4 py-5" style="background-color: rgb(37, 39, 70);">
                     @yield('content')
                 </main>
             </div>

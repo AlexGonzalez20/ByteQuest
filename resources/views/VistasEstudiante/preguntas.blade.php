@@ -21,7 +21,7 @@
                     Pregunta de ejemplo
                 @endif
             </h4>
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('prueba.responder') }}">
                 @csrf
                 @if (isset($pregunta))
                     <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">

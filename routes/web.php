@@ -10,6 +10,8 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\ReporteUsuariosController;
 use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\PruebaController;
+use App\Http\Controllers\CaminoController;
+use App\Http\Controllers\ProgresoController;
 
 
 use App\Models\Usuario;
@@ -102,3 +104,23 @@ Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'r
 Route::resource('pruebas', PruebaController::class);
 
 Route::get('/camino-curso/{id}', [UsuarioController::class, 'caminoCurso'])->name('views.caminoCurso');
+
+
+Route::get('/camino/{curso_id}', [UsuarioController::class, 'caminoCurso'])
+    ->name('usuarios.caminoCurso')
+    ->middleware('auth');
+
+// web.php
+Route::get('/pregunta/{prueba}', [PreguntaController::class, 'mostrarPregunta'])
+    ->name('pregunta.mostrar')
+    ->middleware('auth');
+
+Route::get('/camino/{curso_id}', [CaminoController::class, 'mostrar'])
+    ->name('usuarios.caminoCurso')
+    ->middleware('auth');
+
+Route::get('/prueba/{prueba_id}', [ProgresoController::class, 'mostrarPrueba'])
+    ->name('prueba.mostrar')->middleware('auth');
+
+Route::post('/prueba/responder', [ProgresoController::class, 'responderPrueba'])
+    ->name('prueba.responder')->middleware('auth');
