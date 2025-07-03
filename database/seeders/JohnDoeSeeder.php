@@ -20,6 +20,7 @@ class JohnDoeSeeder extends Seeder
                 'password'     => Hash::make('12345678'),
                 'vidas'        => 5,
                 'experiencia'  => 100,
+                'dias_racha'   => 21,
                 // Añade 'role_id' si corresponde a tu esquema de roles
             ]
         );
