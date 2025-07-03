@@ -9,23 +9,13 @@ class Pregunta extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'pregunta',
-        'imagen',
-        'prueba_id',
-    ];
+    protected $fillable = ['leccion_id', 'pregunta', 'imagen'];
 
-    /**
-     * Una pregunta pertenece a una prueba.
-     */
-    public function prueba()
+    public function leccion()
     {
-        return $this->belongsTo(Prueba::class);
+        return $this->belongsTo(Leccion::class);
     }
 
-    /**
-     * Una pregunta tiene muchas respuestas.
-     */
     public function respuestas()
     {
         return $this->hasMany(Respuesta::class);

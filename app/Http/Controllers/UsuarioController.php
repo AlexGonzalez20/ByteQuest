@@ -174,4 +174,15 @@ class UsuarioController extends Controller
 
         return view('VistasEstudiante.camino', compact('curso', 'lecciones'));
     }
+    public function home()
+    {
+        $usuario = auth()->user();
+
+        // Si quieres mostrar el curso actual:
+        $curso = $usuario->cursos()->first();
+
+        return view('VistasEstudiante.home', [
+            'curso' => $curso, // <--- importante!
+        ]);
+    }
 }

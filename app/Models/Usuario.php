@@ -38,4 +38,9 @@ class Usuario extends Authenticatable
             ->withPivot(['leccion_actual_id', 'prueba_actual_id'])
             ->withTimestamps();
     }
+
+    public function progresoPreguntas()
+    {
+        return $this->hasMany(\App\Models\ProgresoPregunta::class);
+    }
 }

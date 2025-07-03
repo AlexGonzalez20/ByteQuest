@@ -3,12 +3,8 @@
 @section('content')
     <div class="row g-4 justify-content-center">
         <div class="col-6 col-md-3">
-            <a href="{{ route('views.UCamino') }}" class="text-decoration-none">
-                <div class="card icon-card text-center p-4">
-                    <i class='bx bx-git-branch text-primary'></i>
-                    <div class="mt-2">Camino</div>
-                </div>
-            </a>
+
+
         </div>
         <div class="col-6 col-md-3">
             <a href="{{ route('views.UMisCursos') }}" class="text-decoration-none">

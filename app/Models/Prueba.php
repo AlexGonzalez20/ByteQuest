@@ -9,6 +9,13 @@ class Prueba extends Model
 {
     use HasFactory;
 
+    protected $table = 'pruebas';
+
+    /**
+     * Los atributos que se pueden asignar masivamente.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'orden',
         'xp',
@@ -16,18 +23,10 @@ class Prueba extends Model
     ];
 
     /**
-     * Cada prueba pertenece a una lección.
+     * Relación: Una prueba pertenece a una lección.
      */
     public function leccion()
     {
         return $this->belongsTo(Leccion::class);
-    }
-
-    /**
-     * Cada prueba tiene muchas preguntas.
-     */
-    public function preguntas()
-    {
-        return $this->hasMany(Pregunta::class);
     }
 }

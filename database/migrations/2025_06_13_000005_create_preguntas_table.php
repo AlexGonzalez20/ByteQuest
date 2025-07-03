@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('preguntas', function (Blueprint $table) {
             $table->id();
-            $table->text('pregunta');
+            $table->foreignId('leccion_id')->constrained('lecciones')->onDelete('cascade');
+            $table->string('pregunta');
             $table->string('imagen')->nullable();
-            $table->foreignId('prueba_id')->constrained('pruebas')->onDelete('cascade');
             $table->timestamps();
         });
     }

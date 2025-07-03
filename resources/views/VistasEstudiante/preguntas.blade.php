@@ -1,51 +1,59 @@
 @extends('layouts.estudiante')
+
 @section('title', 'Preguntas')
+
 @section('content')
     <div class="question-box">
-        @if (isset($finalizado) && $finalizado)
-            <div class="alert alert-success text-center mb-3">¡Has completado todas las preguntas y el repaso!</div>
-            @if (isset($xp_mensaje) && $xp_mensaje)
-                <div class="alert alert-warning text-center mb-3">{{ $xp_mensaje }}</div>
-            @endif
-            <form method="GET" action="{{ route('views.UCamino') }}">
+        {{-- ✅ Si la prueba ya se completó --}}
+        @if (session('finalizado'))
+            <div class="alert alert-success text-center mb-3">
+                {{ session('finalizado') }}
+            </div>
+            <form method="GET" action="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}">
                 <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
             </form>
-        @else
-            @if (isset($mensaje_repaso) && $mensaje_repaso)
-                <div class="alert alert-info text-center small mb-3">{{ $mensaje_repaso }}</div>
-            @endif
-            <h4 class="mb-4">
-                @if (isset($pregunta))
-                    {{ $pregunta->pregunta }}
-                @else
-                    Pregunta de ejemplo
-                @endif
-            </h4>
-            <form method="POST" action="{{ route('prueba.responder') }}">
+
+        {{-- ✅ Si hay una pregunta disponible --}}
+        @elseif(isset($pregunta) && $pregunta)
+            <h4 class="mb-4">{{ $pregunta->pregunta }}</h4>
+
+            <form method="POST" action="{{ route('pregunta.responder') }}">
                 @csrf
-                @if (isset($pregunta))
-                    <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
-                    <input type="hidden" name="respuesta" id="respuesta">
-                    @foreach ($pregunta->respuestas as $respuesta)
-                        <button type="button" class="btn btn-outline-primary option-btn" value="{{ $respuesta->id }}"
-                            onclick="selectOption(this)">{{ $respuesta->texto }}</button>
-                    @endforeach
-                @else
-                    <div class="alert alert-success">¡No hay más preguntas!</div>
-                @endif
+                <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
+                <input type="hidden" name="respuesta" id="respuesta">
+
+                @foreach ($pregunta->respuestas as $respuesta)
+                    <button type="button" class="btn btn-outline-primary option-btn"
+                        value="{{ $respuesta->id }}"
+                        onclick="selectOption(this)">
+                        {{ $respuesta->texto }}
+                    </button>
+                @endforeach
+
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-success w-100">Enviar</button>
+                    <button type="submit" class="btn btn-success w-100">Enviar respuesta</button>
                 </div>
             </form>
+
+            {{-- ✅ Mensaje de resultado --}}
             @if (session('resultado'))
                 <div class="alert mt-3 {{ session('resultado') == 'correcto' ? 'alert-success' : 'alert-danger' }}">
                     {{ session('mensaje') }}
                 </div>
             @endif
+
+        {{-- ✅ Si no hay preguntas ni finalización (estado raro) --}}
+        @else
+            <div class="alert alert-info text-center mb-3">
+                No hay preguntas pendientes.
+            </div>
+            <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}" class="btn btn-primary w-100">
+                Volver al camino
+            </a>
         @endif
     </div>
-
 @endsection
+
 @section('head')
     <style>
         .question-box {
@@ -68,6 +76,7 @@
         }
     </style>
 @endsection
+
 @section('scripts')
     <script>
         function selectOption(btn) {

@@ -20,16 +20,18 @@ class Leccion extends Model
     /**
      * Una lección pertenece a un curso.
      */
-    public function curso()
+    public function preguntas()
     {
-        return $this->belongsTo(Curso::class);
+        return $this->hasMany(Pregunta::class);
     }
 
-    /**
-     * Una lección tiene muchas pruebas.
-     */
     public function pruebas()
     {
         return $this->hasMany(Prueba::class);
+    }
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
     }
 }

@@ -11,15 +11,28 @@ class CaminoController extends Controller
     {
         $usuario = auth()->user();
 
-        // Carga curso con lecciones y pruebas ordenadas
-        $curso = Curso::with(['lecciones.pruebas' => function ($query) {
-            $query->orderBy('orden');
+        // Cargar curso + lecciones + pruebas
+        $curso = Curso::with(['lecciones.pruebas' => function ($q) {
+            $q->orderBy('orden');
         }])->findOrFail($curso_id);
 
-        // Obtener pivote de progreso
         $pivot = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
 
         $prueba_actual_id = $pivot->prueba_actual_id;
+        $leccion_actual_id = $pivot->leccion_actual_id;
+
+        // Buscar prueba para ver si existe una sesión de preguntas
+        $key = null;
+        $idsPreguntas = null;
+        $index = null;
+
+        if ($prueba_actual_id) {
+            $key = "prueba_{$prueba_actual_id}_preguntas";
+            if (session()->has($key)) {
+                $idsPreguntas = session($key);
+                $index = session("{$key}_index", 0);
+            }
+        }
 
         // Marcar estado de cada prueba
         foreach ($curso->lecciones as $leccion) {
@@ -39,7 +52,11 @@ class CaminoController extends Controller
 
         return view('VistasEstudiante.camino', [
             'curso' => $curso,
-            'lecciones' => $curso->lecciones
+            'lecciones' => $curso->lecciones,
+            'pivot' => $pivot,
+            'key' => $key,
+            'idsPreguntas' => $idsPreguntas,
+            'index' => $index
         ]);
     }
 }

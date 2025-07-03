@@ -1,7 +1,6 @@
 @extends('layouts.estudiante')
 
 @section('title', 'Camino')
-
 @section('content')
     <h2 class="mb-4 text-light">
         Camino de Aprendizaje
@@ -19,7 +18,8 @@
 
                 <div class="pruebas-list">
                     @foreach ($leccion->pruebas as $prueba)
-                        <div class="prueba-item 
+                        <div
+                            class="prueba-item 
                     {{ $prueba->completada ? 'completed' : ($prueba->disponible ? 'available' : 'locked') }}">
 
                             <span class="prueba-orden">Prueba {{ $prueba->orden }}</span>
@@ -28,7 +28,8 @@
                                 @if ($prueba->completada)
                                     <span class="checkmark">&#10003;</span>
                                 @elseif($prueba->disponible)
-                                    <a href="{{ route('pregunta.mostrar', $prueba->id) }}" class="btn btn-learn">LEARN</a>
+                                    <a href="{{ route('pregunta.mostrar', ['prueba_id' => $prueba->id]) }}"
+                                        class="btn btn-learn">LEARN</a>
                                 @else
                                     <span class="locked-text">🔒</span>
                                 @endif

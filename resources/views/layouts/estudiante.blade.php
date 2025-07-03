@@ -88,12 +88,16 @@
 
 
                             </ul>
-                            <a href="" class="btn btn-info m-2">
+                            <a href="#" class="btn btn-info m-2">
                                 <i class="fa-solid fa-bolt"></i>
-                                Dias de Racha</a>
-                            <a href="" class="btn btn-danger">
+                                Racha: {{ auth()->user()->dias_racha }} días
+                            </a>
+
+                            <a href="#" class="btn btn-danger">
                                 <i class="fa-solid fa-heart"></i>
-                                Vidas</a>
+                                Vidas: {{ auth()->user()->vidas }}
+                            </a>
+
 
 
                             <span class="m-2">
