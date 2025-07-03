@@ -24,12 +24,12 @@
             @csrf
 
             <div class="mb-3">
-                <label for="prueba_id" class="form-label">Prueba</label>
-                <select class="form-control" name="prueba_id" id="prueba_id" required>
-                    <option value="">Seleccione una prueba</option>
-                    @foreach ($pruebas as $prueba)
-                        <option value="{{ $prueba->id }}" {{ old('prueba_id') == $prueba->id ? 'selected' : '' }}>
-                            Prueba #{{ $prueba->id }} - Lección: {{ $prueba->leccion->nombre ?? 'N/A' }}
+                <label for="leccion_id" class="form-label">Lección</label>
+                <select class="form-control" name="leccion_id" id="leccion_id" required>
+                    <option value="">Seleccione una lección</option>
+                    @foreach ($lecciones as $leccion)
+                        <option value="{{ $leccion->id }}" {{ old('leccion_id') == $leccion->id ? 'selected' : '' }}>
+                            Lección: {{ $leccion->nombre }} - Curso: {{ $leccion->curso->nombre ?? '' }}
                         </option>
                     @endforeach
                 </select>

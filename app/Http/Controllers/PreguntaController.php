@@ -3,124 +3,122 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pregunta;
-use App\Models\Prueba;
-use App\Models\ProgresoPregunta;
+use App\Models\Leccion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ProgresoController extends Controller
+class PreguntaController extends Controller
 {
-    public function mostrarPregunta($prueba_id)
+    public function index()
     {
-        $usuario = auth()->user();
+        // Ahora carga cada pregunta con su lección asociada
+        $preguntas = Pregunta::with('leccion')->get();
+        return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
+    }
 
-        $prueba = Prueba::with(['preguntas', 'leccion.curso'])->findOrFail($prueba_id);
+    public function create()
+    {
+        // Muestra todas las lecciones disponibles para asignar preguntas
+        $lecciones = Leccion::all();
+        return view('CrudPreguntas.CrearPregunta', compact('lecciones'));
+    }
 
-        // 🔐 Valida que la prueba sea la actual
-        $cursoUsuario = $usuario->cursos()->where('curso_id', $prueba->leccion->curso_id)->firstOrFail()->pivot;
+    public function edit(Pregunta $pregunta)
+    {
+        $lecciones = Leccion::all();
+        return view('CrudPreguntas.EditarPregunta', compact('pregunta', 'lecciones'));
+    }
 
-        if ($cursoUsuario->prueba_actual_id != $prueba->id) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
-                ->with('error', '❌ Esta prueba no está disponible.');
-        }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pregunta' => 'required|string',
+            'leccion_id' => 'required|exists:lecciones,id',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'opciones' => 'required|array|size:4',
+            'opciones.*' => 'required|string',
+            'correcta' => 'required|integer|between:1,4',
+        ]);
 
-        // 🗑️ Limpia progreso si no hay preguntas guardadas
-        $progreso = $usuario->progresoPreguntas()->where('prueba_id', $prueba->id);
+        DB::beginTransaction();
 
-        if ($progreso->count() === 0) {
-            // ⚡ Genera preguntas SOLO de esta prueba y lección
-            $preguntas = Pregunta::where('prueba_id', $prueba->id)
-                ->where('prueba_id', $prueba->leccion->id)
-                ->inRandomOrder()
-                ->take(10)
-                ->get();
+        try {
+            $pregunta = Pregunta::create([
+                'pregunta' => $request->pregunta,
+                'leccion_id' => $request->leccion_id,
+                'imagen' => null,
+            ]);
 
-            if ($preguntas->count() === 0) {
-                return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
-                    ->with('error', '❌ Esta prueba no tiene preguntas válidas para esta lección.');
+            if ($request->hasFile('imagen')) {
+                $file = $request->file('imagen');
+                $extension = $file->getClientOriginalExtension();
+                $nombreArchivo = 'leccion_' . $request->leccion_id . '_pregunta_' . $pregunta->id . '.' . $extension;
+
+                $file->move(public_path('imagenes_preguntas'), $nombreArchivo);
+
+                $pregunta->update(['imagen' => 'imagenes_preguntas/' . $nombreArchivo]);
             }
 
-            foreach ($preguntas as $pregunta) {
-                ProgresoPregunta::create([
-                    'usuario_id' => $usuario->id,
-                    'prueba_id' => $prueba->id,
-                    'pregunta_id' => $pregunta->id,
+            foreach ($request->opciones as $index => $texto) {
+                $pregunta->respuestas()->create([
+                    'texto' => $texto,
+                    'es_correcta' => ($index + 1) == $request->correcta,
                 ]);
             }
+
+            DB::commit();
+            return redirect()->route('preguntas.index')->with('success', 'Pregunta creada correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Hubo un error: ' . $e->getMessage());
+        }
+    }
+
+    public function update(Request $request, Pregunta $pregunta)
+    {
+        $request->validate([
+            'pregunta' => 'required|string',
+            'leccion_id' => 'required|exists:lecciones,id',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'opciones' => 'required|array|size:4',
+            'opciones.*' => 'required|string',
+            'correcta' => 'required|integer|between:1,4',
+        ]);
+
+        $pregunta->pregunta = $request->pregunta;
+        $pregunta->leccion_id = $request->leccion_id;
+
+        if ($request->hasFile('imagen')) {
+            if ($pregunta->imagen && file_exists(public_path($pregunta->imagen))) {
+                unlink(public_path($pregunta->imagen));
+            }
+
+            $extension = $request->file('imagen')->getClientOriginalExtension();
+            $nombreArchivo = 'leccion_' . $request->leccion_id . '_pregunta_' . $pregunta->id . '.' . $extension;
+
+            $request->file('imagen')->move(public_path('imagenes_preguntas'), $nombreArchivo);
+
+            $pregunta->imagen = 'imagenes_preguntas/' . $nombreArchivo;
         }
 
-        // ✅ Busca la siguiente pregunta pendiente
-        $pendiente = $usuario->progresoPreguntas()
-            ->where('prueba_id', $prueba->id)
-            ->where('respondida', false)
-            ->first();
+        $pregunta->save();
 
-        if (!$pendiente) {
-            // ✅ Limpia progreso y avanza
-            $this->avanzarProgreso($cursoUsuario, $prueba);
-
-            // Borra progreso usado
-            ProgresoPregunta::where('usuario_id', $usuario->id)
-                ->where('prueba_id', $prueba->id)
-                ->delete();
-
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
-                ->with('finalizado', '✅ Prueba completada.');
+        foreach ($pregunta->respuestas as $index => $respuesta) {
+            $respuesta->texto = $request->opciones[$index];
+            $respuesta->es_correcta = ($index + 1) == $request->correcta;
+            $respuesta->save();
         }
 
-        // ⚠️ Verifica que la pregunta pertenece a la lección
-        if ($pendiente->pregunta->prueba_id !== $prueba->leccion->id) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
-                ->with('error', '❌ Error: pregunta inválida para esta lección.');
-        }
+        return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
+    }
 
-        $pregunta = $pendiente->pregunta()->with('respuestas')->first();
+    public function mostrarPregunta($leccion_id)
+    {
+        // Ahora busca preguntas por lección
+        $pregunta = Pregunta::where('leccion_id', $leccion_id)
+            ->with('respuestas')
+            ->first(); // Puedes mejorarlo para traer la que esté pendiente
 
         return view('VistasEstudiante.preguntas', compact('pregunta'));
-    }
-
-    public function responderPregunta(Request $request)
-    {
-        $usuario = auth()->user();
-        $pregunta = Pregunta::with('respuestas')->findOrFail($request->pregunta_id);
-
-        $respuesta = $pregunta->respuestas()->findOrFail($request->respuesta);
-        $correcta = $pregunta->respuestas()->where('es_correcta', true)->first();
-
-        $resultado = $respuesta->id === $correcta->id ? 'correcto' : 'incorrecto';
-
-        ProgresoPregunta::where([
-            'usuario_id' => $usuario->id,
-            'pregunta_id' => $pregunta->id,
-        ])->update(['respondida' => true]);
-
-        return redirect()->back()
-            ->with('resultado', $resultado)
-            ->with('mensaje', $resultado === 'correcto' ? '✅ Correcto!' : '❌ Incorrecto.');
-    }
-
-    private function avanzarProgreso($cursoUsuario, $prueba)
-    {
-        $pruebas = $prueba->leccion->pruebas()->orderBy('orden')->get();
-        $posPrueba = $pruebas->search(fn($p) => $p->id === $prueba->id);
-
-        if ($posPrueba !== false && isset($pruebas[$posPrueba + 1])) {
-            $cursoUsuario->prueba_actual_id = $pruebas[$posPrueba + 1]->id;
-            $cursoUsuario->save();
-            return;
-        }
-
-        $lecciones = $prueba->leccion->curso->lecciones()->orderBy('id')->get();
-        $posLeccion = $lecciones->search(fn($l) => $l->id === $prueba->leccion_id);
-
-        if ($posLeccion !== false && isset($lecciones[$posLeccion + 1])) {
-            $siguiente = $lecciones[$posLeccion + 1];
-            $cursoUsuario->leccion_actual_id = $siguiente->id;
-            $cursoUsuario->prueba_actual_id = $siguiente->pruebas()->orderBy('orden')->first()?->id;
-            $cursoUsuario->save();
-            return;
-        }
-
-        $cursoUsuario->prueba_actual_id = null; // Fin del curso
-        $cursoUsuario->save();
     }
 }

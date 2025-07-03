@@ -24,7 +24,6 @@
                 <th>#</th>
                 <th>Curso</th>
                 <th>Lección</th>
-                <th>Prueba (Orden)</th>
                 <th>Pregunta</th>
                 <th>Imagen</th>
                 <th>Acciones</th>
@@ -34,9 +33,8 @@
             @forelse($preguntas as $pregunta)
                 <tr>
                     <th scope="row">{{ $pregunta->id }}</th>
-                    <td>{{ $pregunta->prueba->leccion->curso->nombre ?? 'Sin curso' }}</td>
-                    <td>{{ $pregunta->prueba->leccion->nombre ?? 'Sin lección' }}</td>
-                    <td>Prueba #{{ $pregunta->prueba->orden ?? 'Sin prueba' }}</td>
+                    <td>{{ $pregunta->leccion->curso->nombre ?? 'Sin curso' }}</td>
+                    <td>{{ $pregunta->leccion->nombre ?? 'Sin lección' }}</td>
                     <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
                     <td>
                         @if ($pregunta->imagen)
@@ -64,7 +62,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">No hay preguntas registradas.</td>
+                    <td colspan="6" class="text-center">No hay preguntas registradas.</td>
                 </tr>
             @endforelse
         </tbody>
@@ -73,5 +71,6 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
 @endsection
