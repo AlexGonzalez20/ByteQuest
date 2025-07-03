@@ -64,10 +64,12 @@
                             <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">¿Nuevo usuario? Regístrate ahora</a>
                         </div>
 
+
                         @if($errors->any())
                         <div class="alert alert-danger text-center mt-3">
                             Correo o contraseña incorrectos.
                         </div>
+
                         @endif
                     </form>
                 </div>
