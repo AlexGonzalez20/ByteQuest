@@ -12,6 +12,20 @@
 <body>
 
     <div class="container py-5">
+        @php
+            // El curso_id ahora siempre viene del controlador
+        @endphp
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id ?? 0]) }}" class="btn btn-secondary">
+                    ← Volver al camino
+                </a>
+                <span class="btn btn-danger">
+                    <i class="fa-solid fa-heart"></i>
+                    Vidas: {{ auth()->user()->vidas }}
+                </span>
+            </div>
+        </div>
         <div class="card shadow mx-auto" style="max-width: 1000px;">
             <div class="card-body">
                 {{-- ✅ Si la prueba ya se completó --}}

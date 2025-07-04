@@ -14,19 +14,21 @@ class ProgresoController extends Controller
     {
         $usuario = auth()->user();
 
+        $prueba = \App\Models\Prueba::with('leccion.curso')->findOrFail($prueba_id);
+        $curso = $prueba->leccion->curso;
+        $curso_id = $curso->id;
+
         // 🚫 Validar vidas antes de todo
         if ($usuario->vidas <= 0) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $usuario->cursos()->first()->id])
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('error', '❌ No tienes vidas para iniciar esta prueba. Recarga vidas o espera.');
         }
 
-        $cursoUsuario = $usuario->cursos()->first()->pivot;
-
-        $prueba = \App\Models\Prueba::with('leccion')->findOrFail($prueba_id);
+        $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
 
         // Verifica que sea la prueba actual
         if ($prueba->id != $cursoUsuario->prueba_actual_id) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('error', '❌ Esa prueba no está disponible.');
         }
 
@@ -53,13 +55,13 @@ class ProgresoController extends Controller
             $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
             $this->avanzarProgreso($cursoUsuario, $prueba);
 
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $prueba->leccion->curso_id])
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('finalizado', '✅ Prueba completada.');
         }
 
         $pregunta = $pendiente->pregunta()->with('respuestas')->first();
 
-        return view('VistasEstudiante.preguntas', compact('pregunta'));
+        return view('VistasEstudiante.preguntas', compact('pregunta', 'curso_id'));
     }
 
 
