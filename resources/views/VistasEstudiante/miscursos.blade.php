@@ -4,7 +4,11 @@
     <h2 class="mb-4">Mis Cursos</h2>
     @if ($cursos->isEmpty())
         <div class="alert alert-info">Aún no has seguido ningún curso.</div>
+        <a href="{{ route('views.UCursos') }}" class="btn btn-warning mt-3">Ver Cursos Disponibles</a>
     @else
+        <div class="alert alert-warning small mb-4" style="max-width:600px; margin:auto;">
+            <i class="bi bi-info-circle"></i> Debes seguir un curso para poder ver su contenido.
+        </div>
         <div class="row g-4">
             @foreach ($cursos as $curso)
                 <div class="col-12 col-md-4">

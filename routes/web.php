@@ -78,7 +78,7 @@ Route::post('/usuarios/dejar-curso/{curso_id}', [UsuarioController::class, 'deja
     ->name('usuarios.dejarCurso')->middleware('auth');
 
 // ✅ Camino de aprendizaje
-Route::get('/camino/{curso_id}', [CaminoController::class, 'mostrar'])
+Route::get('/camino/{curso_id}', [App\Http\Controllers\CaminoController::class, 'mostrar'])
     ->name('usuarios.caminoCurso')->middleware('auth');
 
 // ✅ Reclamar XP

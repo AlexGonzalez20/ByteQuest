@@ -14,7 +14,7 @@
     {{-- Navbar global --}}
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}">
+            <a class="navbar-brand fw-bold" href="#">
                 <span class="text-info">Byte</span>Quest
             </a>
             @auth
