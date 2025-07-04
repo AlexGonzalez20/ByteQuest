@@ -52,7 +52,7 @@
                 <!-- Navbar alineada a la derecha del sidebar -->
                 <nav class="navbar navbar-expand-lg" style="background-color: rgb(51, 54, 97)">
                     <div class="container-fluid m-2">
-                        <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}">
+                        <a class="navbar-brand fw-bold" href="#">
                             <span class="text-info">Byte</span><span class="text-light">Quest</span>
                         </a>
 

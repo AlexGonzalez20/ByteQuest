@@ -33,9 +33,10 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             $usuario = Auth::user();
-            if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario 
+            if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario  
                 $usuarios = Usuario::all();
-                return view('VistasEstudiante.home', compact('usuarios'));
+                $cursos = $usuario->cursos()->get();
+                return view('VistasEstudiante.miscursos', compact('usuarios', 'cursos'));
             } elseif ($usuario->rol_id == 2) {
                 $usuarios = Usuario::all(); // 2 = administrador
                 return view('dashboard', compact('usuarios'));
@@ -54,7 +55,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('success', 'Has cerrado sesión correctamente.');
+        return redirect('/login');
     }
 
 
@@ -83,13 +84,13 @@ class AuthController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/',
                 'confirmed'
             ],
-        ], [
-            'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
-            'email.unique' => 'Este correo ya está registrado.',
-            'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
-            'password.confirmed' => 'Las contraseñas no coinciden.'
-            // Otros mensajes personalizados...
-        ]);
+        ],[
+        'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
+        'email.unique' => 'Este correo ya está registrado.',
+        'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
+        'password.confirmed' => 'Las contraseñas no coinciden.'
+        // Otros mensajes personalizados...
+    ]);
 
 
         if ($validator->fails()) {

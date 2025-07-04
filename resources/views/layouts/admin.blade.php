@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span
+            <a class="navbar-brand fw-bold" href="#"><span
                     class="text-info">Byte</span>Quest</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

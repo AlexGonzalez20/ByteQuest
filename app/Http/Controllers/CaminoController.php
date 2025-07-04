@@ -11,13 +11,18 @@ class CaminoController extends Controller
     {
         $usuario = auth()->user();
 
+        // Verifica si el usuario sigue el curso
+        $sigueCurso = $usuario->cursos()->where('cursos.id', $curso_id)->exists();
+        if (!$sigueCurso) {
+            return redirect()->route('views.UCursos')->with('error', 'Debes seguir el curso para ver el contenido.');
+        }
+
         // Cargar curso + lecciones + pruebas
         $curso = Curso::with(['lecciones.pruebas' => function ($q) {
             $q->orderBy('orden');
         }])->findOrFail($curso_id);
 
         $pivot = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
-
         $prueba_actual_id = $pivot->prueba_actual_id;
         $leccion_actual_id = $pivot->leccion_actual_id;
 

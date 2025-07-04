@@ -2,6 +2,9 @@
 @section('title', 'Catalogo de Cursos')
 @section('content')
     <h2 class="mb-4">Catalogo Cursos</h2>
+    @if (session('error'))
+        <div class="alert alert-danger small">{{ session('error') }}</div>
+    @endif
     <div class="row g-4">
         @foreach ($cursos as $curso)
             <div class="col-12 col-md-4">

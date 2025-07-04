@@ -162,17 +162,8 @@ class UsuarioController extends Controller
 
     public function caminoCurso($curso_id)
     {
-        $curso = Curso::with('lecciones.pruebas')->findOrFail($curso_id);
-
-        // Aquí garantizas que cada lección trae sus pruebas ordenadas por 'orden'
-        $lecciones = Leccion::where('curso_id', $curso_id)
-            ->with(['pruebas' => function ($query) {
-                $query->orderBy('orden'); // Solo ordena las pruebas
-            }])
-            ->get();
-
-
-        return view('VistasEstudiante.camino', compact('curso', 'lecciones'));
+        // Redirige a la ruta de CaminoController@mostrar para centralizar la lógica
+        return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id]);
     }
     public function home()
     {
