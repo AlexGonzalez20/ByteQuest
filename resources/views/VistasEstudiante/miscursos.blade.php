@@ -15,7 +15,6 @@
                 class="course-img" alt="{{ $curso->nombre }}">
             <div class="card-body">
                 <h5 class="card-title">{{ $curso->nombre }}</h5>
-                <p class="card-text">{{ $curso->descripcion }}</p>
                 <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso->id]) }}"
                     class="btn btn-primary w-100">Ir al curso</a>
             </div>
