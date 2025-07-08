@@ -241,14 +241,14 @@ class PreguntaSeeder extends Seeder
         ];
 
         foreach ($preguntas as $q) {
-            $pregunta = Pregunta::create([
+            $pregunta = Pregunta::firstOrCreate([
                 'leccion_id' => $leccionId,
                 'pregunta' => $q['pregunta'],
                 'imagen' => null,
             ]);
 
             foreach ($q['opciones'] as $opcion) {
-                Respuesta::create([
+                Respuesta::firstOrCreate([
                     'pregunta_id' => $pregunta->id,
                     'texto' => $opcion['texto'],
                     'es_correcta' => $opcion['es_correcta'],
@@ -256,4 +256,5 @@ class PreguntaSeeder extends Seeder
             }
         }
     }
+    
 }

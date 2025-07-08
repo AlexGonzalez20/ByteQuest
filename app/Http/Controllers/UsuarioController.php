@@ -7,6 +7,7 @@ use App\Models\Usuario;
 use App\Models\Curso;
 use App\Models\Leccion;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\VarDumper\VarDumper;
 
 class UsuarioController extends Controller
 {
@@ -99,25 +100,30 @@ class UsuarioController extends Controller
      * Permite al usuario autenticado seguir un curso.
      */
     public function seguirCurso($curso_id)
-    {
-        $usuario = auth()->user();
+   {
+    $usuario = auth()->user();
 
-        $curso = Curso::with(['lecciones.pruebas'])->findOrFail($curso_id);
+    $curso = Curso::with(['lecciones.pruebas'])->findOrFail($curso_id);
 
-        $primeraLeccion = $curso->lecciones->sortBy('id')->first();
+    $primeraLeccionConPrueba = $curso->lecciones->sortBy('id')->first(function ($leccion) {
+        return $leccion->pruebas && $leccion->pruebas->count() > 0;
+    });
 
-        $primeraPrueba = $primeraLeccion->pruebas->sortBy('orden')->first();
-
-        // Conecta el curso con el usuario y guarda la lección/prueba actual:
-        $usuario->cursos()->attach($curso_id, [
-            'leccion_actual_id' => $primeraLeccion->id,
-            'prueba_actual_id' => $primeraPrueba->id,
-        ]);
-
-        return redirect()->back()->with('success', 'Te has inscrito correctamente al curso.');
+    if (!$primeraLeccionConPrueba) {
+        return redirect()->back()->with('error', 'El curso no tiene lecciones con pruebas disponibles.');
     }
 
+    $primeraPrueba = $primeraLeccionConPrueba->pruebas->sortBy('orden')->first();
 
+    // Conecta el curso con el usuario y guarda la lección/prueba actual:
+    $usuario->cursos()->attach($curso_id, [
+        'leccion_actual_id' => $primeraLeccionConPrueba->id,
+        'prueba_actual_id' => $primeraPrueba->id,
+    ]);
+
+    // Redirige al camino del curso
+    return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id]);
+}
     /**
      * Permite al usuario dejar de seguir un curso.
      */

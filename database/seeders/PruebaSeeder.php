@@ -26,10 +26,24 @@ class PruebaSeeder extends Seeder
             Prueba::create([
                 'orden' => $i,
                 'xp' => 10 * $i,
-                'leccion_id' => $leccion->id,
+                'leccion_id' => 1,
             ]);
-        }
+            for ($i = 1; $i <= 10; $i++) {
+                Prueba::create([
+                    'orden' => $i,
+                    'xp' => 10 * $i,
+                    'leccion_id' => 11,
+                ]);
+                for ($i = 1; $i <= 10; $i++) {
+                    Prueba::create([
+                        'orden' => $i,
+                        'xp' => 10 * $i,
+                        'leccion_id' => 21,
+                    ]);
+                }
 
-        $this->command->info('10 pruebas creadas para la lección con ID: ' . $leccion->id);
+                $this->command->info('10 pruebas creadas para la lección con ID: ' . $leccion->id);
+            }
+        }
     }
 }

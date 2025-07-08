@@ -48,5 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PruebaSeeder::class);
         $this->call(PreguntaSeeder::class);
         $this->call(JohnDoeSeeder::class);
+        $this->call(PreguntaSeederJS::class);
+        $this->call(PreguntaSeederPython::class);
     }
 }
