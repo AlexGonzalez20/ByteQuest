@@ -5,7 +5,7 @@
     <h2 class="mb-4 text-light">
         Camino de Aprendizaje
         @if (isset($curso))
-            <span class="text-secondary" style="font-size:1.1rem; font-weight:normal;">— {{ $curso->nombre }}</span>
+            <span class="text-light" style="font-weight:bold;"> - {{ $curso->nombre }}</span>
         @endif
     </h2>
 

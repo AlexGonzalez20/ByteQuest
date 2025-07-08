@@ -10,8 +10,11 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\ReporteUsuariosController;
 use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\PruebaController;
-use App\Http\Controllers\CaminoController;
 use App\Http\Controllers\ProgresoController;
+use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\AprenderController;
+use App\Http\Controllers\RecuperarVidasController;
+
 
 use App\Models\Usuario;
 use App\Http\Controllers\TablaController;
@@ -102,6 +105,19 @@ Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrar
 Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrarPregunta'])
     ->name('pregunta.mostrar')
     ->middleware('auth');
-    
+
 // ✅ graficas
 Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');
+
+Route::get('/tienda', [TiendaController::class, 'index'])
+    ->name('tienda')
+    ->middleware('auth');
+
+
+Route::get('/aprender', [AprenderController::class, 'index'])
+    ->name('aprender')
+    ->middleware('auth');
+
+Route::get('/recuperarVidas', [RecuperarVidasController::class, 'index'])
+    ->name('recuperarVidas')
+    ->middleware('auth');

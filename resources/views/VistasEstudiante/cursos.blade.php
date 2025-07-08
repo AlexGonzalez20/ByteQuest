@@ -1,7 +1,7 @@
 @extends('layouts.estudiante')
 @section('title', 'Catalogo de Cursos')
 @section('content')
-    <h2 class="mb-4">Catalogo Cursos</h2>
+    <h2 class="mb-4 text-light">Catalogo Cursos</h2>
     @if (session('error'))
         <div class="alert alert-danger small">{{ session('error') }}</div>
     @endif

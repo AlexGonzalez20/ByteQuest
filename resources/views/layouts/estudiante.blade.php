@@ -23,8 +23,8 @@
                     </a>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2">
-                            <a class="nav-link @if (Route::currentRouteName() == 'views.UsuarioHome') active @endif"
-                                href="{{ route('views.UMisCursos') }}"><i class='bx bx-education'></i>Aprender</a>
+                            <a class="nav-link @if (Route::currentRouteName() == 'aprender') active @endif"
+                                href="{{ route('aprender') }}"><i class='bx bx-education'></i>Aprender</a>
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UMisCursos') active @endif"
@@ -35,8 +35,8 @@
                                 href="{{ route('views.UCursos') }}"><i class='bx bx-bookmark-plus'></i>Cursos</a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link @if (Route::currentRouteName() == 'views.UPerfil') active @endif"
-                                href="{{ route('views.UPerfil') }}"><i class='bx bx-store-alt-2'></i>Tienda</a>
+                            <a class="nav-link @if (Route::currentRouteName() == 'tienda') active @endif"
+                                href="{{ route('tienda') }}"><i class='bx bx-store-alt-2'></i>Tienda</a>
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UPerfil') active @endif"
@@ -96,15 +96,15 @@
                                     Racha: {{ auth()->user()->dias_racha }} días
                                 </a>
 
-                                <a href="#" class="btn btn-danger me-3">
+                                <a href="{{route('recuperarVidas')}}" class="btn btn-danger me-3">
                                     <i class="fa-solid fa-heart"></i>
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>
 
-                                <button class="btn btn-warning">
+                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning">
                                     <i class='bx bx-user-circle'></i>
                                     {{ auth()->user()->nombre }}
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

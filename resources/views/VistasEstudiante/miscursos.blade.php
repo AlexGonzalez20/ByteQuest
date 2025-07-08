@@ -1,7 +1,7 @@
 @extends('layouts.estudiante')
 @section('title', 'Mis Cursos')
 @section('content')
-<h2 class="mb-4">Mis Cursos</h2>
+<h2 class="mb-4 text-light">Mis Cursos</h2>
 @if ($cursos->isEmpty())
 <div class="alert alert-info">Aún no has seguido ningún curso.</div>
 <a href="{{ route('views.UCursos') }}" class="btn btn-warning mt-3">Ver Cursos Disponibles</a>
