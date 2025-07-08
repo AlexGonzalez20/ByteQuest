@@ -124,18 +124,7 @@ class UsuarioController extends Controller
     // Redirige al camino del curso
     return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id]);
 }
-    /**
-     * Permite al usuario dejar de seguir un curso.
-     */
-    public function dejarCurso($curso_id)
-    {
-        $user = auth()->user();
-        if ($user && $user->cursos()->where('curso_id', $curso_id)->exists()) {
-            $user->cursos()->detach($curso_id);
-        }
-        return back()->with('success', 'Has dejado de seguir el curso.');
-    }
-
+  
     /**
      * Muestra los cursos seguidos por el usuario autenticado.
      */

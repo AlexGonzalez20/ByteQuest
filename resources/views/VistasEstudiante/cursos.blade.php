@@ -17,11 +17,8 @@
                         <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso->id]) }}"
                             class="btn btn-primary w-100">Ir al curso</a>
                         @if (in_array($curso->id, $cursosSeguidos))
-                            <form method="POST" action="{{ route('usuarios.dejarCurso', ['curso_id' => $curso->id]) }}"
-                                class="mt-2">
-                                @csrf
-                                <button type="submit" class="btn btn-danger w-100">Dejar de seguir</button>
-                            </form>
+                            <a href="{{ route('usuarios.caminoCurso', ['curso_id' => $curso->id]) }} " class="btn btn-success w-100">siguiendo</a>
+                            
                         @else
                             <form method="POST" action="{{ route('usuarios.seguirCurso', ['curso_id' => $curso->id]) }}"
                                 class="mt-2">
