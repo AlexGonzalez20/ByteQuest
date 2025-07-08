@@ -18,7 +18,7 @@
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block sidebar py-4">
                 <div class="position-sticky">
-                    <a class="navbar-brand fw-bold" href="#">
+                    <a class="navbar-brand fw-bold d-block text-center fs-2 mb-4" href="#">
                         <span class="text-info">Byte</span><span class="text-light">Quest</span>
                     </a>
                     <ul class="nav flex-column">
@@ -59,8 +59,6 @@
                 <!-- Navbar alineada a la derecha del sidebar -->
                 <nav class="navbar navbar-expand-lg" style="background-color: rgb(51, 54, 97)">
                     <div class="container-fluid m-2">
-
-
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -71,27 +69,27 @@
                             <ul class="navbar-nav mb-2 mb-lg-0">
                             </ul>
 
+                            <div class="dropdown me-3">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mis Cursos
+                                </button>
+                                <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
+                                    @forelse ($cursos as $curso)
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                            {{ $curso->nombre }}
+                                        </a>
+                                    </li>
+                                    @empty
+                                    <li>
+                                        <span class="dropdown-item text-muted">No tienes cursos</span>
+                                    </li>
+                                    @endforelse
+                                </ul>
+                            </div>
                             <div class="d-flex ms-auto align-items-center">
-                                <div class="dropdown me-3">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mis Cursos
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownCursos">
-                                        @forelse ($cursos as $curso)
-                                        <li>
-                                            <a class="dropdown-item"
-                                                href="{{ route('usuarios.caminoCurso', $curso->id) }}">
-                                                {{ $curso->nombre }}
-                                            </a>
-                                        </li>
-                                        @empty
-                                        <li>
-                                            <span class="dropdown-item text-muted">No tienes cursos</span>
-                                        </li>
-                                        @endforelse
-                                    </ul>
-                                </div>
 
                                 <a href="#" class="btn btn-info me-3">
                                     <i class="fa-solid fa-bolt"></i>
@@ -114,7 +112,7 @@
 
 
                 <!-- Contenido principal -->
-                <main class="px-4 py-5" style="background-color: rgb(37, 39, 70);">
+                <main class="px-4 py-5 min-vh-100" style="background-color: rgb(37, 39, 70);">
                     @yield('content')
                 </main>
             </div>
