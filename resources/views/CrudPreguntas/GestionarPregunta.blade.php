@@ -17,7 +17,13 @@
             {{ session('success') }}
         </div>
     @endif
-
+<form method="GET" class="mb-3 d-flex align-items-center" action="{{ route('preguntas.index') }}">
+    <input type="number" name="leccion_id" class="form-control w-auto me-2" placeholder="ID Lección" value="{{ request('leccion_id') }}">
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+    @if(request('leccion_id'))
+        <a href="{{ route('preguntas.index') }}" class="btn btn-link">Limpiar</a>
+    @endif
+</form>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,6 +33,9 @@
                 <th>Pregunta</th>
                 <th>Imagen</th>
                 <th>Acciones</th>
+            </tr>
+            <tr>
+                
             </tr>
         </thead>
         <tbody>

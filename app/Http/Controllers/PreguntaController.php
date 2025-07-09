@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class PreguntaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Ahora carga cada pregunta con su lección asociada
-        $preguntas = Pregunta::with('leccion')->get();
-        return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
+    $query = Pregunta::with('leccion');
+    if ($request->filled('leccion_id')) {
+        $query->where('leccion_id', $request->leccion_id);
+    }
+    $preguntas = $query->get();
+    return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
     }
 
     public function create()
@@ -121,4 +125,5 @@ class PreguntaController extends Controller
 
         return view('VistasEstudiante.preguntas', compact('pregunta'));
     }
+
 }

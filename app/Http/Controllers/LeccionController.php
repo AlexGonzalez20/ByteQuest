@@ -14,10 +14,15 @@ class LeccionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lecciones = Leccion::all();
-        return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
+    $query = Leccion::query()->with('curso');
+    if ($request->filled('curso_id')) {
+        $query->where('curso_id', $request->curso_id);
+    }
+    $lecciones = $query->get();
+    return view('Crudlecciones.GestionarLeccion', compact('lecciones'));
+
     }
 
     /**
