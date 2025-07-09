@@ -8,6 +8,6 @@ class RecuperarVidasController extends Controller
 {
     public function index()
     {
-        return view('vistasEstudiante.recuperarVidas');
+        return view('VistasEstudiante.recuperarVidas');
     }
 }

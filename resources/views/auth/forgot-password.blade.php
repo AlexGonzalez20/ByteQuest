@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     @vite('resources/css/forgot-reset.css')
 </head>
 <body>

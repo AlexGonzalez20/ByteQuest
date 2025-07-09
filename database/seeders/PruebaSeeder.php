@@ -13,37 +13,23 @@ class PruebaSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener la primera lección
-        $leccion = Leccion::first();
+        $lecciones = Leccion::all();
 
-        if (!$leccion) {
+        if ($lecciones->isEmpty()) {
             $this->command->warn('No hay lecciones. Crea una primero.');
             return;
         }
 
-        // Crear 10 pruebas para esa lección
-        for ($i = 1; $i <= 10; $i++) {
-            Prueba::create([
-                'orden' => $i,
-                'xp' => 10 * $i,
-                'leccion_id' => 1,
-            ]);
+        foreach ($lecciones as $leccion) {
             for ($i = 1; $i <= 10; $i++) {
                 Prueba::create([
                     'orden' => $i,
                     'xp' => 10 * $i,
-                    'leccion_id' => 11,
+                    'leccion_id' => $leccion->id,
                 ]);
-                for ($i = 1; $i <= 10; $i++) {
-                    Prueba::create([
-                        'orden' => $i,
-                        'xp' => 10 * $i,
-                        'leccion_id' => 21,
-                    ]);
-                }
-
-                $this->command->info('10 pruebas creadas para la lección con ID: ' . $leccion->id);
             }
+
         }
+
     }
 }
