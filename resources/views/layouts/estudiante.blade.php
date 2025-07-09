@@ -72,7 +72,7 @@
                             <div class="dropdown me-3">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tus Cursos
+                                    {{ isset($curso) ? $curso->nombre : 'Selecciona un curso' }}
                                 </button>
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
                                     @forelse ($cursos as $curso)
