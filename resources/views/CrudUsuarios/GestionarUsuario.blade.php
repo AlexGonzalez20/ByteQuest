@@ -3,7 +3,6 @@
 @section('title', 'Gestión de Usuarios')
 
 @section('head')
-
 @endsection
 
 @section('content')
@@ -13,7 +12,17 @@
         <a href="{{ route('views.CrearUsuario') }}" class="btn btn-info">Añadir Usuario</a>
     </div>
 
-    <p class="lead">Bienvenido, aquí puedes administrar los usuarios.</p>
+
+    {{-- Formulario de búsqueda --}}
+    <form method="GET" class="mb-4 d-flex align-items-center" action="{{ route('usuarios.index') }}">
+        <input type="text" name="search" class="form-control me-2 w-auto"
+            placeholder="Buscar usuario..."
+            value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary me-2">Buscar</button>
+        @if(request('search'))
+            <a href="{{ route('usuarios.index') }}" class="btn btn-link">Limpiar</a>
+        @endif
+    </form>
 
     <table class="table table-striped">
         <thead>
@@ -28,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($usuarios as $usuario)
+            @forelse($usuarios as $usuario)
             <tr>
                 <th scope="row">{{ $usuario->id }}</th>
                 <td>{{ $usuario->nombre }}</td>
@@ -44,13 +53,18 @@
                     <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                        <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </form>
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="7" class="text-center">No se encontraron usuarios.</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

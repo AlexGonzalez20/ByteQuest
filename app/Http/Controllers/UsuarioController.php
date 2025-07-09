@@ -5,20 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Curso;
-use App\Models\Leccion;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\VarDumper\VarDumper;
 
 class UsuarioController extends Controller
 {
     /**
      * Display a listing of the Usuarios.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $usuarios->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', '%' . $search . '%')
+                    ->orWhere('apellido', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('rol_id', 'like', '%' . $search . '%');
+            });
+        }
+
+        $usuarios = $usuarios->get();
+
         return view('CrudUsuarios.GestionarUsuario', compact('usuarios'));
     }
+
 
     /**
      * Show the form for creating a new Usuario.
@@ -100,31 +112,31 @@ class UsuarioController extends Controller
      * Permite al usuario autenticado seguir un curso.
      */
     public function seguirCurso($curso_id)
-   {
-    $usuario = auth()->user();
+    {
+        $usuario = auth()->user();
 
-    $curso = Curso::with(['lecciones.pruebas'])->findOrFail($curso_id);
+        $curso = Curso::with(['lecciones.pruebas'])->findOrFail($curso_id);
 
-    $primeraLeccionConPrueba = $curso->lecciones->sortBy('id')->first(function ($leccion) {
-        return $leccion->pruebas && $leccion->pruebas->count() > 0;
-    });
+        $primeraLeccionConPrueba = $curso->lecciones->sortBy('id')->first(function ($leccion) {
+            return $leccion->pruebas && $leccion->pruebas->count() > 0;
+        });
 
-    if (!$primeraLeccionConPrueba) {
-        return redirect()->back()->with('error', 'El curso no tiene lecciones con pruebas disponibles.');
+        if (!$primeraLeccionConPrueba) {
+            return redirect()->back()->with('error', 'El curso no tiene lecciones con pruebas disponibles.');
+        }
+
+        $primeraPrueba = $primeraLeccionConPrueba->pruebas->sortBy('orden')->first();
+
+        // Conecta el curso con el usuario y guarda la lección/prueba actual:
+        $usuario->cursos()->attach($curso_id, [
+            'leccion_actual_id' => $primeraLeccionConPrueba->id,
+            'prueba_actual_id' => $primeraPrueba->id,
+        ]);
+
+        // Redirige al camino del curso
+        return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id]);
     }
 
-    $primeraPrueba = $primeraLeccionConPrueba->pruebas->sortBy('orden')->first();
-
-    // Conecta el curso con el usuario y guarda la lección/prueba actual:
-    $usuario->cursos()->attach($curso_id, [
-        'leccion_actual_id' => $primeraLeccionConPrueba->id,
-        'prueba_actual_id' => $primeraPrueba->id,
-    ]);
-
-    // Redirige al camino del curso
-    return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id]);
-}
-  
     /**
      * Muestra los cursos seguidos por el usuario autenticado.
      */
@@ -166,9 +178,5 @@ class UsuarioController extends Controller
 
         // Si quieres mostrar el curso actual:
         $curso = $usuario->cursos()->first();
-
-        return view('VistasEstudiante.home', [
-            'curso' => $curso, // <--- importante!
-        ]);
     }
 }
