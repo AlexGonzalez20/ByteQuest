@@ -13,69 +13,126 @@
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
     @endif
-<form method="GET" class="mb-3 d-flex align-items-center" action="{{ route('preguntas.index') }}">
-    <input type="number" name="leccion_id" class="form-control w-auto me-2" placeholder="ID Lección" value="{{ request('leccion_id') }}">
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-    @if(request('leccion_id'))
+
+    {{-- Filtro único --}}
+    <form method="GET" class="mb-3 d-flex align-items-center" action="{{ route('preguntas.index') }}">
+        <input type="text" name="search" class="form-control w-auto me-2"
+            placeholder="Buscar pregunta"
+            value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        @if(request('search'))
         <a href="{{ route('preguntas.index') }}" class="btn btn-link">Limpiar</a>
-    @endif
-</form>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Curso</th>
-                <th>Lección</th>
-                <th>Pregunta</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
-            </tr>
-            <tr>
-                
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($preguntas as $pregunta)
-                <tr>
-                    <th scope="row">{{ $pregunta->id }}</th>
-                    <td>{{ $pregunta->leccion->curso->nombre ?? 'Sin curso' }}</td>
-                    <td>{{ $pregunta->leccion->nombre ?? 'Sin lección' }}</td>
-                    <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
-                    <td>
-                        @if ($pregunta->imagen)
-                            <span class="badge bg-success">Sí</span>
-                            <a href="{{ asset($pregunta->imagen) }}" target="_blank" class="btn btn-sm btn-primary mt-2">
-                                Ver Imagen
-                            </a>
-                        @else
-                            <span class="badge bg-secondary">No</span>
-                        @endif
-                    </td>
-                    <td class="d-flex gap-2">
-                        <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
-                            <i class="fa-solid fa-pen-nib"></i> Editar
-                        </a>
-                        <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST"
-                            onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center">No hay preguntas registradas.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+        @endif
+    </form>
+
+    @php
+    $preguntasPorCurso = $preguntas->groupBy(function($pregunta) {
+    return $pregunta->leccion && $pregunta->leccion->curso
+    ? $pregunta->leccion->curso->nombre
+    : 'Sin Curso';
+    });
+    @endphp
+
+    <div class="accordion" id="accordionCursos">
+        @forelse($preguntasPorCurso as $cursoNombre => $preguntasDelCurso)
+        @php
+        $cursoSlug = Str::slug($cursoNombre . '-' . uniqid());
+        $preguntasPorLeccion = $preguntasDelCurso->groupBy(function($pregunta) {
+        return $pregunta->leccion ? $pregunta->leccion->nombre : 'Sin Lección';
+        });
+        @endphp
+
+        <div class="accordion-item mb-2">
+            <h2 class="accordion-header" id="heading-{{ $cursoSlug }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse-{{ $cursoSlug }}"
+                    aria-expanded="false"
+                    aria-controls="collapse-{{ $cursoSlug }}">
+                    {{ $cursoNombre }}
+                </button>
+            </h2>
+            <div id="collapse-{{ $cursoSlug }}" class="accordion-collapse collapse"
+                aria-labelledby="heading-{{ $cursoSlug }}"
+                data-bs-parent="#accordionCursos">
+                <div class="accordion-body">
+
+                    <div class="accordion" id="accordionLecciones-{{ $cursoSlug }}">
+                        @foreach($preguntasPorLeccion as $leccionNombre => $preguntasDeLeccion)
+                        @php
+                        $leccionSlug = Str::slug($cursoNombre.'-'.$leccionNombre.'-'.uniqid());
+                        @endphp
+
+                        <div class="accordion-item mb-2">
+                            <h2 class="accordion-header" id="heading-{{ $leccionSlug }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ $leccionSlug }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ $leccionSlug }}">
+                                    {{ $leccionNombre }}
+                                </button>
+                            </h2>
+                            <div id="collapse-{{ $leccionSlug }}" class="accordion-collapse collapse"
+                                aria-labelledby="heading-{{ $leccionSlug }}"
+                                data-bs-parent="#accordionLecciones-{{ $cursoSlug }}">
+                                <div class="accordion-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Pregunta</th>
+                                                <th>Imagen</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($preguntasDeLeccion as $pregunta)
+                                            <tr>
+                                                <th scope="row">{{ $pregunta->id }}</th>
+                                                <td>{{ Str::limit($pregunta->pregunta, 50) }}</td>
+                                                <td>
+                                                    @if ($pregunta->imagen)
+                                                    <span class="badge bg-success">Sí</span>
+                                                    <a href="{{ asset($pregunta->imagen) }}" target="_blank" class="btn btn-sm btn-primary mt-2">
+                                                        Ver Imagen
+                                                    </a>
+                                                    @else
+                                                    <span class="badge bg-secondary">No</span>
+                                                    @endif
+                                                </td>
+                                                <td class="d-flex gap-2">
+                                                    <a href="{{ route('preguntas.edit', $pregunta->id) }}" class="btn btn-sm btn-warning">
+                                                        <i class="fa-solid fa-pen-nib"></i> Editar
+                                                    </a>
+                                                    <form action="{{ route('preguntas.destroy', $pregunta->id) }}" method="POST"
+                                                        onsubmit="return confirm('¿Deseas eliminar esta pregunta?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fa-solid fa-trash"></i> Eliminar
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @empty
+        <p>No hay preguntas registradas.</p>
+        @endforelse
+    </div>
 </div>
 @endsection
 

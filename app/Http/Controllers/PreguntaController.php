@@ -11,14 +11,26 @@ class PreguntaController extends Controller
 {
     public function index(Request $request)
     {
-        // Ahora carga cada pregunta con su lección asociada
-    $query = Pregunta::with('leccion');
-    if ($request->filled('leccion_id')) {
-        $query->where('leccion_id', $request->leccion_id);
+        $preguntas = \App\Models\Pregunta::with(['leccion.curso']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $preguntas->where(function ($query) use ($search) {
+                $query->where('pregunta', 'like', '%' . $search . '%')
+                    ->orWhereHas('leccion', function ($q) use ($search) {
+                        $q->where('nombre', 'like', '%' . $search . '%')
+                            ->orWhereHas('curso', function ($qc) use ($search) {
+                                $qc->where('nombre', 'like', '%' . $search . '%');
+                            });
+                    });
+            });
+        }
+
+        $preguntas = $preguntas->get();
+
+        return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
     }
-    $preguntas = $query->get();
-    return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
-    }
+
 
     public function create()
     {
@@ -125,5 +137,4 @@ class PreguntaController extends Controller
 
         return view('VistasEstudiante.preguntas', compact('pregunta'));
     }
-
 }

@@ -16,7 +16,7 @@
     {{-- Formulario de búsqueda --}}
     <form method="GET" class="mb-4 d-flex align-items-center" action="{{ route('usuarios.index') }}">
         <input type="text" name="search" class="form-control me-2 w-auto"
-            placeholder="Buscar usuario..."
+            placeholder="Buscar Usuario"
             value="{{ request('search') }}">
         <button type="submit" class="btn btn-primary me-2">Buscar</button>
         @if(request('search'))

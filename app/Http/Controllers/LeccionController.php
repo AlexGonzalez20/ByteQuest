@@ -16,14 +16,24 @@ class LeccionController extends Controller
      */
     public function index(Request $request)
     {
-    $query = Leccion::query()->with('curso');
-    if ($request->filled('curso_id')) {
-        $query->where('curso_id', $request->curso_id);
-    }
-    $lecciones = $query->get();
-    return view('Crudlecciones.GestionarLeccion', compact('lecciones'));
+        $lecciones = \App\Models\Leccion::with('curso');
 
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $lecciones->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', '%' . $search . '%')
+                    ->orWhere('descripcion', 'like', '%' . $search . '%')
+                    ->orWhereHas('curso', function ($q) use ($search) {
+                        $q->where('nombre', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        $lecciones = $lecciones->get();
+
+        return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
     }
+
 
     /**
      * Show the form for creating a new resource.

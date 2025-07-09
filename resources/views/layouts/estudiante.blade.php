@@ -72,7 +72,7 @@
                             <div class="dropdown me-3">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ $curso->nombre }}
+                                    Mis Cursos
                                 </button>
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
                                     @forelse ($cursos as $curso)
@@ -112,7 +112,7 @@
 
 
                 <!-- Contenido principal -->
-                <main class="px-4 py-5 min-vh-100" style="background-color: rgb(37, 39, 70);">
+                <main class="px-4 py-5 min-vh-100" style="background-color: #252746;">
                     @yield('content')
                 </main>
             </div>
