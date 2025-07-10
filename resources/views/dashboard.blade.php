@@ -45,10 +45,9 @@
                 {{-- ======================== --}}
                 {{-- Tarjetas de gestión (usuarios, cursos, lecciones, preguntas) --}}
                 {{-- ======================== --}}
-                <nav class="d-flex float-start flex-column">
+                <nav class=" d-flex float-start flex-column">
 
                     {{-- Tarjetas de gestión --}}
-
                     <div class="row g-2 flex-column align-items-start">
                         <div class="button-card  col-10 mb-2">
                             <a href="{{ route('usuarios.index') }}" class="w-100 text-decoration-none">
