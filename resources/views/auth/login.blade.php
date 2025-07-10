@@ -23,10 +23,10 @@
                     </a>
                 </header>
             </div>
-            <div class="col-6 d-flex justify-content-center align-items-center pt-5">
+            <div class=" col-6 d-flex justify-content-center align-items-center pt-5">
                 <a href="{{ route('landing') }}" class="d-flex align-items-center gap-2 text-decoration-none ">
                     <i class='bx bx-left-arrow-circle fs-1'></i>
-                    <h1 class="mb-0">Home</h1>
+                    <h1 class="mb-0">Regresar</h1>
                 </a>
             </div>
 
@@ -60,15 +60,17 @@
                         </div>
 
                         <div class="text-center">
-                            <a href="{{ route('password.request') }}" class="d-block text-decoration-none">¿Olvidaste tu contraseña?</a>
-                            <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">¿Nuevo usuario? Regístrate ahora</a>
+                            <a href="{{ route('password.request') }}" class="d-block text-decoration-none">¿Olvidaste tu
+                                contraseña?</a>
+                            <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">¿Nuevo usuario?
+                                Regístrate ahora</a>
                         </div>
 
 
                         @if($errors->any())
-                        <div class="alert alert-danger text-center mt-3">
-                            Correo o contraseña incorrectos.
-                        </div>
+                            <div class="alert alert-danger text-center mt-3">
+                                Correo o contraseña incorrectos.
+                            </div>
 
                         @endif
                     </form>
