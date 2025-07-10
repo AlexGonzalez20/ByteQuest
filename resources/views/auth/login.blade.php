@@ -13,20 +13,23 @@
 </head>
 
 <body class="bg-dark">
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
     <div class="container-fluid min-vh-100 d-flex flex-column">
         <!-- Encabezado -->
         <div class="row">
             <div class="col-6 d-flex justify-content-center pt-5">
                 <header class="">
-                    <a href="{{ route('landing') }}" class="text-decoration-none h2 display-6 header-link">
+                    <a href="{{ route('landing') }}" class="text-decoration-none h1 display-6 header-link text-white">
                         ¡Bienvenido a ByteQuest!
                     </a>
                 </header>
             </div>
             <div class=" col-6 d-flex justify-content-center align-items-center pt-5">
                 <a href="{{ route('landing') }}" class="d-flex align-items-center gap-2 text-decoration-none ">
-                    <i class='bx bx-left-arrow-circle fs-1'></i>
-                    <h1 class="mb-0">Regresar</h1>
+                    <i class='circle bx bx-left-arrow-circle fs-1'></i>
+                    <h2 class="text-white fs-3">Regresar</h2>
                 </a>
             </div>
 
@@ -41,7 +44,7 @@
 
             <!-- Formulario -->
             <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                <div class="card shadow p-4 w-100" style="max-width: 500px;">
+                <div class="card shadow p-4 w-100 rounded-4" style="max-width: 500px;">
                     <h2 class="mb-4 text-center">Inicio de Sesión</h2>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -59,10 +62,11 @@
                             <button type="submit" class="btn btn-warning text-dark fw-bold">Ingresar</button>
                         </div>
 
-                        <div class="text-center">
+                        <div class="links text-center">
                             <a href="{{ route('password.request') }}" class="d-block text-decoration-none">¿Olvidaste tu
                                 contraseña?</a>
-                            <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">¿Nuevo usuario?
+                            <a href="{{ route('register') }}" class="d-block mb-2 text-decoration-none">¿Nuevo
+                                usuario?
                                 Regístrate ahora</a>
                         </div>
 
@@ -79,6 +83,7 @@
         </div>
 
 
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

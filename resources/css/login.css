@@ -1,50 +1,66 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+html {
+    height: 100%;
+}
 
 body {
-  font-family: Montserrat, Arial, sans-serif;
+    font-family: Montserrat, Arial, sans-serif;
+    margin: 0;
 }
 
-.container-fluid {
-  background: linear-gradient(to right, rgb(37, 39, 70) 50%, #545863 50%);
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #252746 50%, #00b2c3 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: 0.5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
 }
 
-.header-link {
-  color: whitesmoke;
-  text-shadow: #545863 1px 0 10px;
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
 }
 
+.bg3 {
+    animation-duration: 5s;
+}
+
+.content {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0.25em;
+    box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    left: 50%;
+    padding: 10vmin;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-family: monospace;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(25%);
+    }
+}
+.circle {
+    color: whitesmoke;
+}
 .card {
-  background-color: rgb(37, 39, 70);
-  border-radius: 15px;
+    color: whitesmoke;
+    background-color: #333661;
 }
-
-.card h2 {
-  color: #fefefe;
+.links a {
+    color: whitesmoke;
 }
-
-.btn.btn-warning {
-  background-color: #f9c846;
-  border: none;
-  border-bottom: 2px solid #fefefe;
-}
-
-.btn.btn-warning:hover {
-  background-color: #545863;
-  transition: 0.5s ease;
-}
-
-.footer a {
-  color: white;
-}
-
-.container-fluid {
-  min-height: 100vh;
-  background: linear-gradient(to right, rgb(37, 39, 70) 50%, #545863 50%);
-}
-
-@media (max-width: 767.98px) {
-  .container-fluid {
-    background: #545863;
-  }
-}
-    
