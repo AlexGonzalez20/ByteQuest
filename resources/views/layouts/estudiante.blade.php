@@ -57,7 +57,7 @@
             <!-- Contenedor derecho -->
             <div class="col-md-10 px-0">
                 <!-- Navbar alineada a la derecha del sidebar -->
-                <nav class="navbar navbar-expand-lg" style="background-color: rgb(51, 54, 97)">
+                <nav class="navbar navbar-expand-lg" style="background-color: #333661">
                     <div class="container-fluid m-2">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
