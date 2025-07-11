@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $this->call(CursosSeeder::class);
+        $this->call(CursoSeeder::class);
         $this->call(LeccionesSeeder::class);
         $this->call(PruebaSeeder::class);
         $this->call(PreguntaSeeder::class);
