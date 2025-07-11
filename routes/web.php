@@ -67,9 +67,9 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
 });
 
 // ✅ Reportes
-Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])
+Route::get('reportes/usuariosPorCurso', [ReporteUsuariosController::class, 'index'])
     ->name('reportes.usuarios.index');
-Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
+Route::get('reportes/usuariosPorCurso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
     ->name('reportes.usuarios.pdf');
 
 // ✅ Imagenes

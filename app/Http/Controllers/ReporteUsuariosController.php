@@ -3,30 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
-use Barryvdh\DomPDF\Facade\Pdf;  // si vas a PDF
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReporteUsuariosController extends Controller
 {
     /**
-     * Mostrar la vista con conteo de usuarios por curso.
+     * Mostrar la vista del reporte en navegador.
      */
     public function index()
     {
-        // Trae todos los cursos con su conteo de usuarios
         $cursos = Curso::withCount('usuarios')->get();
+        $usuario = auth()->user()->nombre;
+        $fechaGeneracion = Carbon::now('America/Bogota')->format('d/m/Y H:i');
 
-        return view('Reportes.usuarios_por_curso', compact('cursos'));
+        return view('reportes.usuariosPorCurso', [
+            'cursos' => $cursos,
+            'usuario' => $usuario,
+            'fechaGeneracion' => $fechaGeneracion,
+            'isPdf' => false
+        ]);
     }
 
     /**
-     * Generar y descargar PDF del mismo reporte.
+     * Generar y descargar PDF del reporte.
      */
     public function descargarPdf()
     {
         $cursos = Curso::withCount('usuarios')->get();
+        $usuario = auth()->user()->nombre;
+        $fechaGeneracion = Carbon::now('America/Bogota')->format('d/m/Y H:i');
 
-        $pdf = Pdf::loadView('reportes.usuarios_por_curso', compact('cursos'));
-        return $pdf->download('reporte_usuarios_por_curso.pdf');
+        $pdf = Pdf::loadView('reportes.usuariosPorCurso', [
+            'cursos' => $cursos,
+            'usuario' => $usuario,
+            'fechaGeneracion' => $fechaGeneracion,
+            'isPdf' => true
+        ])->setPaper('A4', 'portrait');
+
+        return $pdf->download('Reporte_Usuarios_por_Curso.pdf');
     }
 }
