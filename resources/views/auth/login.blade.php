@@ -22,7 +22,9 @@
             <div class="col-6 d-flex justify-content-center pt-5">
                 <header class="">
                     <a href="{{ route('landing') }}" class="text-decoration-none h1 display-6 header-link text-white">
-                        ¡Bienvenido a ByteQuest!
+                        ¡Bienvenido a <span style="color:#00b2c3;">
+                            ByteQuest!
+                        </span>
                     </a>
                 </header>
             </div>
