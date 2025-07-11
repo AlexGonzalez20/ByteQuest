@@ -3,7 +3,6 @@
 @section('title', 'Tienda')
 
 @section('head')
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
         href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
 
@@ -11,23 +10,23 @@
         /* Animación de latido */
         @keyframes heartbeat {
             0% {
-                transform: scale(1);
+                transform: scale(2);
             }
 
             25% {
-                transform: scale(1.1);
+                transform: scale(1.5);
             }
 
             40% {
-                transform: scale(0.95);
+                transform: scale(1.35);
             }
 
             60% {
-                transform: scale(1.05);
+                transform: scale(1.45);
             }
 
             100% {
-                transform: scale(1);
+                transform: scale(2);
             }
         }
 
@@ -43,6 +42,11 @@
         .vidas-card {
             background: linear-gradient(135deg, #333661 0%, #1a1a2e 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            transition: transform 0.5s ease;
         }
     </style>
 @endsection
@@ -99,8 +103,11 @@
                                 </div>
 
                                 <!-- Botón -->
-                                <button class="btn btn-dark w-auto px-4 rounded-pill mt-auto">$
-                                    5</button>
+                                <a href="{{ route('pago', ['producto' => 'Recupera todas tus vidas', 'precio' => 5]) }}"
+                                    class="btn btn-dark w-auto px-4 rounded-pill mt-auto">
+                                    $5
+                                </a>
+
                             </div>
 
                             <!-- Imagen para escritorio -->
@@ -129,16 +136,21 @@
 
                                 <!-- Imagen solo para mobile -->
                                 <div class="ratio ratio-16x9 rounded mb-3 d-md-none">
+                                    <img src="{{ asset('img/bateria.jpg') }}" class="rounded" alt="...">
                                 </div>
 
                                 <!-- Botón -->
-                                <button class="btn btn-dark w-auto px-4 rounded-pill mt-auto">$15</button>
+                                <a href="{{ route('pago', ['producto' => 'Vidas Infinitas', 'precio' => 15]) }}"
+                                    class="btn btn-dark w-auto px-4 rounded-pill mt-auto">
+                                    $15
+                                </a>
+
                             </div>
 
                             <!-- Imagen para escritorio -->
                             <div class="col-12 col-md-6 d-none d-md-block p-4">
                                 <div class="ratio ratio-16x9 rounded h-100">
-                                    <img src="{{ asset('') }}" class="rounded" alt="...">
+                                    <img src="{{ asset('img/bateria.jpg') }}" class="rounded" alt="...">
                                 </div>
                             </div>
                         </div>
@@ -159,15 +171,21 @@
 
                                 <!-- Imagen solo para mobile -->
                                 <div class="ratio ratio-16x9 rounded mb-3 d-md-none">
+                                    <img src="{{ asset('img/bateria.jpg') }}" class="rounded" alt="...">
+
                                 </div>
 
                                 <!-- Botón -->
-                                <button class="btn btn-dark w-auto px-4 rounded-pill mt-auto">$5</button>
+                                <a href="{{ route('pago', ['producto' => 'Protector de Racha', 'precio' => 5]) }}"
+                                    class="btn btn-dark w-auto px-4 rounded-pill mt-auto">
+                                    $5
+                                </a>
                             </div>
 
                             <!-- Imagen para escritorio -->
                             <div class="col-12 col-md-6 d-none d-md-block p-4">
                                 <div class="ratio ratio-16x9 rounded h-100">
+                                    <img src="{{ asset('img/bateria.jpg') }}" class="rounded" alt="...">
                                 </div>
                             </div>
                         </div>

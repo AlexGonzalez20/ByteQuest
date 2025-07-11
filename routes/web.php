@@ -114,6 +114,10 @@ Route::get('/tienda', [TiendaController::class, 'index'])
     ->name('tienda')
     ->middleware('auth');
 
+Route::get('/pago', [TiendaController::class, 'pago'])
+    ->middleware('auth')
+    ->name('pago');
+
 
 Route::get('/aprender', [AprenderController::class, 'index'])
     ->name('aprender')
