@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // Clave primaria obligatoria
             $table->string('nombre');
             $table->text('descripcion');
+            $table->longText('contenido')->nullable(); // Campo opcional para contenido de la lección
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
             $table->timestamps();
         });

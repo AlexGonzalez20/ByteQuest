@@ -1,214 +1,397 @@
-[{
-                "curso_id" : 1, 
-                "nombre" : "Introducción y Variables",
-                "descripcion" : "Aprende qué es PHP, cómo funciona, y domina la declaración y uso de variables para almacenar y manipular datos básicos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
+[
+    {
+        "curso_id": 1,
+        "nombre": "Introducción y Variables",
+        "descripcion": "Aprende qué es PHP, cómo funciona, y domina la declaración y uso de variables para almacenar y manipular datos básicos.",
+        "contenido": [
+            {
+                "titulo": "¿Qué es PHP?",
+                "subtitulo": "Una breve introducción",
+                "cuerpo": "PHP es un lenguaje de programación de propósito general enfocado al desarrollo web. Se ejecuta del lado del servidor y permite generar contenido dinámico."
             },
             {
-                "curso_id" : 1,
-                "nombre" : "Tipos de Datos y Operadores",
-                "descripcion" : "Explora los tipos de datos en PHP: strings, números, booleanos y cómo combinarlos con operadores aritméticos y lógicos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
+                "titulo": "Estructura básica de un archivo PHP",
+                "subtitulo": "Etiqueta de apertura y cierre",
+                "cuerpo": "Todo script PHP debe comenzar con `<?php` y terminar con `?>`. Dentro de estas etiquetas va todo el código PHP que quieras ejecutar."
             },
             {
-                "curso_id" : 1,
-                "nombre" : "Estructuras de Control",
-                "descripcion" : "Aprende a usar condicionales (if, else) y bucles (for, while) para controlar el flujo de tus programas PHP.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
+                "titulo": "Variables en PHP",
+                "subtitulo": "Declaración y tipos de datos",
+                "cuerpo": "Las variables comienzan con `$` y no requieren declaración de tipo. Ejemplo: `$nombre = \"Juan\";`. Los tipos comunes son string, integer, float, boolean y array."
+            }
+        ],
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Tipos de Datos y Operadores",
+        "descripcion": "Explora los tipos de datos en PHP: strings, números, booleanos y cómo combinarlos con operadores aritméticos y lógicos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Tipos de Datos y Operadores",
+                "subtitulo": "Conceptos clave",
+                "cuerpo": "En esta sección se presenta una explicación teórica del tema 'Tipos de Datos y Operadores'. Se detallan sus fundamentos y aplicaciones básicas."
             },
             {
-                "curso_id" : 1,
-                "nombre" : "Funciones Básicas",
-                "descripcion" : "Define y usa funciones para organizar tu código y reutilizar bloques lógicos de forma eficiente.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Arreglos (Arrays)",
-                "descripcion" : "Trabaja con arrays para almacenar múltiples valores y manipular listas de datos en PHP.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Strings y Manipulación de Texto",
-                "descripcion" : "Aprende a manipular cadenas de texto con funciones integradas de PHP para crear mensajes dinámicos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Formularios y Datos del Usuario",
-                "descripcion" : "Envía y recibe datos de formularios HTML, procesa entradas del usuario de forma segura.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Manejo de Errores",
-                "descripcion" : "Identifica y corrige errores comunes, implementa manejo básico de excepciones.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Buenas Prácticas",
-                "descripcion" : "Aprende prácticas recomendadas para escribir código limpio, organizado y fácil de mantener.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 1,
-                "nombre" : "Repaso y Nivel de Dominio",
-                "descripcion" : "Repasa todos los conceptos clave a través de preguntas mezcladas y mini retos para afianzar tus conocimientos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-        
-            {
-                "curso_id" : 2,
-                "nombre" : "Introducción y Variables",
-                "descripcion" : "Descubre qué es JavaScript, su historia y cómo declarar variables usando let y const.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Tipos de Datos y Operadores",
-                "descripcion" : "Conoce los tipos de datos en JavaScript y cómo usarlos con operadores matemáticos y lógicos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Estructuras de Control",
-                "descripcion" : "Aprende a usar condicionales (if, else, switch) y bucles (for, while) para controlar el flujo.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Funciones Básicas",
-                "descripcion" : "Define funciones tradicionales y flecha (arrow functions) para modular tu código JS.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Arreglos (Arrays)",
-                "descripcion" : "Manipula arrays con métodos como push, pop, map, filter y reduce.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Objetos y Manipulación de Datos",
-                "descripcion" : "Crea y usa objetos para estructurar datos complejos en tus aplicaciones JS.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "DOM y Eventos",
-                "descripcion" : "Interacciona con la página HTML usando el DOM y gestiona eventos de usuario.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Manejo de Errores",
-                "descripcion" : "Implementa manejo de errores con try-catch y buenas prácticas para depuración.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Buenas Prácticas",
-                "descripcion" : "Conoce estilos de codificación, comentarios claros y modularización en JavaScript.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 2,
-                "nombre" : "Repaso y Mini Proyectos",
-                "descripcion" : "Refuerza lo aprendido creando pequeños proyectos prácticos con JavaScript.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-        
-
-            {
-                "curso_id" : 3,
-                "nombre" : "Introducción y Variables",
-                "descripcion" : "Entiende qué es Python, su sintaxis básica y cómo declarar variables.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Tipos de Datos y Operadores",
-                "descripcion" : "Aprende los tipos de datos en Python (int, float, str, bool) y operadores.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Estructuras de Control",
-                "descripcion" : "Usa condicionales (if, elif, else) y bucles (for, while) en Python.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Funciones Básicas",
-                "descripcion" : "Define funciones con def, pasa parámetros y retorna valores.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Listas y Tuplas",
-                "descripcion" : "Trabaja con listas y tuplas para almacenar y manipular colecciones de datos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Diccionarios y Conjuntos",
-                "descripcion" : "Crea diccionarios para pares clave-valor y conjuntos para datos únicos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Manejo de Archivos",
-                "descripcion" : "Lee y escribe archivos usando Python para manejar datos externos.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Manejo de Errores y Excepciones",
-                "descripcion" : "Gestiona errores con try-except y aprende a lanzar excepciones.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Buenas Prácticas",
-                "descripcion" : "Conoce PEP8, estilos de codificación y documentación en Python.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
-            },
-            {
-                "curso_id" : 3,
-                "nombre" : "Repaso y Proyecto Final",
-                "descripcion" : "Consolida tus conocimientos construyendo un proyecto práctico en Python.",
-                "created_at" : "2025-07-10T14:35:00Z",
-                "updated_at" : "2025-07-10T14:35:00Z"
+                "titulo": "Ejemplo práctico",
+                "subtitulo": "Aplicación con código PHP",
+                "cuerpo": "Se muestra cómo implementar 'Tipos de Datos y Operadores' en un ejemplo real usando código PHP paso a paso."
             }
         ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Estructuras de Control",
+        "descripcion": "Aprende a usar condicionales (if, else) y bucles (for, while) para controlar el flujo de tus programas PHP.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Estructuras de Control",
+                "subtitulo": "Condicionales y bucles en PHP",
+                "cuerpo": "Las estructuras de control permiten modificar el flujo de ejecución de un programa. En PHP, las más comunes son if, else, elseif, switch, while y for."
+            },
+            {
+                "titulo": "Ejemplo de condicional",
+                "subtitulo": "Uso de if y else",
+                "cuerpo": "```php\n$edad = 20;\nif ($edad >= 18) {\n    echo 'Eres mayor de edad';\n} else {\n    echo 'Eres menor de edad';\n}\n```"
+            },
+            {
+                "titulo": "Ejemplo de bucle",
+                "subtitulo": "Uso de for",
+                "cuerpo": "```php\nfor ($i = 1; $i <= 5; $i++) {\n    echo 'Número: ' . $i . \"<br>\";\n}\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Funciones Básicas",
+        "descripcion": "Define y usa funciones para organizar tu código y reutilizar bloques lógicos de forma eficiente.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Funciones Básicas",
+                "subtitulo": "¿Qué es una función en PHP?",
+                "cuerpo": "Las funciones en PHP permiten encapsular bloques de código que pueden ser reutilizados. Son esenciales para estructurar programas de forma modular y mantener el código limpio."
+            },
+            {
+                "titulo": "Sintaxis de una función",
+                "subtitulo": "Declaración y llamada",
+                "cuerpo": "```php\nfunction saludar($nombre) {\n    return \"Hola, $nombre\";\n}\n\n// Uso\necho saludar(\"Mundo\");\n```"
+            },
+            {
+                "titulo": "Parámetros y retorno",
+                "subtitulo": "Funciones personalizadas",
+                "cuerpo": "Las funciones pueden recibir parámetros y devolver resultados. Esto permite crear herramientas reutilizables con diferentes entradas."
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Arreglos (Arrays)",
+        "descripcion": "Trabaja con arrays para almacenar múltiples valores y manipular listas de datos en PHP.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a los Arreglos",
+                "subtitulo": "¿Qué es un array en PHP?",
+                "cuerpo": "Un array es una estructura de datos que permite almacenar múltiples valores en una sola variable. PHP soporta arrays indexados, asociativos y multidimensionales."
+            },
+            {
+                "titulo": "Array indexado",
+                "subtitulo": "Acceso por posición",
+                "cuerpo": "```php\n$frutas = [\"Manzana\", \"Banana\", \"Naranja\"];\necho $frutas[1]; // Banana\n```"
+            },
+            {
+                "titulo": "Array asociativo",
+                "subtitulo": "Acceso por clave",
+                "cuerpo": "```php\n$persona = [\n  \"nombre\" => \"Luis\",\n  \"edad\" => 30\n];\necho $persona[\"nombre\"]; // Luis\n```"
+            },
+            {
+                "titulo": "Recorrer un array",
+                "subtitulo": "Uso de foreach",
+                "cuerpo": "```php\n$colores = [\"Rojo\", \"Verde\", \"Azul\"];\nforeach ($colores as $color) {\n  echo $color . \"<br>\";\n}\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Strings y Manipulación de Texto",
+        "descripcion": "Aprende a manipular cadenas de texto con funciones integradas de PHP para crear mensajes dinámicos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a los Strings",
+                "subtitulo": "¿Qué es una cadena de texto en PHP?",
+                "cuerpo": "Una cadena (string) es una secuencia de caracteres. En PHP se pueden usar comillas simples (' ') o dobles (\" \") para definir strings."
+            },
+            {
+                "titulo": "Concatenación de cadenas",
+                "subtitulo": "Unir texto con el operador punto",
+                "cuerpo": "```php\n$nombre = \"Juan\";\necho \"Hola, \" . $nombre . \"!\"; // Hola, Juan!\n```"
+            },
+            {
+                "titulo": "Funciones comunes para strings",
+                "subtitulo": "strlen, strtoupper, strtolower, substr",
+                "cuerpo": "```php\n$texto = \"ByteQuest\";\necho strlen($texto);       // 9\necho strtoupper($texto);  // BYTEQUEST\necho substr($texto, 0, 4); // Byte\n```"
+            },
+            {
+                "titulo": "Interpolación de variables",
+                "subtitulo": "Uso de variables dentro de comillas dobles",
+                "cuerpo": "```php\n$lenguaje = \"PHP\";\necho \"Estás aprendiendo $lenguaje\"; // Estás aprendiendo PHP\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Formularios y Datos del Usuario",
+        "descripcion": "Envía y recibe datos de formularios HTML, procesa entradas del usuario de forma segura.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "¿Qué son los formularios?",
+                "subtitulo": "Interacción entre el usuario y el servidor",
+                "cuerpo": "Los formularios HTML permiten a los usuarios ingresar datos que pueden enviarse a un servidor para ser procesados. PHP se encarga de recibir esta información mediante las variables `$_GET` o `$_POST`, dependiendo del método usado en el formulario."
+            },
+            {
+                "titulo": "Creando un formulario HTML básico",
+                "subtitulo": "Estructura mínima de un formulario",
+                "cuerpo": "```html\n<form method=\"POST\" action=\"procesar.php\">\n  <label>Nombre:</label>\n  <input type=\"text\" name=\"nombre\">\n  <button type=\"submit\">Enviar</button>\n</form>\n```"
+            },
+            {
+                "titulo": "Procesando datos en PHP",
+                "subtitulo": "Cómo acceder a los datos enviados",
+                "cuerpo": "```php\n// procesar.php\n$nombre = $_POST['nombre'] ?? '';\necho \"Hola, $nombre\";\n```"
+            },
+            {
+                "titulo": "Seguridad en formularios",
+                "subtitulo": "Protegiendo tu aplicación",
+                "cuerpo": "Nunca confíes en los datos ingresados por el usuario. Utiliza funciones como `htmlspecialchars()` para evitar inyecciones de HTML o scripts:\n\n```php\n$nombre = htmlspecialchars($_POST['nombre'] ?? '');\n```"
+            },
+            {
+                "titulo": "Validación básica de datos",
+                "subtitulo": "Verifica antes de procesar",
+                "cuerpo": "```php\nif (empty($_POST['nombre'])) {\n  echo \"El nombre es obligatorio.\";\n} else {\n  $nombre = htmlspecialchars($_POST['nombre']);\n  // procesar\n}\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Manejo de Errores",
+        "descripcion": "Identifica y corrige errores comunes, implementa manejo básico de excepciones.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Errores comunes en PHP",
+                "subtitulo": "Comprende las causas más frecuentes",
+                "cuerpo": "PHP puede generar errores por falta de archivos, variables indefinidas, sintaxis incorrecta o mal uso de funciones. Leer los mensajes de error cuidadosamente es clave para encontrar la causa."
+            },
+            {
+                "titulo": "Manejo básico con try-catch",
+                "subtitulo": "Controla errores con excepciones",
+                "cuerpo": "```php\ntry {\n    // Código que puede fallar\n    $resultado = dividir(10, 0);\n} catch (Exception $e) {\n    echo \"Error: \" . $e->getMessage();\n}\n```"
+            },
+            {
+                "titulo": "Definir tus propias excepciones",
+                "subtitulo": "Personaliza el manejo de errores",
+                "cuerpo": "Puedes lanzar errores personalizados usando `throw`:\n\n```php\nfunction dividir($a, $b) {\n  if ($b == 0) {\n    throw new Exception(\"No se puede dividir entre cero\");\n  }\n  return $a / $b;\n}\n```"
+            },
+            {
+                "titulo": "Mostrar errores en desarrollo",
+                "subtitulo": "Activar errores en `php.ini` o directamente",
+                "cuerpo": "```php\nini_set('display_errors', 1);\nerror_reporting(E_ALL);\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Buenas Prácticas",
+        "descripcion": "Aprende prácticas recomendadas para escribir código limpio, organizado y fácil de mantener.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Usa nombres claros y significativos",
+                "subtitulo": "Variables, funciones y archivos",
+                "cuerpo": "Evita nombres genéricos como `x`, `data` o `test`. Prefiere `usuario_id`, `obtenerDatos()` o `procesarFormulario.php`."
+            },
+            {
+                "titulo": "Organiza el código en funciones",
+                "subtitulo": "Divide y vencerás",
+                "cuerpo": "Cada función debe tener una única responsabilidad. Esto hace que el código sea más fácil de entender y reutilizar."
+            },
+            {
+                "titulo": "Indentación y espacios",
+                "subtitulo": "Legibilidad primero",
+                "cuerpo": "Sigue una estructura clara:\n\n```php\nif ($activo) {\n    mostrarMensaje();\n}\n```"
+            },
+            {
+                "titulo": "Evita repetir código (DRY)",
+                "subtitulo": "Don't Repeat Yourself",
+                "cuerpo": "Reutiliza funciones y estructuras. Si repites una misma lógica más de dos veces, conviértela en una función."
+            },
+            {
+                "titulo": "Comentarios útiles",
+                "subtitulo": "Explica el porqué, no el qué",
+                "cuerpo": "Los comentarios deben aclarar decisiones o comportamientos no obvios. Evita comentar lo evidente."
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Repaso y Nivel de Dominio",
+        "descripcion": "Repasa todos los conceptos clave a través de preguntas mezcladas y mini retos para afianzar tus conocimientos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+
+    {
+        "curso_id": 2,
+        "nombre": "Introducción y Variables",
+        "descripcion": "Descubre qué es JavaScript, su historia y cómo declarar variables usando let y const.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Tipos de Datos y Operadores",
+        "descripcion": "Conoce los tipos de datos en JavaScript y cómo usarlos con operadores matemáticos y lógicos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Estructuras de Control",
+        "descripcion": "Aprende a usar condicionales (if, else, switch) y bucles (for, while) para controlar el flujo.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Funciones Básicas",
+        "descripcion": "Define funciones tradicionales y flecha (arrow functions) para modular tu código JS.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Arreglos (Arrays)",
+        "descripcion": "Manipula arrays con métodos como push, pop, map, filter y reduce.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Objetos y Manipulación de Datos",
+        "descripcion": "Crea y usa objetos para estructurar datos complejos en tus aplicaciones JS.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "DOM y Eventos",
+        "descripcion": "Interacciona con la página HTML usando el DOM y gestiona eventos de usuario.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Manejo de Errores",
+        "descripcion": "Implementa manejo de errores con try-catch y buenas prácticas para depuración.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Buenas Prácticas",
+        "descripcion": "Conoce estilos de codificación, comentarios claros y modularización en JavaScript.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 2,
+        "nombre": "Repaso y Mini Proyectos",
+        "descripcion": "Refuerza lo aprendido creando pequeños proyectos prácticos con JavaScript.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+
+    {
+        "curso_id": 3,
+        "nombre": "Introducción y Variables",
+        "descripcion": "Entiende qué es Python, su sintaxis básica y cómo declarar variables.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Tipos de Datos y Operadores",
+        "descripcion": "Aprende los tipos de datos en Python (int, float, str, bool) y operadores.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Estructuras de Control",
+        "descripcion": "Usa condicionales (if, elif, else) y bucles (for, while) en Python.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Funciones Básicas",
+        "descripcion": "Define funciones con def, pasa parámetros y retorna valores.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Listas y Tuplas",
+        "descripcion": "Trabaja con listas y tuplas para almacenar y manipular colecciones de datos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Diccionarios y Conjuntos",
+        "descripcion": "Crea diccionarios para pares clave-valor y conjuntos para datos únicos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Manejo de Archivos",
+        "descripcion": "Lee y escribe archivos usando Python para manejar datos externos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Manejo de Errores y Excepciones",
+        "descripcion": "Gestiona errores con try-except y aprende a lanzar excepciones.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Buenas Prácticas",
+        "descripcion": "Conoce PEP8, estilos de codificación y documentación en Python.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 3,
+        "nombre": "Repaso y Proyecto Final",
+        "descripcion": "Consolida tus conocimientos construyendo un proyecto práctico en Python.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    }
+]

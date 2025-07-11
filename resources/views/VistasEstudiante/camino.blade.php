@@ -2,12 +2,6 @@
 
 @section('title', 'Camino')
 @section('content')
-    <h2 class="mb-4 text-light">
-        Camino de Aprendizaje
-        @if (isset($curso))
-            <span class="text-light" style="font-weight:bold;"> - {{ $curso->nombre }}</span>
-        @endif
-    </h2>
 
     <div class="path-list">
         @foreach ($lecciones as $leccion)

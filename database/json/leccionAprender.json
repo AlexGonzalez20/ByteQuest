@@ -1,0 +1,122 @@
+[
+    {
+        "curso_id": 1,
+        "nombre": "Introducción y Variables",
+        "descripcion": "Aprende qué es PHP, cómo funciona, y domina la declaración y uso de variables para almacenar y manipular datos básicos.",
+        "contenido": [
+            {   
+                "titulo": "¿Qué es PHP?",
+                "subtitulo": "Una breve introducción",
+                "cuerpo": "PHP es un lenguaje de programación de propósito general enfocado al desarrollo web. Se ejecuta del lado del servidor y permite generar contenido dinámico."
+            },
+            {
+                "titulo": "Estructura básica de un archivo PHP",
+                "subtitulo": "Etiqueta de apertura y cierre",
+                "cuerpo": "Todo script PHP debe comenzar con `<?php` y terminar con `?>`. Dentro de estas etiquetas va todo el código PHP que quieras ejecutar."
+            },
+            {
+                "titulo": "Variables en PHP",
+                "subtitulo": "Declaración y tipos de datos",
+                "cuerpo": "Las variables comienzan con `$` y no requieren declaración de tipo. Ejemplo: `$nombre = \"Juan\";`. Los tipos comunes son string, integer, float, boolean y array."
+            }
+        ],
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z"
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Tipos de Datos y Operadores",
+        "descripcion": "Explora los tipos de datos en PHP: strings, números, booleanos y cómo combinarlos con operadores aritméticos y lógicos.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Tipos de Datos y Operadores",
+                "subtitulo": "Conceptos clave",
+                "cuerpo": "En esta sección se presenta una explicación teórica del tema 'Tipos de Datos y Operadores'. Se detallan sus fundamentos y aplicaciones básicas."
+            },
+            {
+                "titulo": "Ejemplo práctico",
+                "subtitulo": "Aplicación con código PHP",
+                "cuerpo": "Se muestra cómo implementar 'Tipos de Datos y Operadores' en un ejemplo real usando código PHP paso a paso."
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Estructuras de Control",
+        "descripcion": "Aprende a usar condicionales (if, else) y bucles (for, while) para controlar el flujo de tus programas PHP.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Estructuras de Control",
+                "subtitulo": "Condicionales y bucles en PHP",
+                "cuerpo": "Las estructuras de control permiten modificar el flujo de ejecución de un programa. En PHP, las más comunes son if, else, elseif, switch, while y for."
+            },
+            {
+                "titulo": "Ejemplo de condicional",
+                "subtitulo": "Uso de if y else",
+                "cuerpo": "```php\n$edad = 20;\nif ($edad >= 18) {\n    echo 'Eres mayor de edad';\n} else {\n    echo 'Eres menor de edad';\n}\n```"
+            },
+            {
+                "titulo": "Ejemplo de bucle",
+                "subtitulo": "Uso de for",
+                "cuerpo": "```php\nfor ($i = 1; $i <= 5; $i++) {\n    echo 'Número: ' . $i . \"<br>\";\n}\n```"
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Funciones Básicas",
+        "descripcion": "Define y usa funciones para organizar tu código y reutilizar bloques lógicos de forma eficiente.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a Funciones Básicas",
+                "subtitulo": "¿Qué es una función en PHP?",
+                "cuerpo": "Las funciones en PHP permiten encapsular bloques de código que pueden ser reutilizados. Son esenciales para estructurar programas de forma modular y mantener el código limpio."
+            },
+            {
+                "titulo": "Sintaxis de una función",
+                "subtitulo": "Declaración y llamada",
+                "cuerpo": "```php\nfunction saludar($nombre) {\n    return \"Hola, $nombre\";\n}\n\n// Uso\necho saludar(\"Mundo\");\n```"
+            },
+            {
+                "titulo": "Parámetros y retorno",
+                "subtitulo": "Funciones personalizadas",
+                "cuerpo": "Las funciones pueden recibir parámetros y devolver resultados. Esto permite crear herramientas reutilizables con diferentes entradas."
+            }
+        ]
+    },
+    {
+        "curso_id": 1,
+        "nombre": "Arreglos (Arrays)",
+        "descripcion": "Trabaja con arrays para almacenar múltiples valores y manipular listas de datos en PHP.",
+        "created_at": "2025-07-10T14:35:00Z",
+        "updated_at": "2025-07-10T14:35:00Z",
+        "contenido": [
+            {
+                "titulo": "Introducción a los Arreglos",
+                "subtitulo": "¿Qué es un array en PHP?",
+                "cuerpo": "Un array es una estructura de datos que permite almacenar múltiples valores en una sola variable. PHP soporta arrays indexados, asociativos y multidimensionales."
+            },
+            {
+                "titulo": "Array indexado",
+                "subtitulo": "Acceso por posición",
+                "cuerpo": "```php\n$frutas = [\"Manzana\", \"Banana\", \"Naranja\"];\necho $frutas[1]; // Banana\n```"
+            },
+            {
+                "titulo": "Array asociativo",
+                "subtitulo": "Acceso por clave",
+                "cuerpo": "```php\n$persona = [\n  \"nombre\" => \"Luis\",\n  \"edad\" => 30\n];\necho $persona[\"nombre\"]; // Luis\n```"
+            },
+            {
+                "titulo": "Recorrer un array",
+                "subtitulo": "Uso de foreach",
+                "cuerpo": "```php\n$colores = [\"Rojo\", \"Verde\", \"Azul\"];\nforeach ($colores as $color) {\n  echo $color . \"<br>\";\n}\n```"
+            }
+        ]
+    }
+]
