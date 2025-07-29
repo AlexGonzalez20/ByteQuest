@@ -6,7 +6,9 @@
 
  <div class="accordion" id="accordionCursos">
 
-@php
+
+ @php
+ $jito
 $pruebasPorCurso = $pruebas->groupBy(function($prueba) {
 return $prueba->leccion && $prueba->leccion->curso
 ? $prueba->leccion->curso->nombre
