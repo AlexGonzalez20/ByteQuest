@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    
     @vite('resources/css/dashboard.css')
 
 </head>
@@ -165,8 +165,25 @@
             </main>
         </div>
     </div>
+   
+@php
+    use App\Models\Vida;
+    $vidas = Vida::where('user_id', Auth::id())->first();
+@endphp
+
+<div style="font-size: 24px;">
+    @for ($i = 0; $i < $vidas->cantidad; $i++)
+        ❤️
+    @endfor
+    @for ($j = $vidas->cantidad; $j < 5; $j++)
+        🤍
+    @endfor
+</div>
+
 
 
 </body>
 
 </html>
+
+    

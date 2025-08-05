@@ -27,4 +27,6 @@ class Curso extends Model
             ->withPivot(['leccion_actual_id', 'pregunta_actual_id'])
             ->withTimestamps();
     }
+ 
+
 }

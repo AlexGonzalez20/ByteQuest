@@ -26,4 +26,24 @@ class RespuestaController extends Controller
 
         return redirect()->route('preguntas.index')->with('success', 'Respuestas guardadas correctamente.');
     }
+
+        public function verificarRespuesta(Request $request)
+{
+    $vidas = Vida::where('user_id', Auth::id())->first();
+
+    if ($vidas->cantidad <= 0) {
+        return redirect()->back()->with('error', '¡No tienes vidas disponibles!');
+    }
+
+    $respuestaCorrecta = Pregunta::find($request->pregunta_id)->respuesta_correcta;
+
+    if ($request->respuesta == $respuestaCorrecta) {
+        return redirect()->back()->with('mensaje', '¡Correcto!');
+    } else {
+        $vidas->cantidad -= 1;
+        $vidas->save();
+        return redirect()->back()->with('error', 'Incorrecto. Te queda(n) ' . $vidas->cantidad . ' vida(s).');
+    }
+}
+
 }

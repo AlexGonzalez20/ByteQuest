@@ -37,6 +37,7 @@ Route::get('/dashboard', function () {
     $usuarios = Usuario::all();
     return view('dashboard', compact('usuarios'));
 })->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // Recursos protegidos por auth
 Route::middleware(['auth'])->group(function () {
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+// ruta para la visual del carrucel de mis cursos
+Route::get('/mis-cursos-nuevo', [UsuarioController::class, 'misCursosNuevo'])->name('usuarios.cursos.nuevo');
 
 
 // Ruta para actualizar el perfil del usuario

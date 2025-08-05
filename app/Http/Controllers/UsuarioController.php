@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Curso;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
@@ -92,4 +92,32 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente');
     }
+
+    public function misCursosNuevo()
+{
+    // Si ya usas cursos desde base de datos, pásalos aquí también
+    $cursos = Curso::all();
+    return view('Usuarios.cursos-nuevo', compact('cursos'));
+}
+
+    public function register(Request $request)
+{
+    $user = new User();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = bcrypt($request->password);
+    $user->save();
+
+    // Asignar 5 vidas al nuevo usuario
+    $vidas = new Vida();
+    $vidas->user_id = $user->id; // usamos $user->id porque aún no hay sesión
+    $vidas->cantidad = 5;
+    $vidas->save();
+
+    Auth::login($user); // iniciar sesión automáticamente (si quieres)
+
+    return redirect()->route('dashboard');
+}
+
+
 }
