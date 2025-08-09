@@ -6,35 +6,52 @@
 
 body {
     margin: 0;
-    background: fixed
-        linear-gradient(
-            to left bottom,
-            #46f0e4,
-            #40c8d7,
-            #54a0ba,
-            #5d7a91,
-            #545863
-        );
+    background-color: #252746;
+
+    padding: 0;
 }
 
 .text-warning,
 .navbar-brand .text-warning {
-    color: #46f0e4 !important;
+    color: #00b2c3 !important;
     font-size: 50px;
+    font-weight: bold;
+}
+.navbar a {
+    text-shadow: #00b2c3 1px 0 10px;
+    text-decoration: none;
 }
 
 .quest {
+    font-weight: bold;
     font-size: 50px;
-    color: white;
+    color: #ffffff;
+}
+.logout {
+    background-color: #f9ce46;
+    border: none;
+    border-bottom: 2px solid #585463;
 }
 
+.button-card div {
+    background-color: #036891;
+    border-radius: 20px;
+    border-bottom: 3px solid #ffffff;
+    text-decoration: none;
+    flex: 1;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    height: 3rem;
+}
+.button-card div:hover,
+div:focus {
+    background-color: #fff;
+    color: #46f0e4;
+}
 #intro {
     background-color: #1e1b4b;
     color: white;
-}
-
-.nav {
-    align-items: center;
 }
 
 .circular {
@@ -64,6 +81,10 @@ body {
 
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+}
+.card-header {
+    background-color: #00b2c3;
 }
 
 .card:hover {

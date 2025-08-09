@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Crear Pregunta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('title', 'Crear Pregunta')
+
+@section('head')
     @vite('resources/css/crearPregunta.css')
-</head>
+@endsection
 
-<body class="section-padding">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}">
-                <span class="text-info">Byte</span>Quest
-            </a>
-            <div>
-                <a class="btn btn-info mx-2" href="{{ route('preguntas.index') }}">Volver</a>
-            </div>
-        </div>
-    </nav>
-
+@section('content')
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <h2 class="mb-4">Crear Nueva Pregunta</h2>
 
@@ -42,7 +29,7 @@
                     <option value="">Seleccione una lección</option>
                     @foreach ($lecciones as $leccion)
                         <option value="{{ $leccion->id }}" {{ old('leccion_id') == $leccion->id ? 'selected' : '' }}>
-                            {{ $leccion->nombre }}
+                            Lección: {{ $leccion->nombre }} - Curso: {{ $leccion->curso->nombre ?? '' }}
                         </option>
                     @endforeach
                 </select>
@@ -53,20 +40,25 @@
                 <textarea class="form-control" id="pregunta" name="pregunta" rows="3" required>{{ old('pregunta') }}</textarea>
             </div>
 
-
             <div class="mb-3">
-                <label for="imagen" class="form-label">Imagen</label>
+                <label for="imagen" class="form-label">Imagen (opcional)</label>
                 <input type="file" class="form-control" name="imagen" id="imagen">
             </div>
 
-            <div class="mt-4 d-flex flex-column">
-
+            <div class="mt-4">
+                <h5>Opciones</h5>
                 @for ($i = 1; $i <= 4; $i++)
-                    <label class="mb-4">
-                        <input type="radio" name="correcta" value="{{ $i }}">
-                        Opción {{ $i }}
-                        <input type="text" name="opciones[]" required>
-                    </label>
+                    <div class="mb-3">
+                        <label class="form-label">Opción {{ $i }}</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="radio" name="correcta" value="{{ $i }}" required>
+                            </div>
+                            <input type="text" name="opciones[]" class="form-control"
+                                value="{{ old('opciones.' . ($i - 1)) }}" required
+                                placeholder="Texto de la opción {{ $i }}">
+                        </div>
+                    </div>
                 @endfor
             </div>
 
@@ -76,6 +68,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

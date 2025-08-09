@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nombre": "PHP",
+        "descripcion": "\u00a1Bienvenido al curso de PHP de ByteQuest!\n\nPHP es uno de los lenguajes de programaci\u00f3n m\u00e1s utilizados en el desarrollo web. Gracias a su facilidad de uso y gran compatibilidad con bases de datos, PHP impulsa millones de sitios y plataformas din\u00e1micas alrededor del mundo.\n\nEn este curso aprender\u00e1s desde lo m\u00e1s b\u00e1sico: entender\u00e1s la sintaxis, variables, operadores, estructuras de control, funciones y c\u00f3mo PHP se integra con HTML para crear p\u00e1ginas din\u00e1micas. Tambi\u00e9n ver\u00e1s c\u00f3mo trabajar con formularios, sesiones y bases de datos MySQL para construir aplicaciones web completas.",
+        "created_at": "2025-07-09T03:05:32.000000Z",
+        "updated_at": "2025-07-09T03:05:32.000000Z"
+    },
+    {
+        "id": 2,
+        "nombre": "JavaScript",
+        "descripcion": "Bienvenido al curso de JavaScript de ByteQuest!\n\nJavaScript es el lenguaje clave para darle interactividad y dinamismo a cualquier sitio web. Es uno de los lenguajes m\u00e1s demandados en el mundo del desarrollo frontend y backend gracias a su versatilidad y potencia.\n\nEn este curso descubrir\u00e1s desde lo esencial: variables, tipos de datos, operadores, funciones, estructuras de control y manipulaci\u00f3n del DOM para interactuar directamente con el contenido de una p\u00e1gina. Tambi\u00e9n tendr\u00e1s una introducci\u00f3n a temas como eventos, asincron\u00eda y buenas pr\u00e1cticas modernas.",
+        "created_at": "2025-07-09T03:05:32.000000Z",
+        "updated_at": "2025-07-09T03:05:32.000000Z"
+    },
+    {
+        "id": 3,
+        "nombre": "Python",
+        "descripcion": "\u00a1Bienvenido al curso de Python de ByteQuest!\n\nEn este recorrido aprender\u00e1s uno de los lenguajes de programaci\u00f3n m\u00e1s populares y vers\u00e1tiles del mundo. Python es conocido por su sintaxis clara, simple y amigable para quienes se inician en el mundo del c\u00f3digo.\n\nDurante este curso explorar\u00e1s desde los conceptos m\u00e1s b\u00e1sicos \u2014como variables, tipos de datos, operadores y estructuras de control\u2014 hasta temas m\u00e1s avanzados como funciones, manejo de archivos y programaci\u00f3n orientada a objetos.",
+        "created_at": "2025-07-09T03:05:32.000000Z",
+        "updated_at": "2025-07-09T03:05:32.000000Z"
+    }
+]

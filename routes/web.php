@@ -9,41 +9,44 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\ReporteUsuariosController;
 use App\Http\Controllers\ImagenesController;
+use App\Http\Controllers\PruebaController;
+use App\Http\Controllers\ProgresoController;
+use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\AprenderController;
+use App\Http\Controllers\RecuperarVidasController;
+
+
 use App\Models\Usuario;
+use App\Http\Controllers\TablaController;
+// 🌟 Landing
+Route::get('/', fn() => view('landing'))->name('landing');
 
-// Redirigir la raíz al login
-Route::get('/', function () {
-    return view('landing');
-})->name('landing');
-
-
-// Rutas de autenticación
+// ✅ Autenticación
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Registro
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-// Recuperar contraseña
 Route::get('/password/forgot', [AuthController::class, 'showForgotForm'])->name('password.request');
 Route::post('/password/email', [AuthController::class, 'sendResetLink'])->name('password.email');
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
-// Dashboard protegido por middleware auth
+// ✅ Dashboard protegido
 Route::get('/dashboard', function () {
     $usuarios = Usuario::all();
     return view('dashboard', compact('usuarios'));
 })->middleware('auth');
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
-// Recursos protegidos por auth
+// ✅ Recursos
 Route::middleware(['auth'])->group(function () {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('cursos', CursoController::class);
     Route::resource('preguntas', PreguntaController::class);
+<<<<<<< HEAD
 });
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
@@ -73,20 +76,86 @@ Route::prefix('views')->middleware(['auth'])->group(function () {
 
 Route::prefix('views')->middleware(['auth'])->group(function () {
     // Otras rutas...
+=======
+    Route::resource('pruebas', PruebaController::class);
+>>>>>>> dfc050843fa76327f82d2293328ef181c49c7af4
     Route::resource('lecciones', LeccionController::class)->parameters([
         'lecciones' => 'leccion'
     ]);
 });
 
+// ✅ Perfil
+Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 
-Route::get('reportes/usuarios-por-curso', [ReporteUsuariosController::class, 'index'])
+// ✅ Módulo vistas
+Route::prefix('views')->middleware(['auth'])->group(function () {
+    Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
+    Route::view('/dashboard', 'dashboard')->name('views.dashboard');
+    Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
+    Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
+    Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos');
+    Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos');
+    Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
+    route::view('/leccionEnsenanza', 'VistasEstudiante.leccionEnsenanza')->name('views.ULeccionEnsenanza');
+});
+
+// ✅ Reportes
+Route::get('reportes/usuariosPorCurso', [ReporteUsuariosController::class, 'index'])
     ->name('reportes.usuarios.index');
-
-Route::get('reportes/usuarios-por-curso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
+Route::get('reportes/usuariosPorCurso/pdf', [ReporteUsuariosController::class, 'descargarPdf'])
     ->name('reportes.usuarios.pdf');
 
+// ✅ Imagenes
 Route::post('/imagen/upload', [ImagenesController::class, 'upload'])->name('imagen.upload');
 
+// ✅ Cursos: seguir y dejar
+Route::post('/usuarios/seguir-curso/{curso_id}', [UsuarioController::class, 'seguirCurso'])
+    ->name('usuarios.seguirCurso')->middleware('auth');
+Route::post('/usuarios/dejar-curso/{curso_id}', [UsuarioController::class, 'dejarCurso'])
+    ->name('usuarios.dejarCurso')->middleware('auth');
+
+// ✅ Camino de aprendizaje
+Route::get('/camino/{curso_id}', [App\Http\Controllers\CaminoController::class, 'mostrar'])
+    ->name('usuarios.caminoCurso')->middleware('auth');
+
+// ✅ Reclamar XP
+Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])
+    ->name('lecciones.reclamarXP')->middleware('auth');
+
+// ✅ Preguntas y progreso
+Route::get('/pregunta/mostrar', [ProgresoController::class, 'mostrarPregunta'])
+    ->name('pregunta.mostrar')->middleware('auth');
+
+Route::post('/pregunta/responder', [ProgresoController::class, 'responderPregunta'])
+    ->name('pregunta.responder')->middleware('auth');
+
+Route::get('/home', [UsuarioController::class, 'home'])
+    ->name('views.UsuarioHome')
+    ->middleware('auth');
+
+Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrarPregunta'])
+    ->name('pregunta.mostrar')->middleware('auth');
+
+Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrarPregunta'])
+    ->name('pregunta.mostrar')
+    ->middleware('auth');
+
+// ✅ graficas
+Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');
+
+Route::get('/tienda', [TiendaController::class, 'index'])
+    ->name('tienda')
+    ->middleware('auth');
+
+Route::get('/pago', [TiendaController::class, 'pago'])
+    ->middleware('auth')
+    ->name('pago');
 
 
-// Eliminar referencias a CursoController y rutas personalizadas antiguas si existen
+Route::get('/aprender', [AprenderController::class, 'index'])
+    ->name('aprender')
+    ->middleware('auth');
+
+Route::get('/recuperarVidas', [RecuperarVidasController::class, 'index'])
+    ->name('recuperarVidas')
+    ->middleware('auth');

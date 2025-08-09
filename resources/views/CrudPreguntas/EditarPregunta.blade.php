@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Pregunta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('title', 'Editar Pregunta')
+
+@section('head')
     @vite('resources/css/editarPregunta.css')
-</head>
+@endsection
 
-<body class="section-padding">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('views.dashboard') }}">
-                <span class="text-info">Byte</span>Quest
-            </a>
-            <div>
-                <a class="btn btn-info mx-2" href="{{ route('preguntas.index') }}">Volver</a>
-            </div>
-        </div>
-    </nav>
-
+@section('content')
     <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
         <h2 class="mb-4">Editar Pregunta</h2>
 
@@ -48,7 +35,7 @@
                     @foreach ($lecciones as $leccion)
                         <option value="{{ $leccion->id }}"
                             {{ $pregunta->leccion_id == $leccion->id ? 'selected' : '' }}>
-                            {{ $leccion->nombre }}
+                            Lección: {{ $leccion->nombre ?? 'N/A' }} - Curso: {{ $leccion->curso->nombre ?? '' }}
                         </option>
                     @endforeach
                 </select>
@@ -90,6 +77,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

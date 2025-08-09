@@ -14,11 +14,26 @@ class LeccionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lecciones = Leccion::all();
+        $lecciones = \App\Models\Leccion::with('curso');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $lecciones->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', '%' . $search . '%')
+                    ->orWhere('descripcion', 'like', '%' . $search . '%')
+                    ->orWhereHas('curso', function ($q) use ($search) {
+                        $q->where('nombre', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        $lecciones = $lecciones->get();
+
         return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -78,7 +93,6 @@ class LeccionController extends Controller
     }
 
 
-
     /**
      * Remove the specified resource from storage.
      */
@@ -87,4 +101,9 @@ class LeccionController extends Controller
         $leccion->delete();
         return redirect()->route('lecciones.index')->with('success', 'leccion eliminado correctamente.');
     }
+
+    /**
+     * Reclama experiencia por completar una lección.
+     * Solo permite reclamar una vez por usuario y lección.
+     */
 }

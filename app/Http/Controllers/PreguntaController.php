@@ -3,18 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pregunta;
-use App\Models\leccion;
+use App\Models\Leccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-
 class PreguntaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $preguntas = Pregunta::with('leccion')->get();
+        $preguntas = \App\Models\Pregunta::with(['leccion.curso']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $preguntas->where(function ($query) use ($search) {
+                $query->where('pregunta', 'like', '%' . $search . '%')
+                    ->orWhereHas('leccion', function ($q) use ($search) {
+                        $q->where('nombre', 'like', '%' . $search . '%')
+                            ->orWhereHas('curso', function ($qc) use ($search) {
+                                $qc->where('nombre', 'like', '%' . $search . '%');
+                            });
+                    });
+            });
+        }
+
+        $preguntas = $preguntas->get();
+
         return view('CrudPreguntas.GestionarPregunta', compact('preguntas'));
+    }
+
+
+    public function create()
+    {
+        // Muestra todas las lecciones disponibles para asignar preguntas
+        $lecciones = Leccion::all();
+        return view('CrudPreguntas.CrearPregunta', compact('lecciones'));
     }
 
     public function edit(Pregunta $pregunta)
@@ -22,15 +44,6 @@ class PreguntaController extends Controller
         $lecciones = Leccion::all();
         return view('CrudPreguntas.EditarPregunta', compact('pregunta', 'lecciones'));
     }
-
-
-    public function create()
-    {
-        $lecciones = \App\Models\Leccion::all();
-        $lecciones = leccion::all();
-        return view('CrudPreguntas.CrearPregunta', compact('lecciones', 'lecciones'));
-    }
-
 
     public function store(Request $request)
     {
@@ -46,29 +59,22 @@ class PreguntaController extends Controller
         DB::beginTransaction();
 
         try {
-            // 1) Crear la pregunta SIN imagen
             $pregunta = Pregunta::create([
                 'pregunta' => $request->pregunta,
                 'leccion_id' => $request->leccion_id,
                 'imagen' => null,
             ]);
 
-            // 2) Subir imagen si existe
             if ($request->hasFile('imagen')) {
                 $file = $request->file('imagen');
                 $extension = $file->getClientOriginalExtension();
-
                 $nombreArchivo = 'leccion_' . $request->leccion_id . '_pregunta_' . $pregunta->id . '.' . $extension;
 
                 $file->move(public_path('imagenes_preguntas'), $nombreArchivo);
 
-                $rutaImagen = 'imagenes_preguntas/' . $nombreArchivo;
-
-                // Actualizar columna imagen
-                $pregunta->update(['imagen' => $rutaImagen]);
+                $pregunta->update(['imagen' => 'imagenes_preguntas/' . $nombreArchivo]);
             }
 
-            // 3) Guardar respuestas
             foreach ($request->opciones as $index => $texto) {
                 $pregunta->respuestas()->create([
                     'texto' => $texto,
@@ -77,14 +83,12 @@ class PreguntaController extends Controller
             }
 
             DB::commit();
-
             return redirect()->route('preguntas.index')->with('success', 'Pregunta creada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Hubo un error: ' . $e->getMessage());
         }
     }
-
 
     public function update(Request $request, Pregunta $pregunta)
     {
@@ -97,18 +101,14 @@ class PreguntaController extends Controller
             'correcta' => 'required|integer|between:1,4',
         ]);
 
-        // Actualizar pregunta básica
         $pregunta->pregunta = $request->pregunta;
         $pregunta->leccion_id = $request->leccion_id;
 
-        // Manejar nueva imagen
         if ($request->hasFile('imagen')) {
-            // Borrar imagen antigua si existe
             if ($pregunta->imagen && file_exists(public_path($pregunta->imagen))) {
                 unlink(public_path($pregunta->imagen));
             }
 
-            // Generar nuevo nombre
             $extension = $request->file('imagen')->getClientOriginalExtension();
             $nombreArchivo = 'leccion_' . $request->leccion_id . '_pregunta_' . $pregunta->id . '.' . $extension;
 
@@ -119,7 +119,6 @@ class PreguntaController extends Controller
 
         $pregunta->save();
 
-        // Actualizar respuestas
         foreach ($pregunta->respuestas as $index => $respuesta) {
             $respuesta->texto = $request->opciones[$index];
             $respuesta->es_correcta = ($index + 1) == $request->correcta;
@@ -129,10 +128,13 @@ class PreguntaController extends Controller
         return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
     }
 
-
-    public function destroy(Pregunta $pregunta)
+    public function mostrarPregunta($leccion_id)
     {
-        $pregunta->delete();
-        return redirect()->route('preguntas.index')->with('success', 'Pregunta eliminada correctamente.');
+        // Ahora busca preguntas por lección
+        $pregunta = Pregunta::where('leccion_id', $leccion_id)
+            ->with('respuestas')
+            ->first(); // Puedes mejorarlo para traer la que esté pendiente
+
+        return view('VistasEstudiante.preguntas', compact('pregunta'));
     }
 }

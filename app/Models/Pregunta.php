@@ -2,28 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Pregunta extends Model
 {
     use HasFactory;
 
-    protected $table = 'preguntas';
-
-    protected $fillable = [
-        'pregunta',
-        'imagen',
-        'leccion_id',
-    ];
+    protected $fillable = ['leccion_id', 'pregunta', 'imagen'];
 
     public function leccion()
     {
-        return $this->belongsTo(Leccion::class, 'leccion_id');
+        return $this->belongsTo(Leccion::class);
     }
 
     public function respuestas()
     {
-        return $this->hasMany(Respuesta::class, 'pregunta_id');
+        return $this->hasMany(Respuesta::class);
     }
 }

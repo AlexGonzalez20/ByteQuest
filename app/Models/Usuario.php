@@ -17,7 +17,10 @@ class Usuario extends Authenticatable
         'apellido',
         'email',
         'password',
+        'vidas',
+        'experiencia',
         'role_id',
+        'imagen',
     ];
 
     protected $hidden = [
@@ -33,7 +36,12 @@ class Usuario extends Authenticatable
     public function cursos()
     {
         return $this->belongsToMany(Curso::class, 'curso_usuario')
-            ->withPivot(['leccion_actual_id', 'pregunta_actual_id'])
+            ->withPivot(['leccion_actual_id', 'prueba_actual_id'])
             ->withTimestamps();
+    }
+
+    public function progresoPreguntas()
+    {
+        return $this->hasMany(\App\Models\ProgresoPregunta::class);
     }
 }
