@@ -27,7 +27,7 @@
             </svg>
         </div>
         <!-- Barra de navegación -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #242546">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #242546; text-shadow: 0px 2px 4px #000000;">
   <div class="container-fluid">
     <!-- Logo + Título -->
     <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
@@ -159,29 +159,29 @@
                             </div>
                             <div class="row float-start mb-5">
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-laptop"></i>
-                                        <h2 class="card-title">Interfaz amigable</h2>
-                                        <button class="btn ">Ver detalles</button>
+                                        <h2 class="card-title service-title">Interfaz amigable</h2>
+                                        <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-journal"></i>
-                                        <h2 class="card-title">Interfaz </h2>
-                                        <button class="btn">Ver detalles</button>
+                                        <h2 class="card-title service-title">Interfaz </h2>
+                                        <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-intersect"></i>
-                                        <h3 class="card-title">Desarrollo Ético y Profesional</h3>
-                                        <p class="lead">Fomentamos una formación basada en valores como la
+                                        <h3 class="card-title service-title">Desarrollo Ético y Profesional</h3>
+                                        <p class="lead service-title">Fomentamos una formación basada en valores como la
                                             integridad, el
                                             respeto y
                                             la responsabilidad
                                             tecnológica.</p>
-                                        <button class="btn">Ver detalles</button>
+                                        <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,3 +1,22 @@
+/* Estilos para las tarjetas de servicios */
+.service-title {
+    color: #242546;
+    text-align: center;
+    transition: color 0.3s;
+}
+.service-title:hover {
+    color: #00b2c3;
+}
+.service-btn {
+    color: #242546;
+    background: #fff;
+    border: 1px solid #242546;
+    transition: color 0.3s, border-color 0.3s;
+}
+.service-btn:hover {
+    color: #00b2c3;
+    border-color: #00b2c3;
+}
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 *,
