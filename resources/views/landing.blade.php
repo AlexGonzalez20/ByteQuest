@@ -27,11 +27,11 @@
             </svg>
         </div>
         <!-- Barra de navegación -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #242546">
   <div class="container-fluid">
     <!-- Logo + Título -->
     <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
-      <img class="img-nav me-2" src="{{ asset('img/icon.png') }}" alt="byte" style="height: 40px;">
+      <img class="img-nav me-2 mt-2" src="{{ asset('img/icon.png') }}" alt="byte" >
       <span class="h4 mb-0">
         <span style="color:#00b2c3;">Byte</span>Quest
       </span>
@@ -48,26 +48,26 @@
       <!-- Enlaces del menú -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link text-light" href="#about">Acerca de nosotros</a>
+          <a class="nav-link text-light me-5 ms-5" href="#about">Acerca de nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Inicio</a>
+          <a class="nav-link text-light me-5 ms-5" href="#">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#portafolio">Proyectos</a>
+          <a class="nav-link text-light me-5 ms-5" href="#portafolio">Proyectos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#services">Servicios</a>
+          <a class="nav-link text-light me-5 ms-5" href="#services">Servicios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#contact">Contáctanos</a>
+          <a class="nav-link text-light me-5 ms-5" href="#contact">Contáctanos</a>
         </li>
       </ul>
 
       <!-- Login y Empezar -->
       <div class="d-flex align-items-center">
         <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
-        <a class="btn btn-light" href="{{ route('register') }}">Empezar</a>
+        <a class="btn btn-light rounded-3 bg-light text-dark" href="{{ route('register') }}">Empezar</a>
       </div>
     </div>
   </div>
@@ -81,10 +81,10 @@
         </header>
 
         <!-- Contenido Central -->
-        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100">
+        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100 ">
             <!-- Texto Magico -->
-            <div class="animacion d-flex flex-column w-75 pb-4 mb-5">
-                <textarea id="textExample" rows="5" cols="60" class="textarea pb-5 text-start mb-4">
+            <div class="animacion d-flex flex-column  pb-4 mb-5 w-75">
+                <textarea id="textExample" rows="5" cols="60" class="textarea pb-5 text-start mb-4 ">
                     Hola!!!
                     Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
                     aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui 
@@ -95,7 +95,7 @@
                 <a class="btn text-decoration-none lh-lg-1 mt-2 mb-4 " id="text" type="button">Conoce a Byte!</a>
             </div>
 
-            <div class="contenido rounded-4 text-light mb-5 p-4">
+            <div class="contenido rounded-4 text-light mb-5 p-4 w-75">
                 <div class="card mt-5 mb-5 p-4">
                     <h3 class="mb-4">Acerca de nosotros</h3>
                     <p class="mb-4">
@@ -159,35 +159,29 @@
                             </div>
                             <div class="row float-start mb-5">
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-laptop"></i>
-                                            <h2 class="card-title">Interfaz amigable</h2>
-                                            <button class="btn ">Ver detalles</button>
-                                        </div>
+                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                        <i class="bi bi-laptop"></i>
+                                        <h2 class="card-title">Interfaz amigable</h2>
+                                        <button class="btn ">Ver detalles</button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-journal"></i>
-                                            <h2 class="card-title">Interfaz </h2>
-                                            <button class="btn">Ver detalles</button>
-                                        </div>
+                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                        <i class="bi bi-journal"></i>
+                                        <h2 class="card-title">Interfaz </h2>
+                                        <button class="btn">Ver detalles</button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-intersect"></i>
-                                            <h3 class="card-title">Desarrollo Ético y Profesional</h3>
-                                            <p class="lead">Fomentamos una formación basada en valores como la
-                                                integridad, el
-                                                respeto y
-                                                la responsabilidad
-                                                tecnológica.</p>
-                                            <button class="btn">Ver detalles</button>
-                                        </div>
+                                    <div class="card-body text-white text-center bg-dark pb-2 mt-2">
+                                        <i class="bi bi-intersect"></i>
+                                        <h3 class="card-title">Desarrollo Ético y Profesional</h3>
+                                        <p class="lead">Fomentamos una formación basada en valores como la
+                                            integridad, el
+                                            respeto y
+                                            la responsabilidad
+                                            tecnológica.</p>
+                                        <button class="btn">Ver detalles</button>
                                     </div>
                                 </div>
                             </div>
