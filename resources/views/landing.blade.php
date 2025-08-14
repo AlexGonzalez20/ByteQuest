@@ -18,7 +18,7 @@
     <body>
         <div class="svg-container">
             <!-- I crated SVG with: https://codepen.io/anthonydugois/pen/mewdyZ -->
-            <svg viewbox="0 0 800 400" class="svg">
+            <svg viewbox="0 0 800 600" class="svg">
 
 
                 <path id="curve" fill="#252746" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
@@ -27,26 +27,51 @@
             </svg>
         </div>
         <!-- Barra de navegación -->
-        <nav class="nav-bar pt-4 ps-3">
-            <div class="bytequest d-flex justify-content-between">
-                <div>
-                    <img class="img-nav" src="{{ asset('img/icon.png') }}" alt="byte">
-                    <a class="text-light text-decoration-none h3" href="{{ route('landing') }}">
-                        <span style="color:#00b2c3;" class="h3">Byte</span>Quest
-                    </a>
-                </div>
-                <a class="text-light text-decoration-none border-bottom" href="#">Inicio</a>
-                <a class="text-light text-decoration-none border-bottom" href="#about">Acerca de nosotros</a>
-                <a class="text-light text-decoration-none border-bottom" href="#portfolio">Proyectos</a>
-                <a class="text-light text-decoration-none border-bottom" href="#services">Servicios</a>
-                <a class="text-light text-decoration-none border-bottom" href="#contact">Contáctanos</a>
-                <div class="d-flex w-20 justify-content-between">
-                    <a class="text-light text-decoration-none pe-4 pt-1" href="{{ route('login') }}">Login</a>
-                    <a class=" pt-1 rounded-0 card text-dark text-decoration-none pe-2 ps-2 "
-                        href="{{ route('register') }}">Empezar</a>
-                </div>
-            </div>
-        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo + Título -->
+    <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
+      <img class="img-nav me-2" src="{{ asset('img/icon.png') }}" alt="byte" style="height: 40px;">
+      <span class="h4 mb-0">
+        <span style="color:#00b2c3;">Byte</span>Quest
+      </span>
+    </a>
+
+    <!-- Botón de hamburguesa para pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del navbar -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+      <!-- Enlaces del menú -->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#about">Acerca de nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#portafolio">Proyectos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#services">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#contact">Contáctanos</a>
+        </li>
+      </ul>
+
+      <!-- Login y Empezar -->
+      <div class="d-flex align-items-center">
+        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
+        <a class="btn btn-light" href="{{ route('register') }}">Empezar</a>
+      </div>
+    </div>
+  </div>
+</nav>
         <!-- Header -->
         <header class="flex">
             <div class="d-flex justify-content-between flex-column ">
@@ -83,7 +108,7 @@
             </div>
 
             <!-- cards section -->
-            <section id="portfolio" class=" portafolio section-padding">
+            <section id="portafolio" class=" portafolio section-padding">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
