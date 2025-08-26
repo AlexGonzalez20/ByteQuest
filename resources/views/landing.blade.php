@@ -26,10 +26,6 @@
                 </path>
             </svg>
         </div>
-        <!-- Fondo animado tipo login -->
-        <div class="bg"></div>
-        <div class="bg bg2"></div>
-        <div class="bg bg3"></div>
         <!-- Barra de navegación -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
             style="background-color: #242546; text-shadow: 0px 2px 4px #000000;">
@@ -105,7 +101,7 @@
         <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100 ">
             <!-- Texto Magico -->
             <div class="animacion d-flex flex-column  pb-4 mb-5 w-75">
-                <textarea id="textExample" rows="5" cols="60" class="textarea pb-5 text-start mb-4 ">
+                <textarea id="textExample" rows="5" cols="60" class="textarea pt-3 pb-2 text-start mb-4 ">
                     Hola!!!
                     Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
                     aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui 

@@ -185,16 +185,13 @@ button {
     cursor: pointer;
 }
 .btn:hover {
-    background-color: #00b2c3;
+    background-color: #252746;
     color: whitesmoke;
 }
 .card-body {
     background-color: #252746;
     height: 100%;
     border-radius: 20px;
-}
-.card {
-    border: #00b2c3 5px solid;
 }
 
 .context {
