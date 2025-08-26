@@ -108,9 +108,11 @@
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>
 
-                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning">
-                                    <i class='bx bx-user-circle'></i>
-                                    {{ auth()->user()->nombre }}
+                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning d-flex align-items-center"
+                                    style="gap: 8px;">
+                                    <img src="{{ asset('img/' . auth()->user()->imagen) }}" alt="Foto de perfil"
+                                        style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; border: 2px solid #fff;">
+                                    <span>{{ auth()->user()->nombre }}</span>
                                 </a>
                             </div>
                         </div>
