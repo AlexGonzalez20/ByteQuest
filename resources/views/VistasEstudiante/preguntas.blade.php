@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Preguntas</title>
@@ -9,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     @vite('resources/css/preguntas.css')
 </head>
+
 <body>
 
     <div class="container py-5">
@@ -37,19 +39,26 @@
                         <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
                     </form>
 
-                {{-- ✅ Si hay una pregunta disponible --}}
+                    {{-- ✅ Si hay una pregunta disponible --}}
                 @elseif(isset($pregunta) && $pregunta)
+                   
+
                     <h4 class="mb-4">{{ $pregunta->pregunta }}</h4>
 
                     <form method="POST" action="{{ route('pregunta.responder') }}">
+                         {{-- Mostrar imagen si existe --}}
+                    @if (!empty($pregunta->imagen))
+                        <div class="mb-3 text-center">
+<img src="{{ asset('imagenes_preguntas/' . $pregunta->imagen) }}" alt="Imagen de la pregunta" style="max-height:180px;width:auto;">
+                        </div>
+                    @endif
                         @csrf
                         <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
                         <input type="hidden" name="respuesta" id="respuesta">
 
-                        @foreach ($pregunta->respuestas as $respuesta)
+                        @foreach ($pregunta->respuestas->shuffle() as $respuesta)
                             <button type="button" class="btn btn-outline-primary w-100 mb-2 option-btn"
-                                value="{{ $respuesta->id }}"
-                                onclick="selectOption(this)">
+                                value="{{ $respuesta->id }}" onclick="selectOption(this)">
                                 {{ $respuesta->texto }}
                             </button>
                         @endforeach
@@ -64,7 +73,7 @@
                         </div>
                     @endif
 
-                {{-- ✅ Si no hay preguntas ni finalización --}}
+                    {{-- ✅ Si no hay preguntas ni finalización --}}
                 @else
                     <div class="alert alert-info text-center mb-3">
                         No hay preguntas pendientes.
@@ -89,4 +98,5 @@
     {{-- ✅ Bootstrap JS (opcional) --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

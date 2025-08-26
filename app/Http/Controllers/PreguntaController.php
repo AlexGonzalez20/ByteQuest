@@ -130,10 +130,10 @@ class PreguntaController extends Controller
 
     public function mostrarPregunta($leccion_id)
     {
-        // Ahora busca preguntas por lección
         $pregunta = Pregunta::where('leccion_id', $leccion_id)
             ->with('respuestas')
-            ->first(); // Puedes mejorarlo para traer la que esté pendiente
+            ->inRandomOrder()
+            ->first();
 
         return view('VistasEstudiante.preguntas', compact('pregunta'));
     }

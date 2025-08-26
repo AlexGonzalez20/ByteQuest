@@ -126,3 +126,4 @@ Route::get('/aprender', [AprenderController::class, 'index'])
 Route::get('/recuperarVidas', [RecuperarVidasController::class, 'index'])
     ->name('recuperarVidas')
     ->middleware('auth');
+Route::post('/pregunta/responder', [PreguntaController::class, 'responder'])->name('pregunta.responder');
