@@ -1,8 +1,9 @@
 /* resources/css/usuarios.css */
 .sidebar {
     min-height: 100vh;
-    background: #222;
+    background: #252746;
     color: #fff;
+    box-shadow: 0 0 24px #00fff7ff;
 }
 .sidebar .nav-link {
     color: #fff;
@@ -12,10 +13,12 @@
     border-radius: 8px;
     margin-bottom: 6px;
     padding: 10px 18px;
+    /* padding corregido, línea eliminada */
 }
-.sidebar .nav-link.active, .sidebar .nav-link:hover {
-    background: #ffc107;
-    color: #222;
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+    background: #00fff7ff;
+    color: #252746;
 }
 .sidebar .nav-link i {
     margin-right: 8px;
@@ -25,13 +28,16 @@
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     border-radius: 16px;
-    box-shadow: 0 0 10px #ffc10733;
-    background: #fff;
+    box-shadow: 0 0 10px #00fff7ff;
+    background: #252746;
+    color: #fff;
     border: none;
 }
 .icon-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 20px #ffc107;
+    box-shadow: 0 0 20px #00fff7ff;
+    background: #00fff7ff;
+    color: #252746;
 }
 .icon-card i {
     font-size: 3rem;
@@ -65,12 +71,13 @@
     transform: scale(1.1);
 }
 .question-box {
-    background: #fff;
+    background: #252746;
     border-radius: 16px;
-    box-shadow: 0 0 20px #ffc10733;
+    box-shadow: 0 0 20px #00fff7ff;
     padding: 2rem;
     max-width: 500px;
     margin: 3rem auto;
+    color: #fff;
 }
 .option-btn {
     width: 100%;
@@ -79,18 +86,20 @@
     font-size: 1.1rem;
     font-weight: 500;
 }
-.option-btn.selected, .option-btn:active {
-    background: #ffc107 !important;
-    color: #222 !important;
-    border-color: #ffc107 !important;
+.option-btn.selected,
+.option-btn:active {
+    background: #00fff7ff !important;
+    color: #252746 !important;
+    border-color: #00fff7ff !important;
 }
 .profile-container {
     max-width: 400px;
     margin: 3rem auto;
-    background: #fff;
+    background: #252746;
     border-radius: 16px;
-    box-shadow: 0 0 20px #ffc10733;
+    box-shadow: 0 0 20px #00fff7ff;
     padding: 2rem;
+    color: #fff;
 }
 .profile-img {
     width: 120px;
@@ -106,15 +115,18 @@
 }
 .course-card {
     border-radius: 16px;
-    box-shadow: 0 0 10px #ffc10733;
+    box-shadow: 0 0 10px #00fff7ff;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
-    background: #fff;
+    background: #252746;
+    color: #fff;
     border: none;
 }
 .course-card:hover {
     transform: scale(1.03);
-    box-shadow: 0 0 20px #ffc107;
+    box-shadow: 0 0 20px #00fff7ff;
+    background: #00fff7ff;
+    color: #252746;
 }
 .course-img {
     width: 100%;

@@ -20,15 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-        // AppServiceProvider.php
         View::composer('layouts.estudiante', function ($view) {
             $user = auth()->user();
             $cursos = $user ? $user->cursos : collect();
-            $curso = $cursos->first(); // O tu lógica
-
-            $view->with('cursos', $cursos)
-                ->with('curso', $curso);
+            $view->with('cursos', $cursos);
         });
     }
 }
