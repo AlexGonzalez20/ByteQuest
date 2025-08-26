@@ -68,7 +68,7 @@
                     <!-- Login y Empezar -->
                     <div class="d-flex align-items-center">
                         <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
-                        <a class="btn btn-light rounded-3 " style="background-color: ;"
+                        <a class="btn btn-light rounded-3 " style="background-color:#ffc107 ;"
                             href="{{ route('register') }}">Empezar</a>
                     </div>
                 </div>
