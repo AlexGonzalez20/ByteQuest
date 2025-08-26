@@ -26,59 +26,80 @@
                 </path>
             </svg>
         </div>
+        <!-- Fondo animado tipo login -->
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
         <!-- Barra de navegación -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #242546; text-shadow: 0px 2px 4px #000000;">
-  <div class="container-fluid">
-    <!-- Logo + Título -->
-    <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
-      <img class="img-nav me-2 mt-2" src="{{ asset('img/icon.png') }}" alt="byte" >
-      <span class="h4 mb-0">
-        <span style="color:#00b2c3;">Byte</span>Quest
-      </span>
-    </a>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+            style="background-color: #242546; text-shadow: 0px 2px 4px #000000;">
+            <div class="container-fluid">
+                <!-- Logo + Título -->
+                <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
+                    <img class="img-nav me-2 mt-2" src="{{ asset('img/icon.png') }}" alt="byte">
+                    <span class="h4 mb-0">
+                        <span style="color:#00b2c3;">Byte</span>Quest
+                    </span>
+                </a>
 
-    <!-- Botón de hamburguesa para pantallas pequeñas -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+                <!-- Botón de hamburguesa para pantallas pequeñas -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <!-- Contenido del navbar -->
-    <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
-      <!-- Enlaces del menú -->
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link text-light me-5 ms-5" href="#about">Acerca de nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light me-5 ms-5" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light me-5 ms-5" href="#portafolio">Proyectos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light me-5 ms-5" href="#services">Servicios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light me-5 ms-5" href="#contact">Contáctanos</a>
-        </li>
-      </ul>
+                <!-- Contenido del navbar -->
+                <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+                    <!-- Enlaces del menú -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#about">Acerca de nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#portafolio">Proyectos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#services">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#contact">Contáctanos</a>
+                        </li>
+                    </ul>
 
-      <!-- Login y Empezar -->
-      <div class="d-flex align-items-center">
-        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
-        <a class="btn btn-light rounded-3 bg-light text-dark" href="{{ route('register') }}">Empezar</a>
-      </div>
-    </div>
-  </div>
-</nav>
+                    <!-- Login y Empezar -->
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
+                        <a class="btn btn-light rounded-3 " style="background-color: ;"
+                            href="{{ route('register') }}">Empezar</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <!-- Header -->
         <header class="flex">
-            <div class="d-flex justify-content-between flex-column ">
-                <h2 class=" fs-1">Bienvenido a</h2>
-                <h2 class="h1 fs-1">ByteQuest</h2>
+            <div class="d-flex justify-content-center align-items-center flex-row">
+                <h2 class="fs-1 mb-0">Bienvenido a <span class="h1 fs-1" style="color:#00b2c3;">Byte</span>Quest</h2>
             </div>
         </header>
+
+        <!-- Animación de círculos en el fondo blanco -->
+        <div class="area" style="z-index:-2; position:fixed; top:0; left:0; width:100vw; height:100vh;">
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
 
         <!-- Contenido Central -->
         <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100 ">
@@ -157,31 +178,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row float-start mb-5">
-                                <div class="col-12 col-md-12 col-lg-4">
+                            <div class="d-flex justify-content-center align-items-stretch flex-wrap mb-5"
+                                style="gap: 32px;">
+                                <div class="service-card text-light">
                                     <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-laptop"></i>
-                                        <h2 class="card-title service-title">Interfaz amigable</h2>
+                                        <h2 class="card-title service-title text-light">Interfaz amigable</h2>
                                         <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-4">
+                                <div class="service-card text-light">
                                     <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-journal"></i>
-                                        <h2 class="card-title service-title">Interfaz </h2>
+                                        <h2 class="card-title service-title
+                                        text-light">Interfaz </h2>
                                         <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-4">
+                                <div class="service-card text-light">
                                     <div class="card-body text-center  pb-2 mt-2 service-card">
                                         <i class="bi bi-intersect"></i>
-                                        <h3 class="card-title service-title">Desarrollo Ético y Profesional</h3>
-                                        <p class="lead service-title">Fomentamos una formación basada en valores como la
-                                            integridad, el
-                                            respeto y
-                                            la responsabilidad
-                                            tecnológica.</p>
-                                        <button class="btn service-btn">Ver detalles</button>
+                                        <h3 class="card-title service-title text-light">Desarrollo Ético y Profesional
+                                        </h3>
+                                        <button class="btn service-btn ">Ver detalles</button>
                                     </div>
                                 </div>
                             </div>
