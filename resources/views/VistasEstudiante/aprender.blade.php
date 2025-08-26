@@ -13,6 +13,7 @@
                 return $prueba->leccion && $prueba->leccion->curso
                     ? $prueba->leccion->curso->nombre
                     : 'Sin Curso';
+
             });
         @endphp
 
