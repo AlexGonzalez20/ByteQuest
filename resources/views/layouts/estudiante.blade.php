@@ -13,11 +13,12 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-md-block sidebar py-4">
-                <div class="position-sticky">
+    <div class="container-fluid p-0 m-0">
+        <div class="row g-0 flex-nowrap">
+            <!-- Sidebar Responsive -->
+            <nav class="sidebar bg-dark position-fixed top-0 start-0 vh-100" id="sidebarMenu"
+                style="width: 220px; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s;">
+                <div class="position-sticky p-1">
                     <a class="navbar-brand fw-bold d-block text-center fs-2 mb-4" href="#">
                         <span class="text-info">Byte</span><span class="text-light">Quest</span>
                     </a>
@@ -28,7 +29,8 @@
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UMisCursos') active @endif"
-                                href="{{ route('views.UMisCursos') }}"><i class='bx bx-bookmark-heart'></i>Mis Cursos</a>
+                                href="{{ route('views.UMisCursos') }}"><i class='bx bx-bookmark-heart'></i>Mis
+                                Cursos</a>
                         </li>
                         <li class="nav-item mb-2">
                             <a class="nav-link @if (Route::currentRouteName() == 'views.UCursos') active @endif"
@@ -54,38 +56,43 @@
                 </div>
             </nav>
 
-            <!-- Contenedor derecho -->
-            <div class="col-md-10 px-0">
-                <!-- Navbar alineada a la derecha del sidebar -->
-                <nav class="navbar navbar-expand-lg" style="background-color: #333661">
-                    <div class="container-fluid m-2">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+            <!-- Botón hamburguesa para mostrar el menú (igual al de la navbar) -->
+            <button class="navbar-toggler d-md-none position-fixed top-0 start-0 mt-2 rounded-1 pb-1"
+                style="background-color: #3a3c5a; border: #252746 2px solid; width: 32px; height: 32px; color: #bfc2e2; transition: transform 0.3s; left: 0; display: block; z-index: 2001;"
+                id="menuToggle" aria-label="Toggle navigation">
+                <span
+                    style="font-size: 1.5rem; display: flex; align-items: center; justify-content: center; height: 100%;">
+                    <span id="menuIcon">&gt;</span>
+                </span>
+            </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Contenedor derecho -->
+            <div class="col-md-10 min-vh-100" id="mainContent"
+                style="background-color: #252746; position: relative; margin-left: 220px; left: 0; width: calc(100% - 220px); transition: left 0.3s, width 0.3s, margin-left 0.3s;">
+                <!-- Navbar alineada a la derecha del sidebar -->
+                <nav style="background-color: #333661; border-radius: 0 0 16px 16px;">
+                    <div class="container-fluid px-3 py-2">
+                        <!-- Eliminar el botón hamburguesa y el collapse para que el navbar siempre esté visible -->
+                        <div class="navbar-collapse" id="navbarSupportedContent" style="display: flex !important;">
                             <ul class="navbar-nav mb-2 mb-lg-0">
                             </ul>
 
-                            <div class="dropdown me-3">
+                            <div class="dropdown ms-4 me-3">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownCursos"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Mis Cursos
                                 </button>
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
                                     @forelse ($cursos as $curso)
-                                    <li>
-                                        <a class="dropdown-item"
-                                            href="{{ route('usuarios.caminoCurso', $curso->id) }}">
-                                            {{ $curso->nombre }}
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                                {{ $curso->nombre }}
+                                            </a>
+                                        </li>
                                     @empty
-                                    <li>
-                                        <span class="dropdown-item text-muted">No tienes cursos</span>
-                                    </li>
+                                        <li>
+                                            <span class="dropdown-item text-muted">No tienes cursos</span>
+                                        </li>
                                     @endforelse
                                 </ul>
                             </div>
@@ -101,9 +108,11 @@
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>
 
-                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning">
-                                    <i class='bx bx-user-circle'></i>
-                                    {{ auth()->user()->nombre }}
+                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning d-flex align-items-center"
+                                    style="gap: 8px;">
+                                    <img src="{{ asset('img/' . auth()->user()->imagen) }}" alt="Foto de perfil"
+                                        style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; border: 2px solid #fff;">
+                                    <span>{{ auth()->user()->nombre }}</span>
                                 </a>
                             </div>
                         </div>
@@ -112,7 +121,7 @@
 
 
                 <!-- Contenido principal -->
-                <main class="px-4 py-5 min-vh-100" style="background-color: #252746;">
+                <main class="px-2 py-4">
                     @yield('content')
                 </main>
             </div>
@@ -121,6 +130,67 @@
 
     @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mostrar/Ocultar sidebar en móviles
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const mainContent = document.getElementById('mainContent');
+        let menuOpen = false;
+        menuToggle.addEventListener('click', function () {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                sidebarMenu.style.transform = 'translateX(0)';
+                if (window.innerWidth < 768) {
+                    mainContent.style.marginLeft = '0';
+                    mainContent.style.left = '0';
+                    mainContent.style.width = '100%';
+                    menuToggle.style.transform = 'translateX(220px)';
+                    menuIcon.innerHTML = '&lt;';
+                    mainContent.style.filter = 'brightness(0.7)';
+                } else {
+                    mainContent.style.filter = 'none';
+                }
+            } else {
+                sidebarMenu.style.transform = 'translateX(-100%)';
+                if (window.innerWidth < 768) {
+                    mainContent.style.marginLeft = '0';
+                    mainContent.style.left = '0';
+                    mainContent.style.width = '100%';
+                    menuToggle.style.transform = 'translateX(0)';
+                }
+                menuIcon.innerHTML = '&gt;';
+                mainContent.style.filter = 'none';
+            }
+        });
+        // Ocultar menú al hacer click fuera
+        mainContent.addEventListener('click', function () {
+            if (menuOpen && window.innerWidth < 768) {
+                sidebarMenu.style.transform = 'translateX(-100%)';
+                mainContent.style.left = '0';
+                mainContent.style.width = '100%';
+                mainContent.style.filter = 'none';
+                menuOpen = false;
+            }
+        });
+        // Mostrar sidebar en desktop
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                sidebarMenu.style.transform = 'translateX(0)';
+                mainContent.style.marginLeft = '220px';
+                mainContent.style.left = '0';
+                mainContent.style.width = 'calc(100% - 220px)';
+                menuToggle.style.display = 'none';
+            } else {
+                sidebarMenu.style.transform = 'translateX(-100%)';
+                mainContent.style.marginLeft = '0';
+                mainContent.style.left = '0';
+                mainContent.style.width = '100%';
+                menuToggle.style.display = 'block';
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+    </script>
 
 </body>
 

@@ -18,7 +18,7 @@
     <body>
         <div class="svg-container">
             <!-- I crated SVG with: https://codepen.io/anthonydugois/pen/mewdyZ -->
-            <svg viewbox="0 0 800 400" class="svg">
+            <svg viewbox="0 0 800 600" class="svg">
 
 
                 <path id="curve" fill="#252746" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
@@ -27,39 +27,81 @@
             </svg>
         </div>
         <!-- Barra de navegación -->
-        <nav class="nav-bar pt-4 ps-3">
-            <div class="bytequest d-flex justify-content-between">
-                <div>
-                    <img class="img-nav" src="{{ asset('img/icon.png') }}" alt="byte">
-                    <a class="text-light text-decoration-none h3" href="{{ route('landing') }}">
-                        <span style="color:#00b2c3;" class="h3">Byte</span>Quest
-                    </a>
-                </div>
-                <a class="text-light text-decoration-none border-bottom" href="#">Inicio</a>
-                <a class="text-light text-decoration-none border-bottom" href="#about">Acerca de nosotros</a>
-                <a class="text-light text-decoration-none border-bottom" href="#portfolio">Proyectos</a>
-                <a class="text-light text-decoration-none border-bottom" href="#services">Servicios</a>
-                <a class="text-light text-decoration-none border-bottom" href="#contact">Contáctanos</a>
-                <div class="d-flex w-20 justify-content-between">
-                    <a class="text-light text-decoration-none pe-4 pt-1" href="{{ route('login') }}">Login</a>
-                    <a class=" pt-1 rounded-0 card text-dark text-decoration-none pe-2 ps-2 "
-                        href="{{ route('register') }}">Empezar</a>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+            style="background-color: #242546; text-shadow: 0px 2px 4px #000000;">
+            <div class="container-fluid">
+                <!-- Logo + Título -->
+                <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
+                    <img class="img-nav me-2 mt-2" src="{{ asset('img/icon.png') }}" alt="byte">
+                    <span class="h4 mb-0">
+                        <span style="color:#00b2c3;">Byte</span>Quest
+                    </span>
+                </a>
+
+                <!-- Botón de hamburguesa para pantallas pequeñas -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Contenido del navbar -->
+                <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+                    <!-- Enlaces del menú -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#about">Acerca de nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#portafolio">Proyectos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#services">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light me-5 ms-5" href="#contact">Contáctanos</a>
+                        </li>
+                    </ul>
+
+                    <!-- Login y Empezar -->
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
+                        <a class="btn btn-light rounded-3 " style="background-color:#ffc107 ;"
+                            href="{{ route('register') }}">Empezar</a>
+                    </div>
                 </div>
             </div>
         </nav>
         <!-- Header -->
         <header class="flex">
-            <div class="d-flex justify-content-between flex-column ">
-                <h2 class=" fs-1">Bienvenido a</h2>
-                <h2 class="h1 fs-1">ByteQuest</h2>
+            <div class="d-flex justify-content-center align-items-center flex-row">
+                <h2 class="fs-1 mb-0">Bienvenido a <span class="h1 fs-1" style="color:#00b2c3;">Byte</span>Quest</h2>
             </div>
         </header>
 
+        <!-- Animación de círculos en el fondo blanco -->
+        <div class="area" style="z-index:-2; position:fixed; top:0; left:0; width:100vw; height:100vh;">
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
         <!-- Contenido Central -->
-        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100">
+        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100 ">
             <!-- Texto Magico -->
-            <div class="animacion d-flex flex-column w-75 pb-4 mb-5">
-                <textarea id="textExample" rows="5" cols="60" class="textarea pb-5 text-start mb-4">
+            <div class="animacion d-flex flex-column  pb-4 mb-5 w-75">
+                <textarea id="textExample" rows="5" cols="60" class="textarea pt-3 pb-2 text-start mb-4 ">
                     Hola!!!
                     Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
                     aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui 
@@ -70,7 +112,7 @@
                 <a class="btn text-decoration-none lh-lg-1 mt-2 mb-4 " id="text" type="button">Conoce a Byte!</a>
             </div>
 
-            <div class="contenido rounded-4 text-light mb-5 p-4">
+            <div class="contenido rounded-4 text-light mb-5 p-4 w-75">
                 <div class="card mt-5 mb-5 p-4">
                     <h3 class="mb-4">Acerca de nosotros</h3>
                     <p class="mb-4">
@@ -83,7 +125,7 @@
             </div>
 
             <!-- cards section -->
-            <section id="portfolio" class=" portafolio section-padding">
+            <section id="portafolio" class=" portafolio section-padding">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -132,37 +174,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row float-start mb-5">
-                                <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-laptop"></i>
-                                            <h2 class="card-title">Interfaz amigable</h2>
-                                            <button class="btn ">Ver detalles</button>
-                                        </div>
+                            <div class="d-flex justify-content-center align-items-stretch flex-wrap mb-5"
+                                style="gap: 32px;">
+                                <div class="service-card text-light">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
+                                        <i class="bi bi-laptop"></i>
+                                        <h2 class="card-title service-title text-light">Interfaz amigable</h2>
+                                        <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-journal"></i>
-                                            <h2 class="card-title">Interfaz </h2>
-                                            <button class="btn">Ver detalles</button>
-                                        </div>
+                                <div class="service-card text-light">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
+                                        <i class="bi bi-journal"></i>
+                                        <h2 class="card-title service-title
+                                        text-light">Interfaz </h2>
+                                        <button class="btn service-btn">Ver detalles</button>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-4">
-                                    <div class="card-body text-white text-center bg-dark pb-2">
-                                        <div class="card-body mt-2">
-                                            <i class="bi bi-intersect"></i>
-                                            <h3 class="card-title">Desarrollo Ético y Profesional</h3>
-                                            <p class="lead">Fomentamos una formación basada en valores como la
-                                                integridad, el
-                                                respeto y
-                                                la responsabilidad
-                                                tecnológica.</p>
-                                            <button class="btn">Ver detalles</button>
-                                        </div>
+                                <div class="service-card text-light">
+                                    <div class="card-body text-center  pb-2 mt-2 service-card">
+                                        <i class="bi bi-intersect"></i>
+                                        <h3 class="card-title service-title text-light">Desarrollo Ético y Profesional
+                                        </h3>
+                                        <button class="btn service-btn ">Ver detalles</button>
                                     </div>
                                 </div>
                             </div>
