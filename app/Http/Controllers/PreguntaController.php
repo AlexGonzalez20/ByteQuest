@@ -140,14 +140,17 @@ class PreguntaController extends Controller
     }
     public function siguiente($curso_id)
     {
-        // Buscar la siguiente pregunta del curso
-        $pregunta = Pregunta::where('curso_id', $curso_id)->inRandomOrder()->first();
+        // Obtener todas las lecciones del curso
+        $lecciones = Leccion::where('curso_id', $curso_id)->pluck('id');
+
+        // Buscar una pregunta aleatoria dentro de las lecciones del curso
+        $pregunta = Pregunta::whereIn('leccion_id', $lecciones)->inRandomOrder()->first();
 
         if (!$pregunta) {
             return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('finalizado', '¡Has completado todas las preguntas de este curso!');
         }
 
-        return view('VistasEstudiante.pregunta', compact('pregunta', 'curso_id'));
+        return view('VistasEstudiante.preguntas', compact('pregunta', 'curso_id'));
     }
 }
