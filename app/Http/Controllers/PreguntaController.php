@@ -72,8 +72,9 @@ class PreguntaController extends Controller
 
                 $file->move(public_path('imagenes_preguntas'), $nombreArchivo);
 
-                $pregunta->update(['imagen' => 'imagenes_preguntas/' . $nombreArchivo]);
+                $pregunta->update(['imagen' => $nombreArchivo]);
             }
+            $pregunta->respuestas()->delete();
 
             foreach ($request->opciones as $index => $texto) {
                 $pregunta->respuestas()->create([
@@ -136,5 +137,17 @@ class PreguntaController extends Controller
             ->first();
 
         return view('VistasEstudiante.preguntas', compact('pregunta'));
+    }
+    public function siguiente($curso_id)
+    {
+        // Buscar la siguiente pregunta del curso
+        $pregunta = Pregunta::where('curso_id', $curso_id)->inRandomOrder()->first();
+
+        if (!$pregunta) {
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
+                ->with('finalizado', '¡Has completado todas las preguntas de este curso!');
+        }
+
+        return view('VistasEstudiante.pregunta', compact('pregunta', 'curso_id'));
     }
 }
