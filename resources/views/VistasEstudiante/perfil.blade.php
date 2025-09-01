@@ -147,6 +147,6 @@
             </div>
         @endif
 
-        <a href="{{ route('views.UsuarioHome') }}" class="btn btn-link mt-4">← Volver al inicio</a>
+        <a href="{{ route('views.UMisCursos') }}" class="btn btn-link mt-4">← Volver al inicio</a>
     </div>
 @endsection

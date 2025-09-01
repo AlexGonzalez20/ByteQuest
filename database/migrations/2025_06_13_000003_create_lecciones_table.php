@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,7 @@ return new class extends Migration
         Schema::create('lecciones', function (Blueprint $table) {
             $table->id(); // Clave primaria obligatoria
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text(column: 'descripcion');
             $table->longText('contenido')->nullable(); // Campo opcional para contenido de la lección
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
             $table->timestamps();

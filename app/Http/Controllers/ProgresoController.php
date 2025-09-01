@@ -18,7 +18,6 @@ class ProgresoController extends Controller
         $curso = $prueba->leccion->curso;
         $curso_id = $curso->id;
 
-        // 🚫 Validar vidas antes de todo
         if ($usuario->vidas <= 0) {
             return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('error', '❌ No tienes vidas para iniciar esta prueba. Recarga vidas o espera.');
@@ -26,16 +25,13 @@ class ProgresoController extends Controller
 
         $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
 
-        // Verifica que sea la prueba actual
         if ($prueba->id != $cursoUsuario->prueba_actual_id) {
             return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
                 ->with('error', '❌ Esa prueba no está disponible.');
         }
 
-        // Generar progreso si no existe
         if ($usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->count() == 0) {
             $preguntas = $prueba->leccion->preguntas()->pluck('id')->shuffle()->take(10);
-
             foreach ($preguntas as $pid) {
                 \App\Models\ProgresoPregunta::create([
                     'usuario_id' => $usuario->id,
@@ -45,7 +41,6 @@ class ProgresoController extends Controller
             }
         }
 
-        // Trae la siguiente pregunta sin responder
         $pendiente = $usuario->progresoPreguntas()
             ->where('prueba_id', $prueba->id)
             ->where('respondida', false)
@@ -61,7 +56,15 @@ class ProgresoController extends Controller
 
         $pregunta = $pendiente->pregunta()->with('respuestas')->first();
 
-        return view('VistasEstudiante.preguntas', compact('pregunta', 'curso_id'));
+        // 👇 Enviamos SIEMPRE estas variables
+        return view('VistasEstudiante.preguntas', [
+            'pregunta' => $pregunta,
+            'curso_id' => $curso_id,
+            'prueba_id' => $prueba->id,
+            'resultado' => null,
+            'mensaje' => null,
+            'mostrarContinuar' => false,
+        ]);
     }
 
 
@@ -91,7 +94,7 @@ class ProgresoController extends Controller
             $usuario->progresoPreguntas()->delete();
 
             return view('VistasEstudiante.sinvidas', [
-                'curso_id' => $usuario->cursos()->first()->id,
+                'curso_id' => $usuario->cursos()->first()->id ?? null,
                 'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.'
             ]);
         }
@@ -105,10 +108,8 @@ class ProgresoController extends Controller
                 $diff = $hoy->diffInDays($ultimoDia);
 
                 if ($diff == 1) {
-                    // Aumenta la racha
                     $usuario->dias_racha += 1;
                 } elseif ($diff > 1) {
-                    // Reinicia racha
                     $usuario->dias_racha = 1;
                 }
                 // diff == 0 => hoy mismo, no cambia
@@ -120,11 +121,15 @@ class ProgresoController extends Controller
             $usuario->save();
         }
 
-        return redirect()->back()
-            ->with('resultado', $resultado)
-            ->with('mensaje', $resultado === 'correcto' ? '✅ Correcto!' : '❌ Incorrecto.');
+        // ⚡ En vez de redirect, devolvemos la misma vista de la pregunta
+        return view('VistasEstudiante.preguntas', [
+            'pregunta' => $pregunta,
+            'resultado' => $resultado,
+            'mensaje' => $resultado === 'correcto' ? '✅ Correcto!' : '❌ Incorrecto.',
+            'curso_id' => $usuario->cursos()->first()->id ?? null, // ✅ pasamos curso_id
+            'mostrarContinuar' => true, // ✅ ahora lo definimos para que aparezca el botón
+        ]);
     }
-
 
     private function avanzarProgreso($cursoUsuario, $prueba)
     {
