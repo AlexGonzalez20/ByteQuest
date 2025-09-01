@@ -1,3 +1,4 @@
+
     <?php
 
     use Illuminate\Support\Facades\Route;
@@ -125,3 +126,9 @@
         
 Route::get('/pregunta/siguiente/{curso_id}', [PreguntaController::class, 'siguiente'])
     ->name('siguiente.pregunta');
+
+
+Route::post('/checkout', [PaymentController::class, 'checkout'])->name('pago.checkout');
+Route::get('/success', [PaymentController::class, 'success'])->name('pago.success');
+Route::get('/failure', [PaymentController::class, 'failure'])->name('pago.failure');
+Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');
