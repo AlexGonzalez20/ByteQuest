@@ -3,17 +3,14 @@
 @section('content')
     <h2 class="mb-4 text-light">Escoge tu curso</h2>
 
-
     <div class="accordion" id="accordionCursos">
 
 
         @php
-
             $pruebasPorCurso = $pruebas->groupBy(function ($prueba) {
                 return $prueba->leccion && $prueba->leccion->curso
                     ? $prueba->leccion->curso->nombre
                     : 'Sin Curso';
-
             });
         @endphp
 
@@ -39,11 +36,15 @@
                         <div class="accordion" id="accordion-{{ Str::slug($cursoNombre) }}">
                             @foreach ($pruebasPorLeccion as $leccionNombre => $pruebasDeLaLeccion)
                                 <div class="accordion-item mb-2">
+                                    @php
+                                        $leccion = $pruebasDeLaLeccion->first()->leccion ?? null;
+                                    @endphp
                                     <h2 class="accordion-header" id="heading-{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapse-{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
                                             aria-expanded="false"
                                             aria-controls="collapse-{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}">
+                                            
                                             {{ $leccionNombre }}
                                         </button>
                                     </h2>
@@ -57,38 +58,49 @@
                                                     // Buscar contenido relacionado a esta lección por nombre
                                                     $contenidoRelacionado = collect($datos)->firstWhere('nombre', $leccionNombre);
                                                 @endphp
-
+            
                                                 @if (!empty($contenidoRelacionado) && !empty($contenidoRelacionado['contenido']))
-                                                    <div id="carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
-                                                        class="carousel slide mb-4" data-bs-ride="carousel">
-                                                        <div class="carousel-inner">
-                                                            @foreach ($contenidoRelacionado['contenido'] as $indexContenido => $seccion)
-                                                                <div class="carousel-item {{ $indexContenido === 0 ? 'active' : '' }}">
-                                                                    <div class="p-4 text-center bg-white rounded shadow">
-                                                                        <h4 class="mb-2">{{ $seccion['titulo'] }}</h4>
-                                                                        <h6 class="text-secondary">{{ $seccion['subtitulo'] }}</h6>
-                                                                        <p class="mt-3">{{ $seccion['cuerpo'] }}</p>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-
-                                                        <button class="carousel-control-prev" type="button"
-                                                            data-bs-target="#carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
-                                                            data-bs-slide="prev">
-                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                            <span class="visually-hidden">Anterior</span>
-                                                        </button>
-                                                        <button class="carousel-control-next" type="button"
-                                                            data-bs-target="#carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
-                                                            data-bs-slide="next">
-                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                            <span class="visually-hidden">Siguiente</span>
-                                                        </button>
-                                                    </div>
-                                                @else
-                                                    <p class="text-muted">No hay contenido adicional en esta lección.</p>
-                                                @endif
+    <div id="carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
+        class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @php
+                // Decodifica si es string JSON
+                $contenido = is_string($contenidoRelacionado['contenido'])
+                    ? json_decode($contenidoRelacionado['contenido'], true)
+                    : $contenidoRelacionado['contenido'];
+            @endphp
+            @foreach ($contenido as $indexContenido => $seccion)
+            @if(isset($seccion['imagen']) && $seccion['imagen'])
+    <img src="{{ asset('imagenes_lecciones/' . $seccion['imagen']) }}" alt="Imagen de la lección" style="max-height:120px;width:auto;">
+@endif
+                <div class="carousel-item {{ $indexContenido === 0 ? 'active' : '' }}">
+                    <div class="p-4 text-center bg-white rounded shadow">
+                        @if(!empty($seccion['imagen']))
+                            <img src="{{ asset('imagenes_lecciones/' . $seccion['imagen']) }}" alt="Imagen de la lección" style="max-height:120px;width:auto;">
+                        @endif
+                        <h4 class="mb-2">{{ $seccion['titulo'] }}</h4>
+                        <h6 class="text-secondary">{{ $seccion['subtitulo'] }}</h6>
+                        <p class="mt-3">{{ $seccion['cuerpo'] }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button"
+            data-bs-target="#carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button"
+            data-bs-target="#carouselLeccion{{ Str::slug($cursoNombre . '-' . $leccionNombre) }}"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+@else
+    <p class="text-muted">No hay contenido adicional en esta lección.</p>
+@endif
 
 
 
