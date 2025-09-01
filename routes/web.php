@@ -14,6 +14,8 @@ use App\Http\Controllers\ProgresoController;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AprenderController;
 use App\Http\Controllers\RecuperarVidasController;
+use App\Http\Controllers\PaymentController;
+
 
 
 use App\Models\Usuario;
@@ -126,3 +128,9 @@ Route::get('/aprender', [AprenderController::class, 'index'])
 Route::get('/recuperarVidas', [RecuperarVidasController::class, 'index'])
     ->name('recuperarVidas')
     ->middleware('auth');
+
+
+Route::post('/checkout', [PaymentController::class, 'checkout'])->name('pago.checkout');
+Route::get('/success', [PaymentController::class, 'success'])->name('pago.success');
+Route::get('/failure', [PaymentController::class, 'failure'])->name('pago.failure');
+Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');
