@@ -98,18 +98,19 @@
         </div>
 
         <!-- Contenido Central -->
-        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-100 ">
+        <main id="about" class="d-flex flex-column justify-content-center align-items-center">
             <!-- Texto Magico -->
-            <div class="animacion d-flex flex-column  pb-4 mb-5 w-75">
-                <textarea id="textExample" rows="5" cols="60" class="textarea pt-3 pb-2 text-start mb-4 ">
-                    Hola!!!
-                    Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
-                    aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui 
-                    porfavor da click abajo para empezar
-                </textarea>
-                <img class="img-text mb-4" src="{{ asset('img/byte.png') }}" alt="byte">
-
-                <a class="btn text-decoration-none lh-lg-1 mt-2 mb-4 " id="text" type="button">Conoce a Byte!</a>
+            <div class="animacion pb-4 mb-5 w-75  d-flex flex-row align-items-center">
+                <div class="flex-grow-1 d-flex flex-column">
+                    <textarea id="textExample" class="textarea text-end pt-3 pb-2 mb-4" rows="2">
+                        Hola!!!
+                        Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
+                        aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui porfavor da click abajo para empezar
+                    </textarea>
+                    <a class="btn text-decoration-none lh-lg-1 mt-2 mb-4  justify-content-center        " id="text"
+                        type="button">Conoce a Byte!</a>
+                </div>
+                <img class="img-text " src="{{ asset('img/byte.png')}}" alt="byte">
             </div>
 
             <div class="contenido rounded-4 text-light mb-5 p-4 w-75">
@@ -139,13 +140,13 @@
                     </div>
                     <div class="d-flex justify-content-center align-items-center mb-5">
                         <div class=" col-12 col-md-12 col-lg-4">
-                            <div class="card text-light text-center pb-2 h-75 rounded-4 p-4 mb-4">
+                            <div class="card text-light text-center pb-2 h-75 rounded-4 p-4 ">
                                 <div class="card2 ">
-                                    <div class="img-area mb-4 mt-2">
+                                    <div class="img-area  mt-2">
                                         <img src="{{asset('img/face.jpg')}}" class="img-fluid rounded-4" alt="">
                                     </div>
-                                    <h3 class="card-title text-dark mb-3">ByteQuest</h3>
-                                    <p class="text-dark mb-3">ByteQuest es una plataforma interactiva con mecánicas de
+                                    <h3 class="card-title text-dark">ByteQuest</h3>
+                                    <p class="text-dark ">ByteQuest es una plataforma interactiva con mecánicas de
                                         juego
                                         diseñadas
                                         para motivar el aprendizaje de programación. Los usuarios ganarán puntos de
@@ -160,7 +161,7 @@
                     </div>
 
                     <!-- services -->
-                    <section class="services section-padding " id="services">
+                    <section class="services  " id="services">
                         <div class="container">
                             <div class="row ">
                                 <div class="col-md-12">
@@ -202,49 +203,28 @@
                             </div>
                         </div>
                     </section>
-                    <section id="contact" class="contact section-padding mt-5 mb-5 p-5">
-                        <div class="container mt-5 mb-5">
+                    <section id="contact" class="contact section-padding mt-5  p-5">
+                        <div class="container mt-5 ">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="section-header text-center pb-5">
+                                    <div class="section-header text-center text-light">
                                         <h2>Contactanos</h2>
-                                        <p>¿Tienes dudas o ideas? ¡Estamos listos para escucharte y subir de nivel
-                                            juntos!</p>
+                                        <p class="parrafo text-light pt-5 h3">¿Tienes dudas o ideas? ¡Estamos listos
+                                            para
+                                            escucharte y subir de nivel juntos!</p>
+                                        <p class="parrafo text-light pt-5 h3">
+                                            contacto@bytequest.com</p>
+                                        <p class="parrafo text-light pt-5 h3">
+                                            la.gonzalezd33@gmail.com</p>
+                                        <p class="parrafo text-light pt-5 h3">
+                                            3114500030</p>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row m-0">
-                                <div class="col-md-12 p-0">
-                                    <form action="#" class=" m-auto">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <input class="form-control" placeholder="Ingresa tu nombre completo"
-                                                        required="" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <input class="form-control"
-                                                        placeholder="Ingresa tu correo de contacto" required=""
-                                                        type="email">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <textarea class="form-control"
-                                                        placeholder="Cuentanos como podemos ayudarte" required=""
-                                                        rows="3"></textarea>
-                                                </div>
-                                            </div><button class="btn btn-lg btn-block mt-3 text-light"
-                                                type="button">Contacta con
-                                                nuestro equipo</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </section>
+                </div>
+            </section>
         </main>
         <footer>
             <p style="font-weight: bold;">ByteQuest&copy;2025 all rights reserved.</p>
