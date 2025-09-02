@@ -129,15 +129,6 @@ class PreguntaController extends Controller
         return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
     }
 
-    public function mostrarPregunta($leccion_id)
-    {
-        $pregunta = Pregunta::where('leccion_id', $leccion_id)
-            ->with('respuestas')
-            ->inRandomOrder()
-            ->first();
-
-        return view('VistasEstudiante.preguntas', compact('pregunta'));
-    }
     public function siguiente($curso_id)
     {
         // Obtener todas las lecciones del curso

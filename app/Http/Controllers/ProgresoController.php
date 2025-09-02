@@ -7,7 +7,6 @@ use App\Models\ProgresoPregunta;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-
 class ProgresoController extends Controller
 {
     public function mostrarPregunta($prueba_id)
@@ -32,8 +31,9 @@ class ProgresoController extends Controller
 
         if ($usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->count() == 0) {
             $preguntas = $prueba->leccion->preguntas()->pluck('id')->shuffle()->take(10);
+
             foreach ($preguntas as $pid) {
-                \App\Models\ProgresoPregunta::create([
+                ProgresoPregunta::create([
                     'usuario_id' => $usuario->id,
                     'prueba_id' => $prueba->id,
                     'pregunta_id' => $pid,
@@ -56,7 +56,6 @@ class ProgresoController extends Controller
 
         $pregunta = $pendiente->pregunta()->with('respuestas')->first();
 
-        // 👇 Enviamos SIEMPRE estas variables
         return view('VistasEstudiante.preguntas', [
             'pregunta' => $pregunta,
             'curso_id' => $curso_id,
@@ -67,52 +66,40 @@ class ProgresoController extends Controller
         ]);
     }
 
-
-
     public function responderPregunta(Request $request)
     {
         $usuario = auth()->user();
-        $pregunta = \App\Models\Pregunta::findOrFail($request->pregunta_id);
+        $pregunta = Pregunta::findOrFail($request->pregunta_id);
         $respuesta = \App\Models\Respuesta::findOrFail($request->respuesta);
 
         $correcta = $pregunta->respuestas()->where('es_correcta', true)->first();
         $resultado = ($respuesta->id == $correcta->id) ? 'correcto' : 'incorrecto';
 
-        // ✅ Marcar como respondida
         $usuario->progresoPreguntas()
             ->where('pregunta_id', $pregunta->id)
             ->update(['respondida' => true]);
 
-        // ✅ Si es incorrecta → resta vida
         if ($resultado === 'incorrecto') {
             $usuario->vidas -= 1;
             $usuario->save();
         }
 
-        // 🚫 Si ya no tiene vidas, termina la prueba a la fuerza
         if ($usuario->vidas <= 0) {
             $usuario->progresoPreguntas()->delete();
-
             return view('VistasEstudiante.sinvidas', [
                 'curso_id' => $usuario->cursos()->first()->id ?? null,
                 'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.'
             ]);
         }
 
-        // ✅ Racha: sólo si la respuesta es correcta
         if ($resultado === 'correcto') {
             $hoy = Carbon::today();
             $ultimoDia = $usuario->ultimo_dia_activo ? Carbon::parse($usuario->ultimo_dia_activo) : null;
 
             if ($ultimoDia) {
                 $diff = $hoy->diffInDays($ultimoDia);
-
-                if ($diff == 1) {
-                    $usuario->dias_racha += 1;
-                } elseif ($diff > 1) {
-                    $usuario->dias_racha = 1;
-                }
-                // diff == 0 => hoy mismo, no cambia
+                if ($diff == 1) $usuario->dias_racha += 1;
+                elseif ($diff > 1) $usuario->dias_racha = 1;
             } else {
                 $usuario->dias_racha = 1;
             }
@@ -121,13 +108,16 @@ class ProgresoController extends Controller
             $usuario->save();
         }
 
-        // ⚡ En vez de redirect, devolvemos la misma vista de la pregunta
+        $pregunta = $pregunta->load('respuestas');
+
         return view('VistasEstudiante.preguntas', [
             'pregunta' => $pregunta,
+            'curso_id' => $request->curso_id ?? $usuario->cursos()->first()->id,
+            'prueba_id' => $request->prueba_id ?? $pregunta->progresoPreguntas()->first()->prueba_id ?? null,
             'resultado' => $resultado,
             'mensaje' => $resultado === 'correcto' ? '✅ Correcto!' : '❌ Incorrecto.',
-            'curso_id' => $usuario->cursos()->first()->id ?? null, // ✅ pasamos curso_id
-            'mostrarContinuar' => true, // ✅ ahora lo definimos para que aparezca el botón
+            'mostrarContinuar' => true,
+            'respuesta_seleccionada' => $respuesta->id,
         ]);
     }
 
@@ -135,11 +125,9 @@ class ProgresoController extends Controller
     {
         $usuario = auth()->user();
 
-        // ✅ Sumar XP de la prueba al usuario
         $usuario->experiencia += $prueba->xp;
         $usuario->save();
 
-        // 🔁 Continuar flujo para desbloquear la siguiente prueba o lección
         $pruebas = $prueba->leccion->pruebas()->orderBy('orden')->get();
         $posPrueba = $pruebas->search(fn($p) => $p->id == $prueba->id);
 
@@ -160,7 +148,7 @@ class ProgresoController extends Controller
             return;
         }
 
-        $cursoUsuario->prueba_actual_id = null; // ✅ Curso finalizado
+        $cursoUsuario->prueba_actual_id = null;
         $cursoUsuario->save();
     }
 }

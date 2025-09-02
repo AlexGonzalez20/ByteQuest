@@ -7,6 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     @vite('resources/css/preguntas.css')
+    <style>
+        .option-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,60 +41,68 @@
 
         <div class="card shadow mx-auto" style="max-width: 1000px;">
             <div class="card-body">
-
-                {{-- ✅ Si la prueba ya se completó --}}
                 @if (session('finalizado'))
-                    <div class="alert alert-success text-center mb-3">
-                        {{ session('finalizado') }}
-                    </div>
-                    <form method="GET" action="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}">
-                        <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
-                    </form>
+                <div class="alert alert-success text-center mb-3">
+                    {{ session('finalizado') }}
+                </div>
+                <form method="GET" action="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}">
+                    <button type="submit" class="btn btn-warning w-100">Volver al camino</button>
+                </form>
 
-                {{-- ✅ Si hay una pregunta disponible --}}
                 @elseif(isset($pregunta) && $pregunta)
-                    <h4 class="mb-4">{{ $pregunta->pregunta }}</h4>
+                <h4 class="mb-4">{{ $pregunta->pregunta }}</h4>
 
-                    {{-- Mostrar imagen si existe --}}
-                    @if (!empty($pregunta->imagen))
-                        <div class="mb-3 text-center">
-                            <img src="{{ asset('imagenes_preguntas/' . $pregunta->imagen) }}" 
-                                 alt="Imagen de la pregunta" 
-                                 style="max-height:180px;width:auto;">
-                        </div>
+                @if (!empty($pregunta->imagen))
+                <div class="mb-3 text-center">
+                    <img src="{{ asset('imagenes_preguntas/' . $pregunta->imagen) }}"
+                        alt="Imagen de la pregunta"
+                        style="max-height:180px;width:auto;">
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('pregunta.responder') }}">
+                    @csrf
+                    <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
+                    <input type="hidden" name="respuesta" id="respuesta">
+                    <input type="hidden" name="curso_id" value="{{ $curso_id }}">
+                    <input type="hidden" name="prueba_id" value="{{ $prueba_id }}">
+
+                    @foreach ($pregunta->respuestas->shuffle() as $resp)
+                    @php
+                    $classes = 'btn btn-outline-primary w-100 mb-2 option-btn';
+                    if(isset($respuesta_seleccionada)) {
+                    if($resp->id == $respuesta_seleccionada) {
+                    $classes .= $resultado === 'correcto' ? ' correct' : ' incorrect';
+                    }
+                    $disabled = 'disabled';
+                    } else {
+                    $disabled = '';
+                    }
+                    @endphp
+                    <button type="button"
+                        class="{{ $classes }}"
+                        value="{{ $resp->id }}"
+                        onclick="selectOption(this)" {{ $disabled }}>
+                        {{ $resp->texto }}
+                    </button>
+                    @endforeach
+
+                    @if(empty($mostrarContinuar))
+                    <button type="submit" class="btn btn-success w-100 mt-3">Enviar respuesta</button>
                     @endif
+                </form>
 
-                    {{-- Formulario para responder --}}
-                    <form method="POST" action="{{ route('pregunta.responder') }}">
-                        @csrf
-                        <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
-                        <input type="hidden" name="respuesta" id="respuesta">
+                @if(isset($mensaje))
+                <div class="alert {{ $resultado === 'correcto' ? 'alert-success' : 'alert-danger' }} mt-3">
+                    {{ $mensaje }}
+                </div>
 
-                        @foreach ($pregunta->respuestas->shuffle() as $respuesta)
-                            <button type="button" 
-                                    class="btn btn-outline-primary w-100 mb-2 option-btn"
-                                    value="{{ $respuesta->id }}" 
-                                    onclick="selectOption(this)">
-                                {{ $respuesta->texto }}
-                            </button>
-                        @endforeach
-
-                        <button type="submit" class="btn btn-success w-100 mt-3">Enviar respuesta</button>
-                    </form>
-
-                    {{-- ✅ Mostrar mensaje después de enviar --}}
-                    @if(isset($mensaje))
-                        <div class="alert {{ $resultado === 'correcto' ? 'alert-success' : 'alert-danger' }} mt-3">
-                            {{ $mensaje }}
-                        </div>
-
-                        {{-- ✅ Botón continuar solo si corresponde --}}
-                        @if(!empty($mostrarContinuar) && $mostrarContinuar === true)
-                            <form action="{{ route('siguiente.pregunta', ['curso_id' => $curso_id]) }}" method="GET">
-                                <button type="submit" class="btn btn-primary mt-2">Continuar</button>
-                            </form>
-                        @endif
-                    @endif
+                @if(!empty($mostrarContinuar))
+                <form action="{{ route('pregunta.mostrar', ['prueba_id' => $prueba_id]) }}" method="GET">
+                    <button type="submit" class="btn btn-primary mt-2">Continuar</button>
+                </form>
+                @endif
+                @endif
                 @endif
             </div>
         </div>
@@ -93,4 +117,5 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
