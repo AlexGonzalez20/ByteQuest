@@ -48,26 +48,26 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
                     <!-- Enlaces del menú -->
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-light me-5 ms-5" href="#about">Acerca de nosotros</a>
+                        <li class=" nav-item">
+                            <a class="nav-link   me-5 ms-5" href="#">Inicio</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="nav-link  me-5 ms-5" href="#about">Acerca de nosotros</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="nav-link  me-5 ms-5" href="#portafolio">Proyectos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light me-5 ms-5" href="#">Inicio</a>
+                            <a class="nav-link  me-5 ms-5" href="#services">Servicios</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light me-5 ms-5" href="#portafolio">Proyectos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light me-5 ms-5" href="#services">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light me-5 ms-5" href="#contact">Contáctanos</a>
+                        <li class=" nav-item">
+                            <a class="nav-link  me-5 ms-5" href="#contact">Contáctanos</a>
                         </li>
                     </ul>
 
                     <!-- Login y Empezar -->
                     <div class="d-flex align-items-center">
-                        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link  me-3" href="{{ route('login') }}">Login</a>
                         <a class="btn btn-light rounded-3 " style="background-color:#ffc107 ;"
                             href="{{ route('register') }}">Empezar</a>
                     </div>
@@ -215,42 +215,17 @@
                             </div>
                             <div class="row m-0">
                                 <div class="col-md-12 p-0">
-                                    <form action="#" class=" m-auto">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <input class="form-control" placeholder="Ingresa tu nombre completo"
-                                                        required="" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <input class="form-control"
-                                                        placeholder="Ingresa tu correo de contacto" required=""
-                                                        type="email">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
-                                                    <textarea class="form-control"
-                                                        placeholder="Cuentanos como podemos ayudarte" required=""
-                                                        rows="3"></textarea>
-                                                </div>
-                                            </div><button class="btn btn-lg btn-block mt-3 text-light"
-                                                type="button">Contacta con
-                                                nuestro equipo</button>
-                                        </div>
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>
                     </section>
         </main>
-        <footer>
+        <footer">
             <p style="font-weight: bold;">ByteQuest&copy;2025 all rights reserved.</p>
             <small>prueba algo diferente, <a href="https://youtu.be/xTxA1skdZsY?si=byI3iOAL5Y1PEmNf"
                     target="_blank">??</a>.</small>
-        </footer>
+            </footer>
     </body>
 </body>
 
