@@ -19,7 +19,7 @@
             <nav class="sidebar bg-dark position-fixed top-0 start-0 vh-100" id="sidebarMenu"
                 style="width: 220px; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s;">
                 <div class="position-sticky p-1">
-                    <a class="navbar-brand fw-bold d-block text-center fs-2 mb-4" href="#">
+                    <a class="navbar-brand fw-bold d-block text-center fs-2 mb-4" href="{{ route('aprender') }}">
                         <span class="text-info">Byte</span><span class="text-light">Quest</span>
                     </a>
                     <ul class="nav flex-column">
@@ -103,7 +103,7 @@
                                     Racha: {{ auth()->user()->dias_racha }} días
                                 </a>
 
-                                <a href="{{route('recuperarVidas')}}" class="btn btn-danger me-3">
+                                <a href="{{route('tienda')}}" class="btn btn-danger me-3">
                                     <i class="fa-solid fa-heart"></i>
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>

@@ -54,9 +54,10 @@
 
                 @if (!empty($pregunta->imagen))
                 <div class="mb-3 text-center">
-                    <img src="{{ asset('imagenes_preguntas/' . $pregunta->imagen) }}"
-                        alt="Imagen de la pregunta"
-                        style="max-height:180px;width:auto;">
+<img src="{{ asset($pregunta->imagen) }}" 
+     alt="Imagen de la pregunta" 
+     style="max-height:180px;width:auto;">
+                
                 </div>
                 @endif
 
