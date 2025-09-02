@@ -66,7 +66,8 @@
           </div>
           <button type="submit" class="sbutton btn btn-primary w-100">Registrarse</button>
         </form>
-        <a href="/login" class=" d-flex justify-content-center mt-3">¿Ya tienes cuenta? Inicia sesión</a>
+        <a href="/login" class=" d-flex text-light text-decoration-none justify-content-center mt-3">¿Ya tienes cuenta?
+          Inicia sesión</a>
       </div>
     </div>
   </div>
