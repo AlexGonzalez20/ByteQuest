@@ -248,8 +248,6 @@
         </main>
         <footer>
             <p style="font-weight: bold;">ByteQuest&copy;2025 all rights reserved.</p>
-            <small>prueba algo diferente, <a href="https://youtu.be/xTxA1skdZsY?si=byI3iOAL5Y1PEmNf"
-                    target="_blank">??</a>.</small>
         </footer>
     </body>
 </body>

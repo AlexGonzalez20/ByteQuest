@@ -12,19 +12,25 @@
 <body>
   <div class="container">
     <header class="header">
+      <div class=" col-6 d-flex justify-content-center align-items-center pt-5">
+        <a href="{{ route('landing') }}" class="d-flex align-items-center gap-2 text-decoration-none ">
+          <i class='circle bx bx-left-arrow-circle fs-1'></i>
+          <h2 class="text-white fs-3">Regresar</h2>
+        </a>
+      </div>
       <h2><a href="{{ route('landing') }}" class="header-link">Registrarse</a></h2>
     </header>
 
     <div class="formulario">
       <div class="card-form">
         @if ($errors->any())
-          <div class="errors">
-            <ul>
-              @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
+        <div class="errors">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
         @endif
 
         <form method="POST" action="/register">
@@ -52,4 +58,5 @@
     </div>
   </div>
 </body>
+
 </html>
