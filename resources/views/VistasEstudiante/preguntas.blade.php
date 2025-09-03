@@ -54,15 +54,20 @@
 
                 @if (!empty($pregunta->imagen))
                 <div class="mb-3 text-center">
-<img src="{{ asset($pregunta->imagen) }}" 
-     alt="Imagen de la pregunta" 
-     style="max-height:180px;width:auto;">
-                
+                    <img src="{{ asset($pregunta->imagen) }}"
+                        alt="Imagen de la pregunta"
+                        style="max-height:180px;width:auto;">
+
                 </div>
                 @endif
 
                 <form method="POST" action="{{ route('pregunta.responder') }}">
                     @csrf
+                    @if(request('repaso'))
+                    <div class="alert alert-info text-center">
+                        <strong>Repasemos</strong>
+                    </div>
+                    @endif
                     <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
                     <input type="hidden" name="respuesta" id="respuesta">
                     <input type="hidden" name="curso_id" value="{{ $curso_id }}">
