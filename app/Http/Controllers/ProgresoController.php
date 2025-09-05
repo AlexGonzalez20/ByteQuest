@@ -82,8 +82,12 @@ class ProgresoController extends Controller
 
         // ✅ Si es incorrecta → resta vida
         if ($resultado === 'incorrecto') {
-            $usuario->vidas -= 1;
-            $usuario->save();
+            if ($usuario->vidas > 0) {
+                $usuario->vidas -= 1;
+                $usuario->save();
+                // Guarda la última vida perdida con una clave única por usuario
+                session(['ultima_vida_perdida_' . $usuario->id => time()]);
+            }
         }
 
         // 🚫 Si ya no tiene vidas, termina la prueba a la fuerza
