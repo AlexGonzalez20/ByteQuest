@@ -72,8 +72,9 @@ class PreguntaController extends Controller
 
                 $file->move(public_path('imagenes_preguntas'), $nombreArchivo);
 
-                $pregunta->update(['imagen' => 'imagenes_preguntas/' . $nombreArchivo]);
+                $pregunta->update(['imagen' => $nombreArchivo]);
             }
+            $pregunta->respuestas()->delete();
 
             foreach ($request->opciones as $index => $texto) {
                 $pregunta->respuestas()->create([
@@ -128,13 +129,19 @@ class PreguntaController extends Controller
         return redirect()->route('preguntas.index')->with('success', 'Pregunta actualizada correctamente.');
     }
 
-    public function mostrarPregunta($leccion_id)
+    public function siguiente($curso_id)
     {
-        // Ahora busca preguntas por lección
-        $pregunta = Pregunta::where('leccion_id', $leccion_id)
-            ->with('respuestas')
-            ->first(); // Puedes mejorarlo para traer la que esté pendiente
+        // Obtener todas las lecciones del curso
+        $lecciones = Leccion::where('curso_id', $curso_id)->pluck('id');
 
-        return view('VistasEstudiante.preguntas', compact('pregunta'));
+        // Buscar una pregunta aleatoria dentro de las lecciones del curso
+        $pregunta = Pregunta::whereIn('leccion_id', $lecciones)->inRandomOrder()->first();
+
+        if (!$pregunta) {
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
+                ->with('finalizado', '¡Has completado todas las preguntas de este curso!');
+        }
+
+        return view('VistasEstudiante.preguntas', compact('pregunta', 'curso_id'));
     }
 }
