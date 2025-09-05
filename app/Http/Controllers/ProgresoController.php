@@ -137,6 +137,7 @@ class ProgresoController extends Controller
 
         // Guardar incorrectas en sesión (solo si fue incorrecta)
         if ($resultado === 'incorrecto') {
+
             $usuario->vidas -= 1;
             $usuario->save();
 

@@ -70,8 +70,36 @@
                                 <div class="card-body d-flex align-items-center justify-content-center">
                                     <!-- Bloque número + texto -->
                                     <div class="d-flex flex-column align-items-center me-4">
-                                        <h1 class="mb-0 display-2 vidas-number">{{ auth()->user()->vidas }}</h1>
+                                        <div class="d-flex align-items-center" style="gap:8px;">
+                                            <h1 class="mb-0 display-2 vidas-number">{{ auth()->user()->vidas }}</h1>
+                                            @if(isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
+                                                <span id="contador-vidas" class="text-warning"
+                                                    style="font-size:1.2rem; min-width:90px;">
+                                                    <i class="fa-regular fa-clock"></i>
+                                                    <span id="tiempo-vidas"></span>
+                                                </span>
+                                            @endif
+                                        </div>
                                         <p class="card-text mb-0 fs-4 text-secondary">Vidas</p>
+                                        @section('scripts')
+                                            <script>
+                                                @if(isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
+                                                    let tiempo = {{ $tiempo_recuperacion }};
+                                                    function updateCounter() {
+                                                        if (tiempo <= 0) return;
+                                                        let min = Math.floor(tiempo / 60);
+                                                        let sec = tiempo % 60;
+                                                        var el = document.getElementById('tiempo-vidas');
+                                                        if (el) {
+                                                            el.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+                                                        }
+                                                        tiempo--;
+                                                        if (tiempo > 0 && el) setTimeout(updateCounter, 1000);
+                                                    }
+                                                    updateCounter();
+                                                @endif
+                                            </script>
+                                        @endsection
                                     </div>
                                     <!-- Icono animado -->
                                     <i class='bx bx-heart heart-beat' style="font-size: 64px; color: #e63946;"></i>

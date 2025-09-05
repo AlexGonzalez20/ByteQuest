@@ -1,3 +1,6 @@
+@php
+    echo '<div style="color:yellow;background:#333;padding:8px;">vidas: ' . auth()->user()->vidas . ' | tiempo_recuperacion: ' . ($tiempo_recuperacion ?? 'null') . ' | ultima_vida_perdida: ' . (session('ultima_vida_perdida') ?? 'null') . '</div>';
+@endphp
 @extends('layouts.estudiante')
 
 @section('title', 'Camino')
@@ -10,15 +13,12 @@
                     {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} — {{ $leccion->nombre }}
                 </h5>
 
-                <div class="pruebas-list">
+                <div class="pruebas-list camino-nodos">
                     @foreach ($leccion->pruebas as $prueba)
                         <div
-                            class="prueba-item 
-                    {{ $prueba->completada ? 'completed' : ($prueba->disponible ? 'available' : 'locked') }}">
-
-                            <span class="prueba-orden">Prueba {{ $prueba->orden }}</span>
-
-                            <div class="prueba-action">
+                            class="prueba-nodo {{ $prueba->completada ? 'completed' : ($prueba->disponible ? 'available' : 'locked') }}">
+                            <div class="nodo-content">
+                                <span class="prueba-orden">{{ $prueba->orden }}</span>
                                 @if ($prueba->completada)
                                     <span class="checkmark">&#10003;</span>
                                 @elseif($prueba->disponible)
@@ -28,6 +28,9 @@
                                     <span class="locked-text">🔒</span>
                                 @endif
                             </div>
+                            @if (!$loop->last)
+                                <div class="nodo-linea"></div>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -69,37 +72,86 @@
             margin-bottom: 15px;
         }
 
-        .pruebas-list {
+        .camino-nodos {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .prueba-item {
-            flex: none;
-            width: 100%;
-            background: #282851;
-            border-radius: 6px;
-            padding: 20px;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
+            flex-direction: row;
+            gap: 0;
             align-items: center;
+            justify-content: flex-start;
+            margin-top: 20px;
         }
 
-        .prueba-item.completed {
+        .prueba-nodo {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: #282851;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .prueba-nodo.completed {
             background: #223322;
             color: #4CAF50;
         }
 
-        .prueba-item.available {
+        .prueba-nodo.available {
             background: #2c2c5f;
-            border: 1px solid #ffc107;
+            border: 2px solid #ffc107;
         }
 
-        .prueba-item.locked {
+        .prueba-nodo.locked {
             background: #333344;
             color: #888;
+        }
+
+        .nodo-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prueba-orden {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .btn-learn {
+            background: #28a745;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-decoration: none;
+            margin-top: 2px;
+        }
+
+        .checkmark {
+            font-size: 1.2rem;
+            color: #4CAF50;
+        }
+
+        .locked-text {
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        .nodo-linea {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 40px;
+            height: 4px;
+            background: #ffc107;
+            transform: translateY(-50%);
+            z-index: 0;
         }
 
         .btn-learn {

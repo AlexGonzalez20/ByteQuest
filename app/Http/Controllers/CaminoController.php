@@ -18,9 +18,11 @@ class CaminoController extends Controller
         }
 
         // Cargar curso + lecciones + pruebas
-        $curso = Curso::with(['lecciones.pruebas' => function ($q) {
-            $q->orderBy('orden');
-        }])->findOrFail($curso_id);
+        $curso = Curso::with([
+            'lecciones.pruebas' => function ($q) {
+                $q->orderBy('orden');
+            }
+        ])->findOrFail($curso_id);
 
         $pivot = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
         $prueba_actual_id = $pivot->prueba_actual_id;
@@ -54,6 +56,17 @@ class CaminoController extends Controller
                 }
             }
         }
+        // Lógica de tiempo de recuperación de vidas
+        $tiempo_recuperacion = 0;
+        if ($usuario->vidas < 5) { // Suponiendo 5 es el máximo de vidas
+            // Ejemplo: guardas en sesión el timestamp de la última vida perdida
+            $ultimo_uso = session('ultima_vida_perdida');
+            $intervalo = 60 * 1; // 30 minutos para recuperar una vida
+            if ($ultimo_uso) {
+                $tiempo_restante = ($ultimo_uso + $intervalo) - time();
+                $tiempo_recuperacion = $tiempo_restante > 0 ? $tiempo_restante : 0;
+            }
+        }
 
         return view('VistasEstudiante.camino', [
             'curso' => $curso,
@@ -61,7 +74,8 @@ class CaminoController extends Controller
             'pivot' => $pivot,
             'key' => $key,
             'idsPreguntas' => $idsPreguntas,
-            'index' => $index
+            'index' => $index,
+            'tiempo_recuperacion' => $tiempo_recuperacion
         ]);
     }
 }
