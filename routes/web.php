@@ -37,10 +37,9 @@
     Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
     // ✅ Dashboard protegido
-    Route::get('/dashboard', function () {
-        $usuarios = Usuario::all();
-        return view('dashboard', compact('usuarios'));
-    })->middleware('auth');
+    Route::get('/dashboard', [TablaController::class, 'grafica'])
+    ->middleware('auth')
+    ->name('views.dashboard');
 
     // ✅ Recursos
     Route::middleware(['auth'])->group(function () {
@@ -59,7 +58,7 @@
     // ✅ Módulo vistas
     Route::prefix('views')->middleware(['auth'])->group(function () {
         Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
-        Route::view('/dashboard', 'dashboard')->name('views.dashboard');
+        // Route::view('/dashboard', 'dashboard')->name('views.dashboard');
         Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
         Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
         Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos');
@@ -106,7 +105,7 @@
         ->middleware('auth');
 
     // ✅ graficas
-    Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');
+    // Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');
 
     Route::get('/tienda', [TiendaController::class, 'index'])
         ->name('tienda')
