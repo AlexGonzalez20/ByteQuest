@@ -11,20 +11,73 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        // Configura el Access Token desde config/services.php y .env
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
     }
 
-    /**
-     * Inicia el Checkout Pro de Mercado Pago
-     */
+    public function test()
+    {
+        try {
+            Log::info('=== TEST MERCADOPAGO ===');
+
+            $client = new PreferenceClient();
+
+            $preference = $client->create([
+                'items' => [
+                    [
+                        'title' => 'Test con precio mayor',
+                        'quantity' => 1,
+                        'currency_id' => 'COP',
+                        'unit_price' => 1000,
+                    ],
+                ],
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'preference_id' => $preference->id,
+                'sandbox_init_point' => $preference->sandbox_init_point,
+                'init_point' => $preference->init_point,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+        }
+    }
+
     public function checkout(Request $request)
     {
-        // Obtén datos del producto (puedes reemplazarlo luego con modelo Curso)
+        $debugInfo = [
+            'timestamp' => now()->toString(),
+            'method' => $request->method(),
+            'url' => $request->url(),
+            'full_url' => $request->fullUrl(),
+            'all_data' => $request->all(),
+            'headers' => $request->headers->all()
+        ];
+
+        file_put_contents(
+            storage_path('logs/debug_checkout.txt'),
+            "=== CHECKOUT EJECUTADO ===\n" .
+                json_encode($debugInfo, JSON_PRETTY_PRINT) . "\n" .
+                str_repeat("=", 50) . "\n\n",
+            FILE_APPEND
+        );
+
+        Log::info('=== MÉTODO CHECKOUT LLAMADO ===');
+        Log::info('Datos POST: ', $request->all());
+
         $title = $request->input('title', 'Producto ByteQuest');
         $price = (float) preg_replace('/[^\d\.]/', '', $request->input('price', 0));
 
-        // Rutas de retorno dinámicas (basadas en APP_URL)
+        if ($price <= 0) {
+            Log::error('Precio inválido', ['price' => $price]);
+            return back()->with('error', 'El precio debe ser mayor a 0');
+        }
+
         $backUrls = [
             "success" => route('pago.success'),
             "failure" => route('pago.failure'),
@@ -34,53 +87,57 @@ class PaymentController extends Controller
         $client = new PreferenceClient();
 
         try {
-            $preference = $client->create([
+            $preferenceData = [
                 'items' => [
                     [
                         'title' => $title,
                         'quantity' => 1,
-                        'currency_id' => 'COP', // Puedes probar "USD" si es necesario
+                        'currency_id' => 'COP',
                         'unit_price' => $price,
                     ],
                 ],
-                'back_urls'   => $backUrls,
-                'auto_return' => 'approved',
-            ]);
+                // Descomenta si quieres redirecciones automáticas
+                // 'back_urls'   => $backUrls,
+                // 'auto_return' => 'approved',
+                'statement_descriptor' => 'ByteQuest',
+                'external_reference' => uniqid('bytequest_'),
+            ];
 
-            // Si la preferencia se creó correctamente, redirige al checkout
-            if (is_object($preference) && property_exists($preference, 'init_point')) {
-                return redirect($preference->init_point);
+            $preference = $client->create($preferenceData);
+
+            $redirectUrl = $preference->sandbox_init_point ?? $preference->init_point;
+
+            if ($redirectUrl) {
+                return redirect()->away($redirectUrl);
             }
 
-            // Loguea respuesta inesperada
-            Log::error('Respuesta inesperada de MercadoPago', ['preference' => $preference]);
             return back()->with('error', 'No se pudo iniciar el checkout.');
         } catch (\Exception $e) {
-            // Manejo de errores
-            Log::error('MercadoPago checkout error', [
+            Log::error('=== ERROR EN CHECKOUT ===', [
                 'message' => $e->getMessage(),
-                'trace'   => $e->getTraceAsString(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
             ]);
 
-            return back()->with('error', 'Error al conectar con MercadoPago: ' . $e->getMessage());
+            return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Callbacks de pago
-     */
     public function success(Request $request)
     {
+        Log::info('Pago exitoso', $request->all());
         return view('VistasEstudiante.pagos_success', ['data' => $request->all()]);
     }
 
     public function failure(Request $request)
     {
+        Log::info('Pago fallido', $request->all());
         return view('VistasEstudiante.pagos_failure', ['data' => $request->all()]);
     }
 
     public function pending(Request $request)
     {
+        Log::info('Pago pendiente', $request->all());
         return view('VistasEstudiante.pagos_pending', ['data' => $request->all()]);
     }
 }
