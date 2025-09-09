@@ -139,6 +139,7 @@ class ProgresoController extends Controller
         if ($resultado === 'incorrecto') {
 
             $usuario->vidas -= 1;
+            $usuario->ultima_vida_perdida = now();
             $usuario->save();
 
             $incorrectas = session()->get('preguntas_incorrectas', []);

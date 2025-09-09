@@ -1,6 +1,4 @@
-@php
-    echo '<div style="color:yellow;background:#333;padding:8px;">vidas: ' . auth()->user()->vidas . ' | tiempo_recuperacion: ' . ($tiempo_recuperacion ?? 'null') . ' | ultima_vida_perdida: ' . (session('ultima_vida_perdida') ?? 'null') . '</div>';
-@endphp
+
 @extends('layouts.estudiante')
 
 @section('title', 'Camino')

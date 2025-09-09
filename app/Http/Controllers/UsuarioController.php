@@ -179,4 +179,5 @@ class UsuarioController extends Controller
         // Si quieres mostrar el curso actual:
         $curso = $usuario->cursos()->first();
     }
+    
 }

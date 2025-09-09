@@ -33,9 +33,14 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             $usuario = Auth::user();
+
+
             if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario  
                 $usuarios = Usuario::all();
                 $cursos = $usuario->cursos()->get();
+                if ($usuario) {
+                    $usuario->actualizarVidas();
+                }
                 return view('VistasEstudiante.miscursos', compact('usuarios', 'cursos'));
             } elseif ($usuario->rol_id == 2) {
                 return redirect()->route('views.dashboard');

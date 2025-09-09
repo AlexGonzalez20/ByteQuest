@@ -21,8 +21,8 @@ class Usuario extends Authenticatable
         'experiencia',
         'role_id',
         'imagen',
+        'ultima_vida_perdida',
     ];
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -40,8 +40,31 @@ class Usuario extends Authenticatable
             ->withTimestamps();
     }
 
-    public function progresoPreguntas()
+    public function actualizarVidas()
     {
-        return $this->hasMany(\App\Models\ProgresoPregunta::class);
+        if ($this->vidas >= 5) {
+            return;
+        }
+
+        if ($this->ultima_vida_perdida) {
+            // Asegura que siempre sea entero
+            $minutosPasados = (int) $this->ultima_vida_perdida->diffInMinutes(now());
+
+            $vidasRecuperadas = intdiv($minutosPasados, 5);
+
+            if ($vidasRecuperadas > 0) {
+                $this->vidas = min(5, $this->vidas + $vidasRecuperadas);
+
+                $resto = max(0, (int) round($minutosPasados % 5));
+
+                if ($this->vidas < 5) {
+                    $this->ultima_vida_perdida = now()->subMinutes($resto);
+                } else {
+                    $this->ultima_vida_perdida = null;
+                }
+
+                $this->save();
+            }
+        }
     }
 }
