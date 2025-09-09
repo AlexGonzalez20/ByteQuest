@@ -115,61 +115,124 @@
                 <div class="row  mt-1">
                     <div class="col-md-12 ">
                         <div class="card mb-4 rounded-4 border-0 text-center ">
-                            <div class="card-header">Resumen de Actividad</div>
-                            <div class="card-body">
-                                <div class="chart-placeholder">
-                                    <a href="{{ route('CDashboard.grafica') }}"><img
-                                            src="https://imgproxy.domestika.org/unsafe/w:1200/rs:fill/plain/src://blog-post-open-graph-covers/000/013/052/13052-original.jpg?1712830811"
-                                            alt="grafica" class="img-fluid"></a>
+                            <div class="card dashboard-graph-card">
+                                <div class="card-header text-center">Usuarios nuevos por mes</div>
+                                <div class="card-body">
+                                    <canvas id="usuariosMesChart" style="height: 250px;"></canvas>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card mb-4 rounded-4 border-0 text-center">
-                            <div class="card-header">Fuente de Usuarios</div>
-                            <div class="card-body">
-                                <div class="chart-placeholder"><img
-                                        src="https://www.jaspersoft.com/content/dam/jaspersoft/images/graphics/infographics/pie-chart-example.svg"
-                                        class="circular"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {{-- ======================== --}}
-                {{-- Proyectos y Ilustraciones --}}
-                {{-- ======================== --}}
-                <div class="row float-left">
-                    <div class="col-md-6">
-                        <div class="card mb-4 h-100 rounded-4 border-0 text-center">
-                            <div class="card-header">Proyectos</div>
-                            <div class="card-body bg-white">
-                                <p class="d-flex flex-column mt-4">Integración API <span class="float-end">60%</span>
-                                </p>
-                                <div class="progress mb-3">
-                                    <div class="progress-bar bg-success" style="width: 60%"></div>
-                                </div>
-                                <p class="d-flex flex-column mt-4">Diseño UI <span class="float-end">85%</span></p>
-                                <div class="progress mb-3">
-                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
-                                </div>
+                <div class="col-md-12">
+                    <div class="card mb-4 rounded-4 border-0 text-center">
+                        <div class="card dashboard-graph-card">
+                            <div class="card-header text-center">Estudiantes por curso</div>
+                            <div class="card-body">
+                                <canvas id="estudiantesCursoChart"  style="height: 250px;"></canvas>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 ">
-                        <div class="card mb-4 h-100 rounded-4 border-0 text-center">
-                            <div class="card-header ">Ilustraciones</div>
-                            <div class="chart-placeholder ">
-                                <img class="img-fluid"
-                                    src="https://png.pngtree.com/png-vector/20230531/ourmid/pngtree-robot-in-the-style-of-an-old-drawing-vector-png-image_6790636.png">
-                            </div>
-
-                        </div>
+                        
                     </div>
                 </div>
-            </main>
         </div>
+    </div>
+
+    {{-- ======================== --}}
+    {{-- Proyectos y Ilustraciones --}}
+    {{-- ======================== --}}
+    <div class="row float-left">
+        <div class="col-md-6">
+            <div class="card mb-4 h-100 rounded-4 border-0 text-center">
+                <div class="card dashboard-graph-card">
+                    <div class="card-header text-center">Lecciones más vistas</div>
+                    <div class="card-body">
+                        <canvas id="leccionesVistasChart"  style="height: 340px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="card mb-4 h-100 rounded-4 border-0 text-center">
+                <div class="card-header ">Ilustraciones</div>
+                <div class="chart-placeholder ">
+                    <img class="img-fluid"
+                        src="https://png.pngtree.com/png-vector/20230531/ourmid/pngtree-robot-in-the-style-of-an-old-drawing-vector-png-image_6790636.png">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 1. Usuarios nuevos por mes
+        const ctxUsuariosMes = document.getElementById('usuariosMesChart').getContext('2d');
+        new Chart(ctxUsuariosMes, {
+            type: 'bar',
+            data: {
+                labels: @json($labelsUsuariosMes),
+                datasets: [{
+                    label: 'Usuarios nuevos',
+                    data: @json($dataUsuariosMes),
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        // 2. Estudiantes por curso
+        const ctxEstudiantesCurso = document.getElementById('estudiantesCursoChart').getContext('2d');
+        new Chart(ctxEstudiantesCurso, {
+            type: 'bar',
+            data: {
+                labels: @json($labelsCursos),
+                datasets: [{
+                    label: 'Estudiantes',
+                    data: @json($dataCursos),
+                    backgroundColor: 'rgba(255, 193, 7, 0.7)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        // 3. Lecciones más vistas
+        const ctxLeccionesVistas = document.getElementById('leccionesVistasChart').getContext('2d');
+        new Chart(ctxLeccionesVistas, {
+            type: 'bar',
+            data: {
+                labels: @json($labelsLecciones),
+                datasets: [{
+                    label: 'Vistas',
+                    data: @json($dataLecciones),
+                    backgroundColor: 'rgba(40, 167, 69, 0.7)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
