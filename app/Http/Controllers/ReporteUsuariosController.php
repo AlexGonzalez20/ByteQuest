@@ -14,7 +14,10 @@ class ReporteUsuariosController extends Controller
      */
     public function index()
     {
-        $cursos = Curso::withCount('usuarios')->get();
+        $cursos = Curso::with([
+            'usuarios:id,nombre,apellido,email,experiencia' // 👈 Traemos solo los campos necesarios
+        ])->withCount('usuarios')->get();
+
         $usuario = auth()->user()->nombre;
         $fechaGeneracion = Carbon::now('America/Bogota')->format('d/m/Y H:i');
 
@@ -31,7 +34,10 @@ class ReporteUsuariosController extends Controller
      */
     public function descargarPdf()
     {
-        $cursos = Curso::withCount('usuarios')->get();
+        $cursos = Curso::with([
+            'usuarios:id,nombre,apellido,email,experiencia'
+        ])->withCount('usuarios')->get();
+
         $usuario = auth()->user()->nombre;
         $fechaGeneracion = Carbon::now('America/Bogota')->format('d/m/Y H:i');
 

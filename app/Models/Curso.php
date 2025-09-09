@@ -28,7 +28,7 @@ class Curso extends Model
     public function usuarios()
     {
         return $this->belongsToMany(Usuario::class, 'curso_usuario')
-                    ->withPivot('leccion_actual_id', 'prueba_actual_id', 'xp_reclamada')
+                    ->withPivot('leccion_actual_id', 'prueba_actual_id')
                     ->withTimestamps();
     }
 }
