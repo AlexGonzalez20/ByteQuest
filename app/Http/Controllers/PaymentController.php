@@ -11,26 +11,25 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        // Asegúrate de tener services.mercadopago.access_token en config/services.php y en .env
+        // Configura el Access Token desde config/services.php y .env
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
     }
 
+    /**
+     * Inicia el Checkout Pro de Mercado Pago
+     */
     public function checkout(Request $request)
     {
-        // Sanitiza y valida entrada básica
+        // Obtén datos del producto (puedes reemplazarlo luego con modelo Curso)
         $title = $request->input('title', 'Producto ByteQuest');
-        // elimina símbolos y comas -> fuerza float
         $price = (float) preg_replace('/[^\d\.]/', '', $request->input('price', 0));
 
-        // Construye las back_urls usando route() — depende de APP_URL
+        // Rutas de retorno dinámicas (basadas en APP_URL)
         $backUrls = [
-            "success" => "https://abcd-1234-56-78.ngrok-free.app/pago/success",
-            "failure" => "https://abcd-1234-56-78.ngrok-free.app/pago/failure",
-            "pending" => "https://abcd-1234-56-78.ngrok-free.app/pago/pending", 
+            "success" => route('pago.success'),
+            "failure" => route('pago.failure'),
+            "pending" => route('pago.pending'),
         ];
-
-        // DEBUG rápido: descomenta si quieres ver las URLs que se están generando
-        // dd($backUrls);
 
         $client = new PreferenceClient();
 
@@ -40,52 +39,36 @@ class PaymentController extends Controller
                     [
                         'title' => $title,
                         'quantity' => 1,
-                        'currency_id' => 'COP', // si falla prueba "USD"
+                        'currency_id' => 'COP', // Puedes probar "USD" si es necesario
                         'unit_price' => $price,
                     ],
                 ],
-                'back_urls' => $backUrls,
+                'back_urls'   => $backUrls,
                 'auto_return' => 'approved',
             ]);
 
-            // Si la creación fue exitosa, normalmente $preference tiene init_point
+            // Si la preferencia se creó correctamente, redirige al checkout
             if (is_object($preference) && property_exists($preference, 'init_point')) {
                 return redirect($preference->init_point);
             }
 
-            // Si el SDK devolvió un objeto de respuesta (p.ej. MPResponse con error)
-            // intentamos sacar su contenido de forma segura para depuración:
-            if (is_object($preference)) {
-                if (method_exists($preference, 'getContent')) {
-                    dd($preference->getContent());
-                } elseif (property_exists($preference, 'content')) {
-                    dd($preference->content);
-                } else {
-                    dd($preference);
-                }
-            }
-
-            // En caso raro: si no es objeto, mostramos lo que sea que devolvió
-            dd($preference);
+            // Loguea respuesta inesperada
+            Log::error('Respuesta inesperada de MercadoPago', ['preference' => $preference]);
+            return back()->with('error', 'No se pudo iniciar el checkout.');
         } catch (\Exception $e) {
-            // Si la excepción tiene la respuesta de la API (SDK), la mostramos:
-            if (method_exists($e, 'getApiResponse')) {
-                dd($e->getApiResponse());
-            }
-
-            // Guárdalo en logs para no perder trazas e imprime el mensaje básico:
+            // Manejo de errores
             Log::error('MercadoPago checkout error', [
                 'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
+                'trace'   => $e->getTraceAsString(),
             ]);
 
-            // Muestra algo legible en la UI (dev)
-            dd([
-                'error' => $e->getMessage(),
-            ]);
+            return back()->with('error', 'Error al conectar con MercadoPago: ' . $e->getMessage());
         }
     }
 
+    /**
+     * Callbacks de pago
+     */
     public function success(Request $request)
     {
         return view('VistasEstudiante.pagos_success', ['data' => $request->all()]);
