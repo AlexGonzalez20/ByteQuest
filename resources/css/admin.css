@@ -1,3 +1,45 @@
-body{
-    background-color: rgb(0, 0, 0);
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+
+body {
+    font-family: Montserrat, Arial, sans-serif !important;
+    /* Fondo animado */
+
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #252746, #1a1b2e, #036891, #00b2c3);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    position: relative;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.navbar {
+    border-bottom: #00b2c3 solid 2px;
+    background-color: #252746;
+    color: whitesmoke;
+}
+
+.nav-item:hover {
+    background-color: #00b2c3;
+    color: whitesmoke !important;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+.b {
+    color: #00b2c3;
+}
+.q {
+    color: whitesmoke;
 }

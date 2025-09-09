@@ -13,32 +13,31 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#"><span
-                    class="text-info">Byte</span>Quest</a>
+            <a class="q navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="b">Byte</span>Quest</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-light">
                     <li class="nav-item">
-                        <a href="{{ route('usuarios.index') }}" class="nav-link">Usuarios</a>
+                        <a href="{{ route('usuarios.index') }}" class="nav-link  text-light">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('cursos.index') }}" class="nav-link">Cursos</a>
+                        <a href="{{ route('cursos.index') }}" class="nav-link text-light">Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('lecciones.index') }}" class="nav-link">Lecciones</a>
+                        <a href="{{ route('lecciones.index') }}" class="nav-link text-light">Lecciones</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('pruebas.index') }}" class="nav-link">Pruebas</a>
+                        <a href="{{ route('pruebas.index') }}" class="nav-link text-light">Pruebas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('preguntas.index') }}" class="nav-link">Preguntas</a>
+                        <a href="{{ route('preguntas.index') }}" class="nav-link text-light">Preguntas</a>
                     </li>
 
                 </ul>
@@ -60,7 +59,7 @@
     @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
