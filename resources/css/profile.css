@@ -4,17 +4,34 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    min-width: 100vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: none;
 }
+
 .profile-container {
     background: #fff;
+    width: 100%;
     max-width: 400px;
+    min-width: 220px;
     margin: 40px auto;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    /* Elimina max-height y overflow-y para evitar estiramiento forzado */
+}
+
+@media (max-width: 500px) {
+    .profile-container {
+        max-width: 98vw;
+        min-width: 0;
+        padding: 18px 4vw;
+    }
 }
 .profile-img {
     width: 120px;
@@ -24,11 +41,13 @@ body {
     margin-bottom: 16px;
     border: 2px solid #b86b4b;
 }
+
 .profile-form label {
     display: block;
     margin: 12px 0 4px 0;
     font-weight: bold;
 }
+
 .profile-form input[type="text"],
 .profile-form input[type="file"] {
     width: 100%;
@@ -36,7 +55,9 @@ body {
     border-radius: 6px;
     border: 1px solid #ccc;
     margin-bottom: 12px;
+    box-sizing: border-box;
 }
+
 .profile-form button {
     background: #b86b4b;
     color: #fff;
@@ -47,6 +68,19 @@ body {
     font-size: 1rem;
     margin-top: 8px;
 }
+
 .profile-form button:hover {
     background: #a05a2c;
+}
+
+/* Responsive: ajusta el perfil en pantallas pequeñas */
+@media (max-width: 500px) {
+    .profile-container {
+        max-width: 98vw;
+        padding: 18px 4vw;
+    }
+    .profile-img {
+        width: 90px;
+        height: 90px;
+    }
 }
