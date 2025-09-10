@@ -101,6 +101,8 @@ class ProgresoController extends Controller
                     session()->forget('preguntas_incorrectas');
                     return redirect()->route('pregunta.mostrar', ['prueba_id' => $prueba_id]);
                 } else {
+                    $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
+                    $this->avanzarProgreso($cursoUsuario, $prueba);
                     // Ya no hay incorrectas, termina la prueba
                     $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
                     session()->forget('ronda_repeticion');

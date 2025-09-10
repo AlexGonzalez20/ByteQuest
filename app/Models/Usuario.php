@@ -12,7 +12,7 @@ class Usuario extends Authenticatable
 
     protected $table = 'usuarios';
 
-    protected $fillable = [
+    protected $casts = [
         'nombre',
         'apellido',
         'email',
@@ -21,7 +21,7 @@ class Usuario extends Authenticatable
         'experiencia',
         'role_id',
         'imagen',
-        'ultima_vida_perdida',
+        'ultima_vida_perdida' => 'datetime',
     ];
     protected $hidden = [
         'password',
@@ -32,7 +32,10 @@ class Usuario extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'role_id');
     }
-
+    public function progresoPreguntas()
+    {
+        return $this->hasMany(ProgresoPregunta::class, 'usuario_id');
+    }
     public function cursos()
     {
         return $this->belongsToMany(Curso::class, 'curso_usuario')
