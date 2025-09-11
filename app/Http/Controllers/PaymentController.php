@@ -78,11 +78,14 @@ class PaymentController extends Controller
             return back()->with('error', 'El precio debe ser mayor a 0');
         }
 
+
+
         $backUrls = [
-            "success" => route('pago.success'),
-            "failure" => route('pago.failure'),
-            "pending" => route('pago.pending'),
+            "success" => "https://bytequest.up.railway.app/pago/success",
+            "failure" => "https://bytequest.up.railway.app/pago/failure",
+            "pending" => "https://bytequest.up.railway.app/pago/pending",
         ];
+
 
         $client = new PreferenceClient();
 
