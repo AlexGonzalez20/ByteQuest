@@ -63,7 +63,6 @@
         Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos');
         Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos');
         Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
-        route::view('/leccionEnsenanza', 'VistasEstudiante.leccionEnsenanza')->name('views.ULeccionEnsenanza');
     });
 
     // ✅ Reportes
