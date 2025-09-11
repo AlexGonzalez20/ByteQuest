@@ -1,0 +1,119 @@
+{
+  "_index-xsH4HHeE.js": {
+    "file": "assets/index-xsH4HHeE.js",
+    "name": "index"
+  },
+  "resources/css/admin.css": {
+    "file": "assets/admin-BmtWQ3nA.css",
+    "src": "resources/css/admin.css",
+    "isEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-NS0_ynA5.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/bootstrap.min.css": {
+    "file": "assets/bootstrap-BE05Qm4Y.css",
+    "src": "resources/css/bootstrap.min.css",
+    "isEntry": true
+  },
+  "resources/css/crudUsuario.css": {
+    "file": "assets/crudUsuario-l0sNRNKZ.js",
+    "name": "crudUsuario",
+    "src": "resources/css/crudUsuario.css",
+    "isEntry": true
+  },
+  "resources/css/dashboard.css": {
+    "file": "assets/dashboard-CfwqIj18.css",
+    "src": "resources/css/dashboard.css",
+    "isEntry": true
+  },
+  "resources/css/forgot-reset.css": {
+    "file": "assets/forgot-reset-Big2oFRG.css",
+    "src": "resources/css/forgot-reset.css",
+    "isEntry": true
+  },
+  "resources/css/landing.css": {
+    "file": "assets/landing-DW8fIQI_.css",
+    "src": "resources/css/landing.css",
+    "isEntry": true
+  },
+  "resources/css/login.css": {
+    "file": "assets/login-v_9jPi1H.css",
+    "src": "resources/css/login.css",
+    "isEntry": true
+  },
+  "resources/css/preguntas.css": {
+    "file": "assets/preguntas-B0WhsYOc.css",
+    "src": "resources/css/preguntas.css",
+    "isEntry": true
+  },
+  "resources/css/profile.css": {
+    "file": "assets/profile-BUBqfjYw.css",
+    "src": "resources/css/profile.css",
+    "isEntry": true
+  },
+  "resources/css/register.css": {
+    "file": "assets/register-OI1mS6fQ.css",
+    "src": "resources/css/register.css",
+    "isEntry": true
+  },
+  "resources/css/selectCourse.css": {
+    "file": "assets/selectCourse-qr3Cb3Wh.css",
+    "src": "resources/css/selectCourse.css",
+    "isEntry": true
+  },
+  "resources/css/style.css": {
+    "file": "assets/style-De1mjCEW.css",
+    "src": "resources/css/style.css",
+    "isEntry": true
+  },
+  "resources/css/usuarios.css": {
+    "file": "assets/usuarios-3n8-cos_.css",
+    "src": "resources/css/usuarios.css",
+    "isEntry": true
+  },
+  "resources/js/animateText.js": {
+    "file": "assets/animateText-l0sNRNKZ.js",
+    "name": "animateText",
+    "src": "resources/js/animateText.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-BM9oQkvv.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_index-xsH4HHeE.js"
+    ]
+  },
+  "resources/js/bootstrap.bundle.min.js": {
+    "file": "assets/bootstrap.bundle.min-D0AAh9Ug.js",
+    "name": "bootstrap.bundle.min",
+    "src": "resources/js/bootstrap.bundle.min.js",
+    "isEntry": true
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/bootstrap-BM9oQkvv.js",
+    "name": "bootstrap",
+    "src": "resources/js/bootstrap.js",
+    "isEntry": true,
+    "imports": [
+      "_index-xsH4HHeE.js"
+    ]
+  },
+  "resources/js/landing.js": {
+    "file": "assets/landing-CAVxi7gq.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true
+  },
+  "resources/js/pregunta-flujo.js": {
+    "file": "assets/pregunta-flujo-DbAxfGKc.js",
+    "name": "pregunta-flujo",
+    "src": "resources/js/pregunta-flujo.js",
+    "isEntry": true
+  }
+}
