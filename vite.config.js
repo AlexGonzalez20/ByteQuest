@@ -5,6 +5,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                // ✅ CSS
                 'resources/css/app.css',
                 'resources/css/login.css',
                 'resources/css/admin.css',
@@ -19,7 +20,14 @@ export default defineConfig({
                 'resources/css/selectCourse.css',
                 'resources/css/style.css',
                 'resources/css/usuarios.css',
+
+                // ✅ JS
                 'resources/js/app.js',
+                'resources/js/animateText.js',
+                'resources/js/bootstrap.bundle.min.js',
+                'resources/js/bootstrap.js',
+                'resources/js/landing.js',
+                'resources/js/pregunta-flujo.js',
             ],
             refresh: true,
         }),
