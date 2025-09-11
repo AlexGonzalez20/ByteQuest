@@ -11,6 +11,9 @@
         <form action="{{ route('usuarios.caminoCurso', $curso_id) }}" method="GET">
             <button type="submit" class="btn btn-warning">Volver al Camino</button>
         </form>
+        <form action="{{ route('tienda') }}" method="GET">
+            <button type="submit" class="btn btn-warning" style="margin-top:6px;">compra mas vidas</button>
+        </form>
     </div>
 @endsection
 

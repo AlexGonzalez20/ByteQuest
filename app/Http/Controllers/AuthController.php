@@ -33,13 +33,17 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             $usuario = Auth::user();
+
+
             if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario  
                 $usuarios = Usuario::all();
                 $cursos = $usuario->cursos()->get();
+                if ($usuario) {
+                    $usuario->actualizarVidas();
+                }
                 return view('VistasEstudiante.miscursos', compact('usuarios', 'cursos'));
             } elseif ($usuario->rol_id == 2) {
-                $usuarios = Usuario::all(); // 2 = administrador
-                return view('dashboard', compact('usuarios'));
+                return redirect()->route('views.dashboard');
             } else {
                 return redirect()->route('login')->with('error', 'Acceso no autorizado');
             }
@@ -84,13 +88,13 @@ class AuthController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/',
                 'confirmed'
             ],
-        ],[
-        'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
-        'email.unique' => 'Este correo ya está registrado.',
-        'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
-        'password.confirmed' => 'Las contraseñas no coinciden.'
-        // Otros mensajes personalizados...
-    ]);
+        ], [
+            'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
+            'email.unique' => 'Este correo ya está registrado.',
+            'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
+            'password.confirmed' => 'Las contraseñas no coinciden.'
+            // Otros mensajes personalizados...
+        ]);
 
 
         if ($validator->fails()) {

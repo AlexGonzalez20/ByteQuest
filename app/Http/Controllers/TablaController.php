@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class TablaController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // Esta función puede ser utilizada para redirigir a la vista principal del dashboard
         return redirect()->route('CDashboard.grafica');
     }
@@ -31,6 +32,7 @@ class TablaController extends Controller
 
     public function grafica()
     {
+        $usuarios = Usuario::all();
         // 1. Usuarios nuevos por mes (últimos 6 meses)
         $usuariosPorMes = Usuario::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as mes'), DB::raw('count(*) as total'))
             ->groupBy('mes')
@@ -45,7 +47,7 @@ class TablaController extends Controller
         $labelsCursos = $cursos->pluck('nombre');
         $dataCursos = $cursos->pluck('usuarios_count');
 
-        // 3. Lecciones más vistas (usuarios únicos que respondieron alguna pregunta de la lección)
+        // 3. Lecciones más vistas
         $lecciones = Leccion::select('lecciones.id', 'lecciones.nombre')
             ->leftJoin('preguntas', 'preguntas.leccion_id', '=', 'lecciones.id')
             ->leftJoin('progreso_preguntas', 'progreso_preguntas.pregunta_id', '=', 'preguntas.id')
@@ -57,10 +59,14 @@ class TablaController extends Controller
         $labelsLecciones = $lecciones->pluck('nombre');
         $dataLecciones = $lecciones->pluck('usuarios_count');
 
-        return view('CDashboard.grafica', compact(
-            'labelsUsuariosMes', 'dataUsuariosMes',
-            'labelsCursos', 'dataCursos',
-            'labelsLecciones', 'dataLecciones'
+        return view('dashboard', compact(
+            'usuarios',
+            'labelsUsuariosMes',
+            'dataUsuariosMes',
+            'labelsCursos',
+            'dataCursos',
+            'labelsLecciones',
+            'dataLecciones'
         ));
     }
 }

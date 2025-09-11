@@ -103,6 +103,7 @@
                                     Racha: {{ auth()->user()->dias_racha }} días
                                 </a>
 
+
                                 <a href="{{route('tienda')}}" class="btn btn-danger me-3">
                                     <i class="fa-solid fa-heart"></i>
                                     Vidas: {{ auth()->user()->vidas }}
@@ -129,6 +130,23 @@
     </div>
 
     @yield('scripts')
+    <script>
+        @if(isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
+            let tiempo = {{ $tiempo_recuperacion }};
+            function updateCounter() {
+                if (tiempo <= 0) return;
+                let min = Math.floor(tiempo / 60);
+                let sec = tiempo % 60;
+                var el = document.getElementById('tiempo-vidas');
+                if (el) {
+                    el.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+                }
+                tiempo--;
+                if (tiempo > 0 && el) setTimeout(updateCounter, 1000);
+            }
+            updateCounter();
+        @endif
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Mostrar/Ocultar sidebar en móviles

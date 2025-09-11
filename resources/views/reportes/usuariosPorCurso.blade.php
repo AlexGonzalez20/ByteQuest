@@ -58,6 +58,7 @@
             padding: 12px;
             border: 1px solid #ccc;
             text-align: left;
+            vertical-align: top;
         }
 
         th {
@@ -71,6 +72,30 @@
         tfoot td {
             font-weight: bold;
             background: #f5f5f5;
+        }
+
+        /* Subtabla de usuarios */
+        .usuarios-table {
+            width: 95%;
+            margin: 10px auto;
+            font-size: 13px;
+            border-collapse: collapse;
+        }
+
+        .usuarios-table th,
+        .usuarios-table td {
+            border: 1px solid #bbb;
+            padding: 6px 8px;
+        }
+
+        .usuarios-table th {
+            background: #eee;
+        }
+
+        .usuarios-title {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 6px 0;
         }
 
         footer {
@@ -88,7 +113,7 @@
 <body>
     <header>
         <div class="brand">
-            <img src="{{ public_path('img/face.jpg') }}" alt="Logo">
+            <img src="{{ public_path('img/logo.jpg') }}" alt="Logo">
             <h1>ByteQuest</h1>
         </div>
         <div class="info">
@@ -107,19 +132,45 @@
                 </tr>
             </thead>
             <tbody>
-                @php $totalUsuarios = 0; @endphp
                 @foreach ($cursos as $curso)
                     <tr>
-                        <td>{{ $curso->nombre }}</td>
+                        <td>
+                            {{ $curso->nombre }}
+
+                            @if ($curso->usuarios->count())
+                                <div class="usuarios-title">Usuarios en este curso:</div>
+                                <table class="usuarios-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Email</th>
+                                            <th>Experiencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($curso->usuarios as $u)
+                                            <tr>
+                                                <td>{{ $u->nombre }}</td>
+                                                <td>{{ $u->apellido }}</td>
+                                                <td>{{ $u->email }}</td>
+                                                <td>{{ $u->experiencia }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </td>
                         <td>{{ $curso->usuarios_count }}</td>
                     </tr>
-                    @php $totalUsuarios += $curso->usuarios_count; @endphp
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td>Total General</td>
-                    <td>{{ $totalUsuarios }}</td>
+                    <td>Total General (usuarios únicos)</td>
+                    <td>
+                        {{ $cursos->pluck('usuarios')->flatten()->unique('id')->count() }}
+                    </td>
                 </tr>
             </tfoot>
         </table>
