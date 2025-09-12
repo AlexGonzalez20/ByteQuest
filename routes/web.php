@@ -85,8 +85,8 @@
         ->name('usuarios.caminoCurso')->middleware('auth');
 
     // ✅ Reclamar XP
-    Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])
-        ->name('lecciones.reclamarXP')->middleware('auth');
+    // Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])
+    //     ->name('lecciones.reclamarXP')->middleware('auth');
 
     // ✅ Preguntas y progreso
 
