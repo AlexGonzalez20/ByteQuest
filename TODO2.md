@@ -1,5 +1,5 @@
--   [x] Add toggle button for sidebar in navbar
--   [x] Create sidebar div with services cards
--   [x] Move services section to sidebar
--   [x] Add CSS for sidebar
--   [x] Add JS to toggle sidebar
+- [x] Add toggle button for sidebar in navbar
+- [x] Create sidebar div with services cards
+- [x] Move services section to sidebar
+- [x] Add CSS for sidebar
+- [x] Add JS to toggle sidebar

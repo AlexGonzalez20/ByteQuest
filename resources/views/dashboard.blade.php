@@ -22,7 +22,8 @@
     <!-- ======================== -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+            <button class="navbar-toggler d-block d-md-none" type="button" id="sidebarToggle"
+                aria-label="Toggle sidebar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="{{ route('landing') }}">
@@ -39,12 +40,12 @@
         <div class="row">
             <!-- Menú hamburguesa SIEMPRE a la izquierda -->
             <nav id="sidebar"
-                class="sidebar col-12 col-md-3 col-lg-2 mt-4 navbar navbar-expand-md navbar-light  mb-4 rounded shadow-sm flex-md-column align-items-stretch min-vh-100">
+                class="sidebar col-12 col-md-3 col-lg-2 mt-4 navbar navbar-expand-md navbar-light mb-4 rounded shadow-sm flex-md-column align-items-stretch min-vh-100">
                 <div class="navbar-collapse flex-md-column" id="gestionMenu">
                     <div class="row g-2 flex-column align-items-start w-100">
                         <!-- Gestionar Usuarios -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('usuarios.index') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('usuarios.index') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-user fs-3'></i>
@@ -56,7 +57,7 @@
 
                         <!-- Gestionar Cursos -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('cursos.index') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('cursos.index') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-book fs-3'></i>
@@ -68,7 +69,7 @@
 
                         <!-- Gestionar Lecciones -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('lecciones.index') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('lecciones.index') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-bookmark fs-3'></i>
@@ -80,7 +81,7 @@
 
                         <!-- Gestionar Preguntas -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('preguntas.index') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('preguntas.index') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-help-circle fs-3'></i>
@@ -92,7 +93,7 @@
 
                         <!-- Gestionar Pruebas -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('pruebas.index') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('pruebas.index') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-task fs-3'></i>
@@ -104,7 +105,7 @@
 
                         <!-- Generar Reporte -->
                         <div class="button-card col-12 mb-2">
-                            <a href="{{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
+                            <a href=" {{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
                                 <div class="card shadow-sm">
                                     <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-file fs-3'></i>
@@ -116,7 +117,7 @@
 
                         <!-- Robot GIF -->
                         <div class="col-12 text-center mt-4">
-                            <img src="{{ asset('/img/robot-idle.gif') }}" alt="robot" class="img-fluid">
+                            <img src=" {{ asset('/img/robot-idle.gif') }}" alt="robot" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
                             <div class="card-header">Resumen de Actividad</div>
                             <div class="card-body">
                                 <div class="chart-placeholder">
-                                    <a href="{{ route('CDashboard.grafica') }}"><img
+                                    <a href=" {{ route('CDashboard.grafica') }}"><img
                                             src="https://imgproxy.domestika.org/unsafe/w:1200/rs:fill/plain/src://blog-post-open-graph-covers/000/013/052/13052-original.jpg?1712830811"
                                             alt="grafica" class="img-fluid"></a>
                                 </div>
