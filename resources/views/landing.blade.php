@@ -67,7 +67,7 @@
 
                     <!-- Login y Empezar -->
                     <div class="d-flex align-items-center">
-                        <a class="nav-link text-light me-3" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link text-light me-3" href="{{ route('login') }}">acceder</a>
                         <a class="btn btn-light rounded-3 " style="background-color:#ffc107 ;"
                             href="{{ route('register') }}">Empezar</a>
                     </div>
@@ -107,8 +107,9 @@
                         Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
                         aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui porfavor da click abajo para empezar
                     </textarea>
-                    <a class="btn text-decoration-none lh-lg-1 mt-2 mb-4  justify-content-center        " id="text"
-                        type="button">Conoce a Byte!</a>
+                    <a href="{{ route('register') }}" class="btn text-decoration-none lh-lg-1 mt-2 mb-4  justify-content-center" id="text"
+                        type="button">Conoce  bytequest!</a>
+                        
                 </div>
                 <img class="img-text " src="{{ asset('img/byte.png')}}" alt="byte">
             </div>
