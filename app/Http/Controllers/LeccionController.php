@@ -14,35 +14,36 @@ class LeccionController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    try {
-        $lecciones = \App\Models\Leccion::with('curso');
+    {
+        // Inicia el query builder correctamente
+        $query = \App\Models\Leccion::with('curso');
 
+        // Si hay búsqueda
         if ($request->filled('search')) {
             $search = $request->search;
-            $lecciones->where(function ($query) use ($search) {
-                $query->where('nombre', 'like', '%' . $search . '%')
-                    ->orWhere('descripcion', 'like', '%' . $search . '%')
-                    ->orWhereHas('curso', function ($q) use ($search) {
-                        $q->where('nombre', 'like', '%' . $search . '%');
+
+            $query->where(function ($q) use ($search) {
+                $q->where('nombre', 'like', "%{$search}%")
+                    ->orWhere('descripcion', 'like', "%{$search}%")
+                    ->orWhereHas('curso', function ($sub) use ($search) {
+                        $sub->where('nombre', 'like', "%{$search}%");
                     });
             });
         }
 
-        $lecciones = $lecciones->get();
+        // Ejecuta la consulta
+        $lecciones = $query->get();
 
+        // Decodifica campo "contenido" si existe y es string JSON
         foreach ($lecciones as $leccion) {
-            if (is_string($leccion->contenido)) {
-                $leccion->contenido = json_decode($leccion->contenido, true);
+            if (property_exists($leccion, 'contenido') && is_string($leccion->contenido)) {
+                $decoded = json_decode($leccion->contenido, true);
+                $leccion->contenido = $decoded ?? $leccion->contenido; // mantiene valor si json inválido
             }
         }
 
         return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
-
-    } catch (\Throwable $e) {
-        dd($e->getMessage(), $e->getTraceAsString());
     }
-}
 
 
     /**
