@@ -8,7 +8,7 @@
 
 @section('content')
 @php
-    use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 @endphp
 <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -36,7 +36,7 @@
 
     @php
     $leccionesPorCurso = $lecciones->groupBy(function($leccion) {
-    return $leccion->curso ? $leccion->curso->nombre : 'Sin curso';
+    return $leccion->curso?->nombre ?? 'Sin curso';
     });
     @endphp
 
