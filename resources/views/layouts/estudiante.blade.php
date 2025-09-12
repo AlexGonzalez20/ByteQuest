@@ -85,7 +85,8 @@
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
                                     @forelse ($cursos as $curso)
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ route('usuarios.caminoCurso', $curso->id) }}">
                                                 {{ $curso->nombre }}
                                             </a>
                                         </li>
@@ -104,17 +105,18 @@
                                 </a>
 
 
-                                <a href="{{route('tienda')}}" class="btn btn-danger me-3">
+                                <a href="{{ route('tienda') }}" class="btn btn-danger me-3">
                                     <i class="fa-solid fa-heart"></i>
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>
 
-                                <a href="{{ route('views.UPerfil') }}" class="btn btn-warning d-flex align-items-center"
-                                    style="gap: 8px;">
-                                    <img src="{{ asset('img/' . auth()->user()->imagen) }}" alt="Foto de perfil"
+                                <a href="{{ route('views.UPerfil') }}"
+                                    class="btn btn-warning d-flex align-items-center" style="gap: 8px;">
+                                    <img src="{{ asset('img/robots/' . Auth::user()->imagen) }}" alt="Foto de perfil"
                                         style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; border: 2px solid #fff;">
                                     <span>{{ auth()->user()->nombre }}</span>
                                 </a>
+
                             </div>
                         </div>
                     </div>
@@ -131,8 +133,9 @@
 
     @yield('scripts')
     <script>
-        @if(isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
+        @if (isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
             let tiempo = {{ $tiempo_recuperacion }};
+
             function updateCounter() {
                 if (tiempo <= 0) return;
                 let min = Math.floor(tiempo / 60);
@@ -154,7 +157,7 @@
         const sidebarMenu = document.getElementById('sidebarMenu');
         const mainContent = document.getElementById('mainContent');
         let menuOpen = false;
-        menuToggle.addEventListener('click', function () {
+        menuToggle.addEventListener('click', function() {
             menuOpen = !menuOpen;
             if (menuOpen) {
                 sidebarMenu.style.transform = 'translateX(0)';
@@ -181,7 +184,7 @@
             }
         });
         // Ocultar menú al hacer click fuera
-        mainContent.addEventListener('click', function () {
+        mainContent.addEventListener('click', function() {
             if (menuOpen && window.innerWidth < 768) {
                 sidebarMenu.style.transform = 'translateX(-100%)';
                 mainContent.style.left = '0';
