@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
+use App\Models\Usuario;
 
 class PaymentController extends Controller
 {
@@ -127,21 +129,23 @@ class PaymentController extends Controller
     {
         Log::info('Pago exitoso', $request->all());
 
-        $usuario = auth()->user();
-        if (!$usuario) {
+        $user = Usuario::find(Auth::id());
+        if (!$user) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para procesar el pago.');
         }
 
-        // Extraer producto (puede venir por GET o por external_reference)
         $producto = $request->get('producto', '');
 
         if ($producto === 'Recupera todas tus vidas') {
-            $usuario->vidas = 5;   // siempre restaurar a 5
-            $usuario->save();
+            $user->vidas = 5;
+            $user->save();
+
+            // Refrescar la sesión
+            Auth::setUser($user);
 
             Log::info('✅ Vidas restauradas', [
-                'usuario_id' => $usuario->id,
-                'vidas' => $usuario->vidas,
+                'usuario_id' => $user->id,
+                'vidas' => $user->vidas,
             ]);
         }
 
