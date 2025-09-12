@@ -187,18 +187,24 @@ class AuthController extends Controller
     public function updateProfile(Request $request)
     {
         $user = Usuario::find(Auth::id());
+
         $request->validate([
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
-            'imagen' => 'required|in:amarillo.PNG,azulito.PNG,verde.PNG,rojo.PNG',
+            'imagen' => 'nullable|in:amarillo.PNG,azulito.PNG,verde.PNG,rojo.PNG', // ahora es opcional
         ]);
 
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
-        $user->imagen = $request->imagen;
+
+        // Solo actualiza la imagen si se envía
+        if ($request->has('imagen')) {
+            $user->imagen = $request->imagen;
+        }
 
         $user->save();
         \Auth::setUser($user); // Refresca la sesión con los nuevos datos
+
         return back()->with('success', 'Perfil actualizado correctamente.');
     }
 }
