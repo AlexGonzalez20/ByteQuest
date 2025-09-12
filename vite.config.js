@@ -22,6 +22,7 @@ export default defineConfig({
                 'resources/css/usuarios.css',
 
                 // ✅ JS
+                'resources/js/dashboard.js',
                 'resources/js/app.js',
                 'resources/js/animateText.js',
                 'resources/js/bootstrap.bundle.min.js',
