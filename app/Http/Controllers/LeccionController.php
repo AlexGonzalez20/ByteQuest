@@ -14,17 +14,16 @@ class LeccionController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    try {
-        $lecciones = \App\Models\Leccion::with('curso');
+    {
+        $lecciones = \App\Models\Leccion::query()->with('curso');
 
         if ($request->filled('search')) {
             $search = $request->search;
             $lecciones->where(function ($query) use ($search) {
-                $query->where('nombre', 'like', '%' . $search . '%')
-                    ->orWhere('descripcion', 'like', '%' . $search . '%')
+                $query->where('nombre', 'like', "%{$search}%")
+                    ->orWhere('descripcion', 'like', "%{$search}%")
                     ->orWhereHas('curso', function ($q) use ($search) {
-                        $q->where('nombre', 'like', '%' . $search . '%');
+                        $q->where('nombre', 'like', "%{$search}%");
                     });
             });
         }
@@ -33,16 +32,13 @@ class LeccionController extends Controller
 
         foreach ($lecciones as $leccion) {
             if (is_string($leccion->contenido)) {
-                $leccion->contenido = json_decode($leccion->contenido, true);
+                $decoded = json_decode($leccion->contenido, true);
+                $leccion->contenido = $decoded ?? $leccion->contenido;
             }
         }
 
         return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
-
-    } catch (\Throwable $e) {
-        dd($e->getMessage(), $e->getTraceAsString());
     }
-}
 
 
     /**
