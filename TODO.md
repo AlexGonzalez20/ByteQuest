@@ -1,0 +1,6 @@
+-   [x] Edit resources/views/dashboard.blade.php: Add id="sidebar" to the sidebar nav element
+-   [x] Edit resources/css/dashboard.css: Add styles to hide sidebar by default and show when "show" class is toggled
+-   [x] Edit resources/js/dashboard.js: Confirm or improve the toggle logic
+-   [x] Test the toggle functionality
+-   [x] Check for any other errors in the dashboard.js or blade file and fix them
+-   [ ] Make all gestion views (CrudUsuarios, CrudCursos, CrudLecciones, CrudPreguntas, pruebas) fully responsive across all screen sizes (mobile, tablet, desktop)

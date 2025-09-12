@@ -22,7 +22,7 @@
     <!-- ======================== -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
         <div class="container-fluid">
-            <button class="navbar-toggler d-md-none" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+            <button class="navbar-toggler" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="{{ route('landing') }}">
@@ -35,18 +35,18 @@
         </div>
     </nav>
 
-    <div class="container-fluid" style="padding-top: 70px;">
+    <div class="container-fluid" style="padding-top: 20px;">
         <div class="row">
             <!-- Menú hamburguesa SIEMPRE a la izquierda -->
-            <nav
-                class="col-12 col-md-3 col-lg-2 px-0 navbar navbar-expand-md navbar-light  mb-4 rounded shadow-sm flex-md-column align-items-stretch min-vh-100">
-                <div class="collapse navbar-collapse flex-md-column show" id="gestionMenu">
+            <nav id="sidebar"
+                class="sidebar col-12 col-md-3 col-lg-2 mt-4 navbar navbar-expand-md navbar-light  mb-4 rounded shadow-sm flex-md-column align-items-stretch min-vh-100">
+                <div class="navbar-collapse flex-md-column" id="gestionMenu">
                     <div class="row g-2 flex-column align-items-start w-100">
                         <!-- Gestionar Usuarios -->
                         <div class="button-card col-12 mb-2">
                             <a href="{{ route('usuarios.index') }}" class="w-100 text-decoration-none">
-                                <div class=" shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-user fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Usuarios</h5>
                                     </div>
@@ -57,8 +57,8 @@
                         <!-- Gestionar Cursos -->
                         <div class="button-card col-12 mb-2">
                             <a href="{{ route('cursos.index') }}" class="w-100 text-decoration-none">
-                                <div class=" shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-book fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Cursos</h5>
                                     </div>
@@ -69,8 +69,8 @@
                         <!-- Gestionar Lecciones -->
                         <div class="button-card col-12 mb-2">
                             <a href="{{ route('lecciones.index') }}" class="w-100 text-decoration-none">
-                                <div class=" shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-bookmark fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Lecciones</h5>
                                     </div>
@@ -81,8 +81,8 @@
                         <!-- Gestionar Preguntas -->
                         <div class="button-card col-12 mb-2">
                             <a href="{{ route('preguntas.index') }}" class="w-100 text-decoration-none">
-                                <div class=" shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-help-circle fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Preguntas</h5>
                                     </div>
@@ -93,8 +93,8 @@
                         <!-- Gestionar Pruebas -->
                         <div class="button-card col-12 mb-2">
                             <a href="{{ route('pruebas.index') }}" class="w-100 text-decoration-none">
-                                <div class=" shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-task fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Pruebas</h5>
                                     </div>
@@ -103,10 +103,10 @@
                         </div>
 
                         <!-- Generar Reporte -->
-                        <div class="button-card col-12 mb-2 bg-none">
+                        <div class="button-card col-12 mb-2">
                             <a href="{{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
-                                <div class="  shadow-sm">
-                                    <div class=" d-flex align-items-center gap-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
                                         <i class='bx bx-file fs-3'></i>
                                         <h5 class="card-title mb-0">Generar Reporte</h5>
                                     </div>
@@ -122,7 +122,7 @@
                 </div>
             </nav>
             <!-- Contenido principal a la derecha -->
-            <main class="col-12 col-md-9 col-lg-10 px-3 py-4 gy-4">
+            <main id="main-content" class="col-12 col-md-9 col-lg-10 px-3 py-4 gy-4">
                 {{-- ======================== --}}
                 {{-- Resumen de Actividad y Fuente de Usuarios --}}
                 {{-- ======================== --}}

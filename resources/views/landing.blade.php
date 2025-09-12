@@ -34,7 +34,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('landing') }}">
                     <img class="img-nav me-2 mt-2" src="{{ asset('img/icon.png') }}" alt="byte">
                     <span class="h4 mb-0">
-                        <span style="color:#00b2c3;">Byte</span>Quest
+                        <span style="color:#008ba3;">Byte</span>Quest
                     </span>
                 </a>
 
@@ -107,9 +107,10 @@
                         Mi nombre es Byte y esta es nuestra plataforma de aprendizaje interactivo.
                         aqui podras aprender a programar de manera divertida y rapida nos alegra mucho tenerte aqui porfavor da click abajo para empezar
                     </textarea>
-                    <a href="{{ route('register') }}" class="btn text-decoration-none lh-lg-1 mt-2 mb-4  justify-content-center" id="text"
-                        type="button">Conoce  bytequest!</a>
-                        
+                    <a href="{{ route('register') }}"
+                        class="btn text-decoration-none lh-lg-1 mt-2 mb-4  justify-content-center" id="text"
+                        type="button">Conoce bytequest!</a>
+
                 </div>
                 <img class="img-text " src="{{ asset('img/byte.png')}}" alt="byte">
             </div>
@@ -204,6 +205,7 @@
                             </div>
                         </div>
                     </section>
+
                     <section id="contact" class="contact section-padding mt-5  p-5">
                         <div class="container mt-5 ">
                             <div class="row">

@@ -3,6 +3,18 @@
     font-family: Montserrat, Arial, sans-serif !important;
     font-weight: 300 !important;
 }
+
+/* Restore original background and colors */
+body {
+    background: #fff;
+    color: #333;
+}
+
+header {
+    color: #fff;
+    padding-top: 10vw;
+    padding-bottom: 30vw;
+}
 h1,
 h2,
 h3,
