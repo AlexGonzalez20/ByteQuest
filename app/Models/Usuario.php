@@ -12,7 +12,7 @@ class Usuario extends Authenticatable
 
     protected $table = 'usuarios';
 
-    protected $casts = [
+    protected $fillable = [
         'nombre',
         'apellido',
         'email',
@@ -20,12 +20,14 @@ class Usuario extends Authenticatable
         'vidas',
         'experiencia',
         'role_id',
-        'imagen',
-        'ultima_vida_perdida' => 'datetime',
+        'imagen'
     ];
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+    protected $casts = [
+        'ultima_vida_perdida' => 'datetime',
     ];
 
     public function rol()
