@@ -77,7 +77,7 @@
         <!-- Header -->
         <header class="flex">
             <div class="d-flex justify-content-center align-items-center flex-row">
-                <h2 class="fs-1 mb-0">Bienvenido a <span class="h1 fs-1" style="color:#00b2c3;">Byte</span>Quest</h2>
+                <h2 class="fs-1 mb-0">Bienvenido a <span class="h1 fs-1" style="color:#008ba3;">Byte</span>Quest</h2>
             </div>
         </header>
 

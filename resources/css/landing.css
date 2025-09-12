@@ -91,7 +91,6 @@ header {
     color: #fff;
     padding-top: 10vw;
     padding-bottom: 30vw;
-    text-align: center;
 }
 
 main {
@@ -406,4 +405,24 @@ button {
     margin-left: 32px;
     margin-right: 0;
     display: block;
+}
+
+/* Media queries for small screens */
+@media (max-width: 768px) {
+    .svg-container {
+        display: none;
+    }
+
+    header {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    header .d-flex {
+        width: 100%;
+    }
 }
