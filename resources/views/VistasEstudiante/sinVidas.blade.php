@@ -31,13 +31,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Añadimos un estado ficticio
-        history.pushState(null, "", location.href);
-
-        window.addEventListener("popstate", function() {
-            // Cada vez que el usuario intenta retroceder
+            // Siempre empuja un nuevo estado cuando carga la página
             history.pushState(null, "", location.href);
+
+            window.addEventListener("popstate", function() {
+                // Cuando intentan regresar, los volvemos a empujar aquí
+                history.pushState(null, "", location.href);
+            });
         });
-    });
 </script>
 @endsection
