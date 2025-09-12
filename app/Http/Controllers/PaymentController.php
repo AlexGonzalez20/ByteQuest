@@ -129,41 +129,29 @@ class PaymentController extends Controller
 
         $usuario = auth()->user();
         if (!$usuario) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para continuar.');
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para procesar el pago.');
         }
 
-        // Recuperar el producto desde external_reference
-        $producto = $request->get('external_reference', '');
+        // Extraer producto (puede venir por GET o por external_reference)
+        $producto = $request->get('producto', '');
 
-        switch ($producto) {
-            case 'Recupera todas tus vidas':
-                $usuario->vidas = 5;
-                break;
+        if ($producto === 'Recupera todas tus vidas') {
+            $usuario->vidas = 5;   // siempre restaurar a 5
+            $usuario->save();
 
-            case 'Vidas Infinitas':
-                $usuario->vidas = 999;
-                $usuario->vidas_infinitas_expira = now()->addDays(8); // 👈 guardamos fecha de expiración
-                break;
-
-            case 'Protector de Racha':
-                $usuario->protege_racha = true;
-                break;
-
-            case 'Combo Completo':
-                $usuario->vidas = 999;
-                $usuario->vidas_infinitas_expira = now()->addDays(8);
-                $usuario->protege_racha = true;
-                break;
+            Log::info('✅ Vidas restauradas', [
+                'usuario_id' => $usuario->id,
+                'vidas' => $usuario->vidas,
+            ]);
         }
-
-        $usuario->save();
 
         return view('VistasEstudiante.pagos_success', [
             'data' => $request->all(),
             'producto' => $producto,
-            'mensaje' => '¡Compra realizada con éxito!',
+            'mensaje' => '¡Compra realizada con éxito! Tus vidas han sido restauradas.',
         ]);
     }
+
 
 
     public function failure(Request $request)
