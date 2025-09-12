@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="resources/css/dashboard.css">
-    @vite('resources/css/dashboard.css')
+    @vite(['resources/css/dashboard.css', 'resources/js/dashboard.js'])
 </head>
 
 <body>
@@ -22,6 +22,9 @@
     <!-- ======================== -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
         <div class="container-fluid">
+            <button class="navbar-toggler d-md-none" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <a class="navbar-brand" href="{{ route('landing') }}">
                 <span style="color: #00b2c3">Byte</span><span class="quest">Quest</span>
             </a>
