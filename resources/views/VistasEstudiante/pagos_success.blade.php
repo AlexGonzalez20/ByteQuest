@@ -14,7 +14,15 @@
             @endif
 
 
-            <a href="{{ route('tienda') }}" class="btn btn-primary mt-3">Volver a la tienda</a>
+            <h4 class="mt-4">Detalles de la transacción:</h4>
+            <ul class="list-group text-start mt-3">
+                <li class="list-group-item"><strong>ID de pago:</strong> {{ $data['payment_id'] ?? 'N/A' }}</li>
+                <li class="list-group-item"><strong>Estado:</strong> {{ $data['status'] ?? 'N/A' }}</li>
+                <li class="list-group-item"><strong>Collection ID:</strong> {{ $data['collection_id'] ?? 'N/A' }}</li>
+                <li class="list-group-item"><strong>Orden:</strong> {{ $data['merchant_order_id'] ?? 'N/A' }}</li>
+            </ul>
+
+            <a href="{{ route('tienda') }}" class="btn btn-primary mt-4">Volver a la tienda</a>
         </div>
     </div>
 @endsection
