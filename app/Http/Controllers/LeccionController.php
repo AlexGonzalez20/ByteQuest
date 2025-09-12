@@ -15,30 +15,25 @@ class LeccionController extends Controller
      */
     public function index(Request $request)
     {
-        // Inicia el query builder correctamente
-        $query = \App\Models\Leccion::with('curso');
+        $lecciones = \App\Models\Leccion::query()->with('curso');
 
-        // Si hay búsqueda
         if ($request->filled('search')) {
             $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-                $q->where('nombre', 'like', "%{$search}%")
+            $lecciones->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', "%{$search}%")
                     ->orWhere('descripcion', 'like', "%{$search}%")
-                    ->orWhereHas('curso', function ($sub) use ($search) {
-                        $sub->where('nombre', 'like', "%{$search}%");
+                    ->orWhereHas('curso', function ($q) use ($search) {
+                        $q->where('nombre', 'like', "%{$search}%");
                     });
             });
         }
 
-        // Ejecuta la consulta
-        $lecciones = $query->get();
+        $lecciones = $lecciones->get();
 
-        // Decodifica campo "contenido" si existe y es string JSON
         foreach ($lecciones as $leccion) {
-            if (property_exists($leccion, 'contenido') && is_string($leccion->contenido)) {
+            if (is_string($leccion->contenido)) {
                 $decoded = json_decode($leccion->contenido, true);
-                $leccion->contenido = $decoded ?? $leccion->contenido; // mantiene valor si json inválido
+                $leccion->contenido = $decoded ?? $leccion->contenido;
             }
         }
 
