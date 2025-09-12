@@ -78,14 +78,11 @@ class PaymentController extends Controller
             return back()->with('error', 'El precio debe ser mayor a 0');
         }
 
-
-
         $backUrls = [
             "success" => "https://bytequest.up.railway.app/pago/success",
             "failure" => "https://bytequest.up.railway.app/pago/failure",
             "pending" => "https://bytequest.up.railway.app/pago/pending",
         ];
-
 
         $client = new PreferenceClient();
 
@@ -99,16 +96,15 @@ class PaymentController extends Controller
                         'unit_price' => $price,
                     ],
                 ],
-                // Descomenta si quieres redirecciones automáticas
-                // 'back_urls'   => $backUrls,
-                // 'auto_return' => 'approved',
+                'back_urls'   => $backUrls,      // REDIRECCIONAR DESPUÉS DEL PAGO
+                'auto_return' => 'approved',     // AUTO-REDIRECCIÓN SOLO SI SE APRUEBA
                 'statement_descriptor' => 'ByteQuest',
                 'external_reference' => uniqid('bytequest_'),
             ];
 
             $preference = $client->create($preferenceData);
 
-            $redirectUrl = $preference->sandbox_init_point ?? $preference->init_point;
+            $redirectUrl = $preference->init_point ?? $preference->sandbox_init_point;
 
             if ($redirectUrl) {
                 return redirect()->away($redirectUrl);
@@ -125,6 +121,7 @@ class PaymentController extends Controller
             return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
         }
     }
+
 
     public function success(Request $request)
     {
