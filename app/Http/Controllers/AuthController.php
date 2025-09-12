@@ -33,13 +33,17 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             $usuario = Auth::user();
+
+
             if ($usuario->rol_id == 1) { // Por ejemplo, 1 = usuario  
                 $usuarios = Usuario::all();
                 $cursos = $usuario->cursos()->get();
+                if ($usuario) {
+                    $usuario->actualizarVidas();
+                }
                 return view('VistasEstudiante.miscursos', compact('usuarios', 'cursos'));
             } elseif ($usuario->rol_id == 2) {
-                $usuarios = Usuario::all(); // 2 = administrador
-                return view('dashboard', compact('usuarios'));
+                return redirect()->route('views.dashboard');
             } else {
                 return redirect()->route('login')->with('error', 'Acceso no autorizado');
             }
@@ -84,13 +88,13 @@ class AuthController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/',
                 'confirmed'
             ],
-        ],[
-        'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
-        'email.unique' => 'Este correo ya está registrado.',
-        'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
-        'password.confirmed' => 'Las contraseñas no coinciden.'
-        // Otros mensajes personalizados...
-    ]);
+        ], [
+            'email.regex' => 'El correo debe ser de dominio gmail.com o hotmail.com.',
+            'email.unique' => 'Este correo ya está registrado.',
+            'password.regex' => 'La contraseña debe tener entre 8 y 15 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.',
+            'password.confirmed' => 'Las contraseñas no coinciden.'
+            // Otros mensajes personalizados...
+        ]);
 
 
         if ($validator->fails()) {
@@ -183,18 +187,24 @@ class AuthController extends Controller
     public function updateProfile(Request $request)
     {
         $user = Usuario::find(Auth::id());
+
         $request->validate([
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
-            'imagen' => 'required|in:amarillo.PNG,azulito.PNG,verde.PNG,rojo.PNG',
+            'imagen' => 'nullable|in:amarillo.PNG,azulito.PNG,verde.PNG,rojo.PNG', // ahora es opcional
         ]);
 
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
-        $user->imagen = $request->imagen;
+
+        // Solo actualiza la imagen si se envía
+        if ($request->has('imagen')) {
+            $user->imagen = $request->imagen;
+        }
 
         $user->save();
         \Auth::setUser($user); // Refresca la sesión con los nuevos datos
+
         return back()->with('success', 'Perfil actualizado correctamente.');
     }
 }

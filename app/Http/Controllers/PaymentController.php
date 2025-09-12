@@ -11,93 +11,173 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        // Asegúrate de tener services.mercadopago.access_token en config/services.php y en .env
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
     }
 
-    public function checkout(Request $request)
+    public function test()
     {
-        // Sanitiza y valida entrada básica
-        $title = $request->input('title', 'Producto ByteQuest');
-        // elimina símbolos y comas -> fuerza float
-        $price = (float) preg_replace('/[^\d\.]/', '', $request->input('price', 0));
-
-        // Construye las back_urls usando route() — depende de APP_URL
-        $backUrls = [
-            "success" => "https://abcd-1234-56-78.ngrok-free.app/pago/success",
-            "failure" => "https://abcd-1234-56-78.ngrok-free.app/pago/failure",
-            "pending" => "https://abcd-1234-56-78.ngrok-free.app/pago/pending", 
-        ];
-
-        // DEBUG rápido: descomenta si quieres ver las URLs que se están generando
-        // dd($backUrls);
-
-        $client = new PreferenceClient();
-
         try {
+            Log::info('=== TEST MERCADOPAGO ===');
+
+            $client = new PreferenceClient();
+
             $preference = $client->create([
                 'items' => [
                     [
-                        'title' => $title,
+                        'title' => 'Test con precio mayor',
                         'quantity' => 1,
-                        'currency_id' => 'COP', // si falla prueba "USD"
-                        'unit_price' => $price,
+                        'currency_id' => 'COP',
+                        'unit_price' => 1000,
                     ],
                 ],
-                'back_urls' => $backUrls,
-                'auto_return' => 'approved',
             ]);
 
-            // Si la creación fue exitosa, normalmente $preference tiene init_point
-            if (is_object($preference) && property_exists($preference, 'init_point')) {
-                return redirect($preference->init_point);
-            }
-
-            // Si el SDK devolvió un objeto de respuesta (p.ej. MPResponse con error)
-            // intentamos sacar su contenido de forma segura para depuración:
-            if (is_object($preference)) {
-                if (method_exists($preference, 'getContent')) {
-                    dd($preference->getContent());
-                } elseif (property_exists($preference, 'content')) {
-                    dd($preference->content);
-                } else {
-                    dd($preference);
-                }
-            }
-
-            // En caso raro: si no es objeto, mostramos lo que sea que devolvió
-            dd($preference);
+            return response()->json([
+                'status' => 'success',
+                'preference_id' => $preference->id,
+                'sandbox_init_point' => $preference->sandbox_init_point,
+                'init_point' => $preference->init_point,
+            ]);
         } catch (\Exception $e) {
-            // Si la excepción tiene la respuesta de la API (SDK), la mostramos:
-            if (method_exists($e, 'getApiResponse')) {
-                dd($e->getApiResponse());
-            }
-
-            // Guárdalo en logs para no perder trazas e imprime el mensaje básico:
-            Log::error('MercadoPago checkout error', [
+            return response()->json([
+                'status' => 'error',
                 'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
-            // Muestra algo legible en la UI (dev)
-            dd([
-                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
             ]);
         }
     }
 
+    public function checkout(Request $request)
+    {
+        $debugInfo = [
+            'timestamp' => now()->toString(),
+            'method' => $request->method(),
+            'url' => $request->url(),
+            'full_url' => $request->fullUrl(),
+            'all_data' => $request->all(),
+            'headers' => $request->headers->all()
+        ];
+
+        file_put_contents(
+            storage_path('logs/debug_checkout.txt'),
+            "=== CHECKOUT EJECUTADO ===\n" .
+                json_encode($debugInfo, JSON_PRETTY_PRINT) . "\n" .
+                str_repeat("=", 50) . "\n\n",
+            FILE_APPEND
+        );
+
+        Log::info('=== MÉTODO CHECKOUT LLAMADO ===');
+        Log::info('Datos POST: ', $request->all());
+
+        $title = $request->input('title', 'Producto ByteQuest');
+        $price = (float) preg_replace('/[^\d\.]/', '', $request->input('price', 0));
+
+        if ($price <= 0) {
+            Log::error('Precio inválido', ['price' => $price]);
+            return back()->with('error', 'El precio debe ser mayor a 0');
+        }
+
+        $backUrls = [
+            "success" => "https://bytequest.up.railway.app/success",
+            "failure" => "https://bytequest.up.railway.app/failure",
+            "pending" => "https://bytequest.up.railway.app/pending",
+        ];
+
+        $client = new PreferenceClient();
+
+        try {
+            $preferenceData = [
+                'items' => [
+                    [
+                        'title' => $title,
+                        'quantity' => 1,
+                        'currency_id' => 'COP',
+                        'unit_price' => $price,
+                    ],
+                ],
+                'back_urls'   => $backUrls,      // REDIRECCIONAR DESPUÉS DEL PAGO
+                'auto_return' => 'approved',     // AUTO-REDIRECCIÓN SOLO SI SE APRUEBA
+                'statement_descriptor' => 'ByteQuest',
+                'external_reference' => uniqid('bytequest_'),
+            ];
+
+            $preference = $client->create($preferenceData);
+
+            $redirectUrl = $preference->init_point ?? $preference->sandbox_init_point;
+
+            if ($redirectUrl) {
+                return redirect()->away($redirectUrl);
+            }
+
+            return back()->with('error', 'No se pudo iniciar el checkout.');
+        } catch (\Exception $e) {
+            Log::error('=== ERROR EN CHECKOUT ===', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
+        }
+    }
+
+
     public function success(Request $request)
     {
-        return view('VistasEstudiante.pagos_success', ['data' => $request->all()]);
+        Log::info('Pago exitoso', $request->all());
+
+        $usuario = auth()->user();
+        $producto = $request->get('producto', ''); // O extraído de external_reference
+
+        // Actualizar usuario según el producto
+        switch ($producto) {
+            case 'Recupera todas tus vidas':
+                $usuario->vidas = 10;
+                break;
+
+            case 'Vidas Infinitas':
+                $usuario->vidas = 999; // ejemplo de vidas ilimitadas
+                break;
+
+            case 'Protector de Racha':
+                $usuario->protege_racha = true;
+                break;
+
+            case 'Combo Completo':
+                $usuario->vidas = 999;
+                $usuario->protege_racha = true;
+                break;
+        }
+
+        $usuario->save();
+
+        return view('VistasEstudiante.pagos_success', [
+            'data' => $request->all(),
+            'producto' => $producto,
+            'mensaje' => '¡Compra realizada con éxito!',
+        ]);
     }
+
 
     public function failure(Request $request)
     {
-        return view('VistasEstudiante.pagos_failure', ['data' => $request->all()]);
+        Log::info('Pago fallido', $request->all());
+
+        return view('VistasEstudiante.pagos_failure', [
+            'data' => $request->all(),
+            'mensaje' => 'El pago no se completó. Inténtalo de nuevo.',
+        ]);
     }
+
 
     public function pending(Request $request)
     {
-        return view('VistasEstudiante.pagos_pending', ['data' => $request->all()]);
+        Log::info('Pago pendiente', $request->all());
+
+        return view('VistasEstudiante.pagos_pending', [
+            'data' => $request->all(),
+            'mensaje' => 'Tu pago está pendiente. Se actualizará automáticamente cuando se confirme.',
+        ]);
     }
 }

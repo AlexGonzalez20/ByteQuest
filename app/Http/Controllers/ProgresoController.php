@@ -101,6 +101,8 @@ class ProgresoController extends Controller
                     session()->forget('preguntas_incorrectas');
                     return redirect()->route('pregunta.mostrar', ['prueba_id' => $prueba_id]);
                 } else {
+                    $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
+                    $this->avanzarProgreso($cursoUsuario, $prueba);
                     // Ya no hay incorrectas, termina la prueba
                     $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
                     session()->forget('ronda_repeticion');
@@ -131,15 +133,17 @@ class ProgresoController extends Controller
         $correcta = $pregunta->respuestas()->where('es_correcta', true)->first();
         $resultado = ($respuesta->id == $correcta->id) ? 'correcto' : 'incorrecto';
 
+        // Marcar la pregunta como respondida
         $usuario->progresoPreguntas()
             ->where('pregunta_id', $pregunta->id)
             ->update(['respondida' => true]);
 
-        // Guardar incorrectas en sesión (solo si fue incorrecta)
+        // Si la respuesta fue incorrecta, restar una vida
         if ($resultado === 'incorrecto') {
             $usuario->vidas -= 1;
             $usuario->save();
 
+            // Guardar incorrectas en sesión
             $incorrectas = session()->get('preguntas_incorrectas', []);
             if (!in_array($pregunta->id, $incorrectas)) {
                 $incorrectas[] = $pregunta->id;
@@ -147,16 +151,19 @@ class ProgresoController extends Controller
             }
         }
 
+        // Si se quedaron sin vidas
         if ($usuario->vidas <= 0) {
             $usuario->progresoPreguntas()->delete();
             session()->forget('preguntas_incorrectas');
             session()->forget('ronda_repeticion');
-            return view('VistasEstudiante.sinvidas', [
+
+            return view('VistasEstudiante.sinVidas', [
                 'curso_id' => $usuario->cursos()->first()->id ?? null,
                 'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.'
             ]);
         }
 
+        // Si la respuesta fue correcta, actualizar racha
         if ($resultado === 'correcto') {
             $hoy = Carbon::today();
             $ultimoDia = $usuario->ultimo_dia_activo ? Carbon::parse($usuario->ultimo_dia_activo) : null;
@@ -185,6 +192,7 @@ class ProgresoController extends Controller
             'respuesta_seleccionada' => $respuesta->id,
         ]);
     }
+
 
     private function avanzarProgreso($cursoUsuario, $prueba)
     {

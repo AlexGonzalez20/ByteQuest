@@ -3,62 +3,90 @@
 @section('title', 'Pagos')
 
 @section('head')
-<style>
-    .payment-container {
-        max-width: 600px;
-    }
+    <style>
+        .payment-container {
+            max-width: 600px;
+        }
 
-    .payment-card {
-        background: linear-gradient(135deg, #333661 0%, #1a1a2e 100%);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 1rem;
-    }
+        .payment-card {
+            background: linear-gradient(135deg, #333661 0%, #1a1a2e 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+        }
 
-    .payment-card:hover {
-        transform: translateY(-4px);
-        transition: transform 0.4s ease;
-    }
+        .payment-card:hover {
+            transform: translateY(-4px);
+            transition: transform 0.4s ease;
+        }
 
-    .payment-amount {
-        font-size: 2rem;
-        font-weight: 700;
-    }
+        .payment-amount {
+            font-size: 2rem;
+            font-weight: 700;
+        }
 
-    .btn-pay {
-        font-size: 1.2rem;
-        padding: 0.75rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 500;
-    }
-</style>
+        .btn-pay {
+            font-size: 1.2rem;
+            padding: 0.75rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+    </style>
 @endsection
 
 @section('content')
-<div class="container my-5 d-flex justify-content-center">
-    <div class="payment-container w-100">
-        <div class="card payment-card text-white p-5 shadow">
-            <h2 class="fw-bold mb-4 text-center">Resumen de compra</h2>
 
-            <div class="mb-4 text-center">
-                <h3 class="fw-bold">{{ $producto }}</h3>
-                <p class="text-secondary mb-2">Pago seguro y protegido</p>
-                <div class="payment-amount text-success">${{ number_format($precio, 2) }}</div>
-            </div>
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
-            <form action="{{ route('pago.checkout') }}" method="POST" class="text-center">
-                @csrf
-                <input type="hidden" name="title" value="{{ $producto }}">
-                <input type="hidden" name="price" value="{{ $precio }}">
-                <button type="submit" class="btn btn-success btn-pay shadow w-100 mb-3">
-                    Ir a Pagar
-                </button>
-            </form>
+    <!-- Debug Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form[action*="pago.checkout"]');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    console.log('=== FORMULARIO ENVIADO ===');
+                    console.log('Action:', this.action);
+                    console.log('Method:', this.method);
+                    console.log('Title:', this.querySelector('input[name="title"]').value);
+                    console.log('Price:', this.querySelector('input[name="price"]').value);
+                    console.log('CSRF Token:', this.querySelector('input[name="_token"]').value);
 
+                    alert('Formulario enviándose... Revisa la consola.');
+                });
+            } else {
+                console.error('No se encontró el formulario');
+            }
+        });
+    </script>
 
-            <div class="text-center">
-                <a href="{{ route('tienda') }}" class="btn btn-link text-secondary">← Volver a la tienda</a>
+    <div class="container my-5 d-flex justify-content-center">
+        <div class="payment-container w-100">
+            <div class="card payment-card text-white p-5 shadow">
+                <h2 class="fw-bold mb-4 text-center">Resumen de compra</h2>
+
+                <div class="mb-4 text-center">
+                    <h3 class="fw-bold">{{ $producto }}</h3>
+                    <p class="text-secondary mb-2">Pago seguro y protegido</p>
+                    <div class="payment-amount text-success">${{ number_format($precio, 2) }}</div>
+                </div>
+
+                <form action="{{ route('pago.checkout') }}" method="POST" class="text-center">
+                    @csrf
+                    <input type="hidden" name="title" value="{{ $producto }}">
+                    <input type="hidden" name="price" value="{{ $precio }}">
+                    <button type="submit" class="btn btn-success btn-pay shadow w-100 mb-3">
+                        Ir a Pagar
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <a href="{{ route('tienda') }}" class="btn btn-link text-secondary">← Volver a la tienda</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

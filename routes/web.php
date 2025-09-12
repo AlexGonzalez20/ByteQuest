@@ -37,10 +37,9 @@
     Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
     // ✅ Dashboard protegido
-    Route::get('/dashboard', function () {
-        $usuarios = Usuario::all();
-        return view('dashboard', compact('usuarios'));
-    })->middleware('auth');
+    Route::get('/dashboard', [TablaController::class, 'grafica'])
+        ->middleware('auth')
+        ->name('views.dashboard');
 
     // ✅ Recursos
     Route::middleware(['auth'])->group(function () {
@@ -48,9 +47,7 @@
         Route::resource('cursos', CursoController::class);
         Route::resource('preguntas', PreguntaController::class);
         Route::resource('pruebas', PruebaController::class);
-        Route::resource('lecciones', LeccionController::class)->parameters([
-            'lecciones' => 'leccion'
-        ]);
+        Route::resource('lecciones', LeccionController::class);
     });
 
     // ✅ Perfil
@@ -59,13 +56,11 @@
     // ✅ Módulo vistas
     Route::prefix('views')->middleware(['auth'])->group(function () {
         Route::get('/AdQuest', [PreguntaController::class, 'index'])->name('views.AdQuest');
-        Route::view('/dashboard', 'dashboard')->name('views.dashboard');
         Route::view('/EditarUsuario', 'CrudUsuarios.EditarUsuario')->name('views.EditarUsuario');
         Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
         Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos');
         Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos');
         Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
-        route::view('/leccionEnsenanza', 'VistasEstudiante.leccionEnsenanza')->name('views.ULeccionEnsenanza');
     });
 
     // ✅ Reportes
@@ -88,8 +83,8 @@
         ->name('usuarios.caminoCurso')->middleware('auth');
 
     // ✅ Reclamar XP
-    Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])
-        ->name('lecciones.reclamarXP')->middleware('auth');
+    // Route::post('/lecciones/{leccion_id}/reclamar-xp', [LeccionController::class, 'reclamarXP'])
+    //     ->name('lecciones.reclamarXP')->middleware('auth');
 
     // ✅ Preguntas y progreso
 
@@ -104,9 +99,6 @@
     Route::get('/pregunta/mostrar/{prueba_id}', [ProgresoController::class, 'mostrarPregunta'])
         ->name('pregunta.mostrar')
         ->middleware('auth');
-
-    // ✅ graficas
-    Route::get('/CDashboard.grafica', [TablaController::class, 'grafica'])->middleware('auth')->name('CDashboard.grafica');
 
     Route::get('/tienda', [TiendaController::class, 'index'])
         ->name('tienda')
@@ -129,7 +121,9 @@
         ->name('siguiente.pregunta');
 
 
-    Route::post('/checkout', [PaymentController::class, 'checkout'])->name('pago.checkout');
+    Route::post('/pago/checkout', [PaymentController::class, 'checkout'])->name('pago.checkout');
     Route::get('/success', [PaymentController::class, 'success'])->name('pago.success');
     Route::get('/failure', [PaymentController::class, 'failure'])->name('pago.failure');
     Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');
+
+    Route::get('/test-mercadopago', [PaymentController::class, 'test']);

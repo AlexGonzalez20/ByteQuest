@@ -6,7 +6,6 @@ use App\Models\Leccion;
 use App\Models\Curso;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\CursoController;
 use Illuminate\Http\Request;
 
 class LeccionController extends Controller
@@ -15,31 +14,31 @@ class LeccionController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $lecciones = \App\Models\Leccion::with('curso');
+    {
+        $lecciones = \App\Models\Leccion::query()->with('curso');
 
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $lecciones->where(function ($query) use ($search) {
-            $query->where('nombre', 'like', '%' . $search . '%')
-                ->orWhere('descripcion', 'like', '%' . $search . '%')
-                ->orWhereHas('curso', function ($q) use ($search) {
-                    $q->where('nombre', 'like', '%' . $search . '%');
-                });
-        });
-    }
-
-    $lecciones = $lecciones->get();
-
-    // Decodifica el campo contenido si es string JSON
-    foreach ($lecciones as $leccion) {
-        if (is_string($leccion->contenido)) {
-            $leccion->contenido = json_decode($leccion->contenido, true);
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $lecciones->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', "%{$search}%")
+                    ->orWhere('descripcion', 'like', "%{$search}%")
+                    ->orWhereHas('curso', function ($q) use ($search) {
+                        $q->where('nombre', 'like', "%{$search}%");
+                    });
+            });
         }
-    }
 
-return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
-}
+        $lecciones = $lecciones->get();
+
+        foreach ($lecciones as $leccion) {
+            if (is_string($leccion->contenido)) {
+                $decoded = json_decode($leccion->contenido, true);
+                $leccion->contenido = $decoded ?? $leccion->contenido;
+            }
+        }
+
+        return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
+    }
 
 
     /**

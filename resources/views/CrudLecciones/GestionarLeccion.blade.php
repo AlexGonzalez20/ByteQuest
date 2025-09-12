@@ -2,11 +2,10 @@
 
 @section('title', 'Gestión de Lecciones')
 
-@section('head')
-@vite('resources/css/gestionarleccion.css')
-@endsection
-
 @section('content')
+@php
+use Illuminate\Support\Str;
+@endphp
 <div class="container mt-5 p-4 rounded bg-white bg-opacity-75 shadow">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Gestión de lecciones</h1>
@@ -33,7 +32,7 @@
 
     @php
     $leccionesPorCurso = $lecciones->groupBy(function($leccion) {
-    return $leccion->curso ? $leccion->curso->nombre : 'Sin curso';
+    return $leccion->curso?->nombre ?? 'Sin curso';
     });
     @endphp
 
