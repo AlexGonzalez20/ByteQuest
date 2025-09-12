@@ -12,8 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="resources/css/dashboard.css">
     @vite(['resources/css/dashboard.css', 'resources/js/dashboard.js'])
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}">
+
 </head>
 
 <body>

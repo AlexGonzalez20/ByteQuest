@@ -22,6 +22,11 @@ class Usuario extends Authenticatable
         'role_id',
         'imagen'
     ];
+
+    protected $attributes = [
+        'imagen' => 'amarillo.PNG',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -72,4 +77,14 @@ class Usuario extends Authenticatable
             }
         }
     }
+protected static function boot()
+{
+    parent::boot();
+
+    static::saving(function ($usuario) {
+        if ($usuario->vidas < 0) {
+            $usuario->vidas = 0;
+        }
+    });
+}
 }
