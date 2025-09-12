@@ -18,6 +18,9 @@ html {
 
 body {
     margin: 0;
+    overflow-y: auto;
+    min-width: 100vh;
+    max-height: none;
 }
 
 .bg {

@@ -1,0 +1,3 @@
+-   [x] Restore original sidebar colors and styles in resources/views/dashboard.blade.php and resources/css/dashboard.css
+-   [x] Make sidebar full height on large screens and hide on mobile with toggle button
+-   [x] Remove Montserrat font import from resources/css/dashboard.css if not original

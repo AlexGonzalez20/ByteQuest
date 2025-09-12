@@ -70,6 +70,7 @@ class PaymentController extends Controller
     {
         Log::info('Pago exitoso', $request->all());
 
+
         $user = Usuario::find(Auth::id());
         if (!$user) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para procesar el pago.');
@@ -101,6 +102,7 @@ class PaymentController extends Controller
         Log::info('Pago fallido', $request->all());
         return view('VistasEstudiante.pagos_failure', [
             'data' => $request->all(),
+
         ]);
     }
 

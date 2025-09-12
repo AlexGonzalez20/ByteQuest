@@ -3,6 +3,18 @@
     font-family: Montserrat, Arial, sans-serif !important;
     font-weight: 300 !important;
 }
+
+/* Restore original background and colors */
+body {
+    background: #fff;
+    color: #333;
+}
+
+header {
+    color: #fff;
+    padding-top: 10vw;
+    padding-bottom: 30vw;
+}
 h1,
 h2,
 h3,
@@ -91,7 +103,6 @@ header {
     color: #fff;
     padding-top: 10vw;
     padding-bottom: 30vw;
-    text-align: center;
 }
 
 main {
@@ -147,36 +158,78 @@ button {
     height: 300px;
 }
 .img-nav {
-    width: 5%;
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 130px;
+    width: 48px;
+    max-width: 48px;
+    height: auto;
+    object-fit: contain;
+    transition: width 0.3s, height 0.3s;
+    display: block;
+}
+@media (max-width: 576px) {
+    .img-nav {
+        width: 36px;
+        max-width: 36px;
+    }
 }
 .img-text {
-    position: static;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
     object-fit: contain;
-    margin-left: 32px;
-    margin-right: 0;
     display: block;
-    transition: height 0.3s, padding 0.3s;
+    margin: 0 auto;
+    transition: max-width 0.3s, height 0.3s;
 }
-
+@media (max-width: 992px) {
+    .img-text {
+        max-width: 160px;
+    }
+}
+@media (max-width: 576px) {
+    .img-text {
+        max-width: 100px;
+    }
+}
 .carousel {
     width: 100%;
 }
 .textarea {
-    display: flex;
-    line-height: 3;
-    background-color: #252746;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 1px solid #bbb;
-    color: whitesmoke;
-    overflow: hidden;
+    width: 100%;
+    min-width: 120px;
+    max-width: 100%;
+    min-height: 90px;
+    max-height: 200px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: 1px solid #00b2c3;
+    padding: 18px 24px;
+    background: #fff;
+    color: #252746;
     resize: none;
-    padding-right: 100px;
+    box-shadow: 0 2px 12px rgba(0, 183, 255, 0.08);
+    margin-bottom: 0.5rem;
+    overflow: auto;
+    white-space: pre-line;
+}
+@media (max-width: 992px) {
+    .textarea {
+        font-size: 1rem;
+        padding: 10px 8px;
+        min-width: 0;
+        max-width: 100%;
+        min-height: 80px;
+        max-height: 180px;
+    }
+}
+@media (max-width: 576px) {
+    .textarea {
+        font-size: 0.95rem;
+        padding: 8px 4px;
+        min-width: 0;
+        max-width: 100%;
+        min-height: 60px;
+        max-height: 120px;
+    }
 }
 .button-magico {
     border: none;
@@ -364,4 +417,24 @@ button {
     margin-left: 32px;
     margin-right: 0;
     display: block;
+}
+
+/* Media queries for small screens */
+@media (max-width: 768px) {
+    .svg-container {
+        display: none;
+    }
+
+    header {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    header .d-flex {
+        width: 100%;
+    }
 }

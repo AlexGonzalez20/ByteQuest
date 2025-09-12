@@ -13,6 +13,7 @@
                 <p class="fw-bold">{{ $producto }}</p>
             @endif
 
+
             <h4 class="mt-4">Detalles de la transacción:</h4>
             <ul class="list-group text-start mt-3">
                 <li class="list-group-item"><strong>ID de pago:</strong> {{ $data['payment_id'] ?? 'N/A' }}</li>

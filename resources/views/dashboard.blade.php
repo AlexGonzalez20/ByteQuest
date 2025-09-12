@@ -12,229 +12,183 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="resources/css/dashboard.css">
+    @vite(['resources/css/dashboard.css', 'resources/js/dashboard.js'])
     <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}">
-
-
-    @vite('resources/css/dashboard.css')
 
 </head>
 
 <body>
+    <!-- ======================== -->
+    <!-- Navbar principal fijo    -->
+    <!-- ======================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
+        <div class="container-fluid">
+            <button class="navbar-toggler d-block d-md-none" type="button" id="sidebarToggle"
+                aria-label="Toggle sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{{ route('landing') }}">
+                <span style="color: #00b2c3">Byte</span><span class="quest">Quest</span>
+            </a>
+            <form action="{{ route('logout') }}" method="POST" class="d-flex">
+                @csrf
+                <button type="submit" class="logout btn btn-danger ms-2">Cerrar Sesión</button>
+            </form>
+        </div>
+    </nav>
 
-    <div class="container-fluid">
-        <div class="row gy-4">
-
-            <!-- ======================== -->
-            <!-- Main content principal   -->
-            <!-- ======================== -->
-            <main class="col-12 col-md-10 offset-md-1 px-3 py-4 gy-4">
-
-                {{-- ======================== --}}
-                {{-- Barra superior: logo y logout --}}
-                {{-- ======================== --}}
-                <div
-                    class="navbar d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4">
-
-                    <a class="navbar-brand" href="{{ route('landing') }}"><span class="text-warning">Byte</span><span
-                            class="quest">Quest</span></a>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="logout btn btn-danger">Cerrar Sesión</button>
-                    </form>
-                </div>
-
-                {{-- ======================== --}}
-                {{-- Tarjetas de gestión (usuarios, cursos, lecciones, preguntas) --}}
-                {{-- ======================== --}}
-                <nav class=" d-flex float-start flex-column">
-
-                    {{-- Tarjetas de gestión --}}
-                    <div class="row g-2 flex-column align-items-start">
-                        <div class="button-card  col-10 mb-2">
-                            <a href="{{ route('usuarios.index') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card  ">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
+    <div class="container-fluid" style="padding-top: 20px;">
+        <div class="row">
+            <!-- Menú hamburguesa SIEMPRE a la izquierda -->
+            <nav id="sidebar"
+                class="sidebar col-12 col-md-3 col-lg-2 mt-4 navbar navbar-expand-md navbar-light mb-4 rounded shadow-sm flex-md-column align-items-stretch min-vh-100">
+                <div class="navbar-collapse flex-md-column" id="gestionMenu">
+                    <div class="row g-2 flex-column align-items-start w-100">
+                        <!-- Gestionar Usuarios -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('usuarios.index') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-user fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Usuarios</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="button-card col-10 mb-2">
-                            <a href="{{ route('cursos.index') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card ">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
+
+                        <!-- Gestionar Cursos -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('cursos.index') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-book fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Cursos</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="button-card col-10 mb-2">
-                            <a href="{{ route('lecciones.index') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card ">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
+
+                        <!-- Gestionar Lecciones -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('lecciones.index') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-bookmark fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Lecciones</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="button-card col-10 mb-2">
-                            <a href="{{ route('preguntas.index') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card ">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
+
+                        <!-- Gestionar Preguntas -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('preguntas.index') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-help-circle fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Preguntas</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="row g-2 flex-column align-items-start mt-1">
-                        <div class="button-card col-10 mb-3">
-                            <a href="{{ route('pruebas.index') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
+
+                        <!-- Gestionar Pruebas -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('pruebas.index') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-task fs-3'></i>
                                         <h5 class="card-title mb-0">Gestionar Pruebas</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="button-card col-10 mb-2 ">
-                            <a href="{{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
-                                <div class="card  hover-card ">
-                                    <div class="card-body d-flex align-items-center justify-content-start ps-4">
-                                        <h5 class="card-title mb-0">Generar Reporte Usuarios</h5>
+
+                        <!-- Generar Reporte -->
+                        <div class="button-card col-12 mb-2">
+                            <a href=" {{ route('reportes.usuarios.pdf') }}" class="w-100 text-decoration-none">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <i class='bx bx-file fs-3'></i>
+                                        <h5 class="card-title mb-0">Generar Reporte</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <img src="{{ asset('/img/robot-idle.gif') }}" alt="robot">
-                    </div>
-                </nav>
 
+                        <!-- Robot GIF -->
+                        <div class="col-12 text-center mt-4">
+                            <img src=" {{ asset('/img/robot-idle.gif') }}" alt="robot" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Contenido principal a la derecha -->
+            <main id="main-content" class="col-12 col-md-9 col-lg-10 px-3 py-4 gy-4">
                 {{-- ======================== --}}
                 {{-- Resumen de Actividad y Fuente de Usuarios --}}
                 {{-- ======================== --}}
-                <div class="row  mt-1">
-                    <div class="col-md-12 ">
-                        <div class="card mb-4 rounded-4 border-0 text-center ">
-                            <div class="card dashboard-graph-card">
-                                <div class="card-header text-center">Usuarios nuevos por mes</div>
-                                <div class="card-body">
-                                    <canvas id="usuariosMesChart" style="height: 250px;"></canvas>
+                <div class="row mt-1">
+                    <div class="col-md-6">
+                        <div class="card mb-4 rounded-4 border-0 text-center">
+                            <div class="card-header">Resumen de Actividad</div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <a href=" {{ route('CDashboard.grafica') }}"><img
+                                            src="https://imgproxy.domestika.org/unsafe/w:1200/rs:fill/plain/src://blog-post-open-graph-covers/000/013/052/13052-original.jpg?1712830811"
+                                            alt="grafica" class="img-fluid"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4 rounded-4 border-0 text-center">
+                            <div class="card-header">Fuente de Usuarios</div>
+                            <div class="card-body">
+                                <div class="chart-placeholder"><img
+                                        src="https://www.jaspersoft.com/content/dam/jaspersoft/images/graphics/infographics/pie-chart-example.svg"
+                                        class="circular img-fluid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- ======================== --}}
+                {{-- Proyectos y Ilustraciones --}}
+                {{-- ======================== --}}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4 rounded-4 border-0 text-center">
+                            <div class="card-header">Proyectos</div>
+                            <div class="card-body bg-white">
+                                <p class="d-flex flex-column mt-4">Integración API <span class="float-end">60%</span>
+                                </p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-success" style="width: 60%"></div>
+                                </div>
+                                <p class="d-flex flex-column mt-4">Diseño UI <span class="float-end">85%</span></p>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4 rounded-4 border-0 text-center">
+                            <div class="card-header">Ilustraciones</div>
+                            <div class="card-body bg-white">
+                                <div class="chart-placeholder">
+                                    <img class="img-fluid"
+                                        src="https://png.pngtree.com/png-vector/20230531/ourmid/pngtree-robot-in-the-style-of-an-old-drawing-vector-png-image_6790636.png"
+                                        alt="Ilustración">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card mb-4 rounded-4 border-0 text-center">
-                        <div class="card dashboard-graph-card">
-                            <div class="card-header text-center">Estudiantes por curso</div>
-                            <div class="card-body">
-                                <canvas id="estudiantesCursoChart"  style="height: 250px;"></canvas>
-                            </div>
-                        
-                    </div>
-                </div>
+            </main>
         </div>
     </div>
-
-    {{-- ======================== --}}
-    {{-- Proyectos y Ilustraciones --}}
-    {{-- ======================== --}}
-    <div class="row float-left">
-        <div class="col-md-6">
-            <div class="card mb-4 h-100 rounded-4 border-0 text-center">
-                <div class="card dashboard-graph-card">
-                    <div class="card-header text-center">Lecciones más vistas</div>
-                    <div class="card-body">
-                        <canvas id="leccionesVistasChart"  style="height: 340px;"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 ">
-            <div class="card mb-4 h-100 rounded-4 border-0 text-center">
-                <div class="card-header ">Ilustraciones</div>
-                <div class="chart-placeholder ">
-                    <img class="img-fluid"
-                        src="https://png.pngtree.com/png-vector/20230531/ourmid/pngtree-robot-in-the-style-of-an-old-drawing-vector-png-image_6790636.png">
-                </div>
-
-            </div>
-        </div>
-    </div>
-    </main>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // 1. Usuarios nuevos por mes
-        const ctxUsuariosMes = document.getElementById('usuariosMesChart').getContext('2d');
-        new Chart(ctxUsuariosMes, {
-            type: 'bar',
-            data: {
-                labels: @json($labelsUsuariosMes),
-                datasets: [{
-                    label: 'Usuarios nuevos',
-                    data: @json($dataUsuariosMes),
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        // 2. Estudiantes por curso
-        const ctxEstudiantesCurso = document.getElementById('estudiantesCursoChart').getContext('2d');
-        new Chart(ctxEstudiantesCurso, {
-            type: 'bar',
-            data: {
-                labels: @json($labelsCursos),
-                datasets: [{
-                    label: 'Estudiantes',
-                    data: @json($dataCursos),
-                    backgroundColor: 'rgba(255, 193, 7, 0.7)'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        // 3. Lecciones más vistas
-        const ctxLeccionesVistas = document.getElementById('leccionesVistasChart').getContext('2d');
-        new Chart(ctxLeccionesVistas, {
-            type: 'bar',
-            data: {
-                labels: @json($labelsLecciones),
-                datasets: [{
-                    label: 'Vistas',
-                    data: @json($dataLecciones),
-                    backgroundColor: 'rgba(40, 167, 69, 0.7)'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 
 </html>

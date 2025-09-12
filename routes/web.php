@@ -41,6 +41,11 @@
         ->middleware('auth')
         ->name('views.dashboard');
 
+    // ✅ CDashboard routes
+    Route::prefix('CDashboard')->middleware('auth')->group(function () {
+        Route::get('/grafica', [TablaController::class, 'grafica'])->name('CDashboard.grafica');
+    });
+
     // ✅ Recursos
     Route::middleware(['auth'])->group(function () {
         Route::resource('usuarios', UsuarioController::class);

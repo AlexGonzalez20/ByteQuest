@@ -18,8 +18,8 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="q navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span
-                    class="b">Byte</span>Quest</a>
+            <a class="q navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="b">Byte</span>Quest</a>
+
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -63,7 +63,7 @@
     @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 

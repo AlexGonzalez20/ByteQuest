@@ -5,6 +5,11 @@
     color: #fff;
     box-shadow: 0 0 24px #00fff7ff;
 }
+body {
+    overflow-y: auto;
+    min-height: 100vh;
+    max-height: none;
+}
 .sidebar .nav-link {
     color: #fff;
     transition: background 0.2s, color 0.2s;

@@ -4,79 +4,88 @@
     font-family: Montserrat, Arial, sans-serif;
 }
 
+/* Fondo animado */
 body {
+    max-height: 100vh;
     margin: 0;
-    background-color: #252746;
-
     padding: 0;
+    background: linear-gradient(-45deg, #252746, #1a1b2e, #036891, #00b2c3);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    position: relative;
 }
 
-.text-warning,
-.navbar-brand .text-warning {
-    color: #00b2c3 !important;
-    font-size: 50px;
-    font-weight: bold;
-}
-.navbar a {
-    text-shadow: #00b2c3 1px 0 10px;
-    text-decoration: none;
-}
-
-.quest {
-    font-weight: bold;
-    font-size: 50px;
-    color: #ffffff;
-}
-.logout {
-    background-color: #f9ce46;
-    border: none;
-    border-bottom: 2px solid #585463;
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-.button-card div {
-    background-color: #036891;
-    border-radius: 20px;
-    border-bottom: 3px solid #ffffff;
-    text-decoration: none;
-    flex: 1;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    height: 3rem;
+/* Ajustes para el navbar */
+.navbar {
+    background: #252746;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 178, 195, 0.3);
 }
-.button-card div:hover,
-div:focus {
-    background-color: #fff;
-    color: #46f0e4;
+
+/* ...existing code for text-warning and navbar-brand... */
+
+/* Ajustes para las cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
-#intro {
-    background-color: #1e1b4b;
+
+.card-header {
+    background: rgba(0, 178, 195, 0.9) !important;
+    backdrop-filter: blur(5px);
     color: white;
 }
 
-.circular {
-    width: 100%;
-    height: auto;
-    max-width: 300px;
-    margin: 0 auto;
+.button-card div {
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    height: 3rem;
+    transition: all 0.3s ease;
 }
 
+/* Sidebar cards/buttons background color */
+#sidebar .card {
+    background-color: #252746;
+    color: #ffffff;
+    border: none;
+    box-shadow: none;
+}
+
+#sidebar .card:hover,
+#sidebar .card:focus {
+    background-color: rgba(0, 178, 195, 0.9);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 178, 195, 0.3);
+}
+
+/* Ajustes para los contenedores de gráficas */
 .chart-placeholder {
-    width: 100%;
-    height: 300px;
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: rgba(233, 236, 239, 0.9);
+    backdrop-filter: blur(5px);
 }
-
 .card-header {
     background-color: #1e1b4b;
     color: white;
 }
 
 .img-fluid {
-    height: 300px;
+    height: 200px;
 }
 
 .card {
@@ -90,4 +99,75 @@ div:focus {
 .card:hover {
     transform: scale(1.02);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Sidebar toggle styles */
+@media (max-width: 767.98px) {
+    #sidebar {
+        display: none;
+        width: 100%;
+        position: fixed;
+        top: 70px; /* height of navbar */
+        left: 0;
+        height: calc(100% - 70px);
+        background-color: #252746;
+        overflow-y: auto;
+        z-index: 1050;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+    }
+    #sidebar.show {
+        display: block;
+        transform: translateX(0);
+    }
+    #gestionMenu {
+        display: block !important;
+    }
+}
+
+/* Sidebar container and buttons */
+#sidebar {
+    background-color: #252746;
+    color: #fff;
+}
+
+#sidebar .button-card .card {
+    background-color: #252746;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+}
+
+#sidebar .button-card .card:hover,
+#sidebar .button-card .card:focus {
+    background-color: rgba(0, 178, 195, 0.9);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 178, 195, 0.3);
+}
+
+/* Main content area adjusts width */
+
+@media (min-width: 768px) {
+    #sidebar {
+        padding-top: 40px;
+        position: relative;
+        transform: none !important;
+        height: auto !important;
+    }
+    #main-content {
+        margin-left: 0;
+    }
+    #sidebar.show ~ #main-content {
+        padding-top: 20px;
+        margin-left: 0;
+    }
+}
+
+/* Global sidebar display */
+#sidebar {
+    display: none;
+}
+#sidebar.show {
+    display: block;
 }
