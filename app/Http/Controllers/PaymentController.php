@@ -79,9 +79,9 @@ class PaymentController extends Controller
         }
 
         $backUrls = [
-            "success" => "https://bytequest.up.railway.app/pago/success",
-            "failure" => "https://bytequest.up.railway.app/pago/failure",
-            "pending" => "https://bytequest.up.railway.app/pago/pending",
+            "success" => "https://bytequest.up.railway.app/success",
+            "failure" => "https://bytequest.up.railway.app/failure",
+            "pending" => "https://bytequest.up.railway.app/pending",
         ];
 
         $client = new PreferenceClient();
