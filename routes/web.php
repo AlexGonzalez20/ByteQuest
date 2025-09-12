@@ -47,9 +47,7 @@
         Route::resource('cursos', CursoController::class);
         Route::resource('preguntas', PreguntaController::class);
         Route::resource('pruebas', PruebaController::class);
-        Route::resource('lecciones', LeccionController::class)->parameters([
-            'lecciones' => 'leccion'
-        ]);
+        Route::resource('lecciones', LeccionController::class);
     });
 
     // ✅ Perfil
