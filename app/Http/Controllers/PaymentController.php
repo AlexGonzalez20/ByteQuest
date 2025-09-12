@@ -128,29 +128,34 @@ class PaymentController extends Controller
         Log::info('Pago exitoso', $request->all());
 
         $usuario = auth()->user();
-        $producto = $request->get('producto', ''); // O extraído de external_reference
+        $producto = $request->get('external_reference', ''); // viene del checkout
 
-        // Actualizar usuario según el producto
-        switch ($producto) {
-            case 'Recupera todas tus vidas':
-                $usuario->vidas = 10;
-                break;
+        if ($usuario) {
+            switch ($producto) {
+                case 'Recupera todas tus vidas':
+                    $usuario->vidas = 5;
+                    break;
 
-            case 'Vidas Infinitas':
-                $usuario->vidas = 999; // ejemplo de vidas ilimitadas
-                break;
+                case 'Vidas Infinitas':
+                    $usuario->vidas = 999;
+                    $usuario->vidas_infinitas = true;
+                    $usuario->vidas_infinitas_hasta = now()->addDays(8);
+                    break;
 
-            case 'Protector de Racha':
-                $usuario->protege_racha = true;
-                break;
+                case 'Protector de Racha':
+                    $usuario->protege_racha = true;
+                    break;
 
-            case 'Combo Completo':
-                $usuario->vidas = 999;
-                $usuario->protege_racha = true;
-                break;
+                case 'Combo Completo':
+                    $usuario->vidas = 999;
+                    $usuario->vidas_infinitas = true;
+                    $usuario->vidas_infinitas_hasta = now()->addDays(8);
+                    $usuario->protege_racha = true;
+                    break;
+            }
+
+            $usuario->save();
         }
-
-        $usuario->save();
 
         return view('VistasEstudiante.pagos_success', [
             'data' => $request->all(),
@@ -166,7 +171,7 @@ class PaymentController extends Controller
 
         return view('VistasEstudiante.pagos_failure', [
             'data' => $request->all(),
-            'mensaje' => 'El pago no se completó. Inténtalo de nuevo.',
+            'mensaje' => 'El pago no se completó. No se aplicaron cambios en tu cuenta.',
         ]);
     }
 
@@ -177,7 +182,7 @@ class PaymentController extends Controller
 
         return view('VistasEstudiante.pagos_pending', [
             'data' => $request->all(),
-            'mensaje' => 'Tu pago está pendiente. Se actualizará automáticamente cuando se confirme.',
+            'mensaje' => 'Tu pago está pendiente. Cuando se confirme, se aplicarán los beneficios a tu cuenta.',
         ]);
     }
 }
