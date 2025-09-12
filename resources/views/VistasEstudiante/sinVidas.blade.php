@@ -37,7 +37,6 @@
         window.addEventListener("popstate", function() {
             // Cada vez que el usuario intenta retroceder
             history.pushState(null, "", location.href);
-
         });
     });
 </script>
