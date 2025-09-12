@@ -27,8 +27,7 @@ class Leccion extends Model
 
     public function pruebas()
     {
-            return $this->hasMany(Prueba::class, 'leccion_id');
-
+        return $this->hasMany(Prueba::class, 'leccion_id');
     }
 
     public function curso()

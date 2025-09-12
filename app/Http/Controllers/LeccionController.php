@@ -6,7 +6,6 @@ use App\Models\Leccion;
 use App\Models\Curso;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\CursoController;
 use Illuminate\Http\Request;
 
 class LeccionController extends Controller
@@ -16,29 +15,33 @@ class LeccionController extends Controller
      */
     public function index(Request $request)
 {
-    $lecciones = \App\Models\Leccion::with('curso');
+    try {
+        $lecciones = \App\Models\Leccion::with('curso');
 
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $lecciones->where(function ($query) use ($search) {
-            $query->where('nombre', 'like', '%' . $search . '%')
-                ->orWhere('descripcion', 'like', '%' . $search . '%')
-                ->orWhereHas('curso', function ($q) use ($search) {
-                    $q->where('nombre', 'like', '%' . $search . '%');
-                });
-        });
-    }
-
-    $lecciones = $lecciones->get();
-
-    // Decodifica el campo contenido si es string JSON
-    foreach ($lecciones as $leccion) {
-        if (is_string($leccion->contenido)) {
-            $leccion->contenido = json_decode($leccion->contenido, true);
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $lecciones->where(function ($query) use ($search) {
+                $query->where('nombre', 'like', '%' . $search . '%')
+                    ->orWhere('descripcion', 'like', '%' . $search . '%')
+                    ->orWhereHas('curso', function ($q) use ($search) {
+                        $q->where('nombre', 'like', '%' . $search . '%');
+                    });
+            });
         }
-    }
 
-return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
+        $lecciones = $lecciones->get();
+
+        foreach ($lecciones as $leccion) {
+            if (is_string($leccion->contenido)) {
+                $leccion->contenido = json_decode($leccion->contenido, true);
+            }
+        }
+
+        return view('CrudLecciones.GestionarLeccion', compact('lecciones'));
+
+    } catch (\Throwable $e) {
+        dd($e->getMessage(), $e->getTraceAsString());
+    }
 }
 
 
