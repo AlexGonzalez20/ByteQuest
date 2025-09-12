@@ -122,7 +122,6 @@
 
 
     Route::post('/pago/checkout', [PaymentController::class, 'checkout'])->name('pago.checkout');
-    
     Route::get('/success', [PaymentController::class, 'success'])->name('pago.success');
     Route::get('/failure', [PaymentController::class, 'failure'])->name('pago.failure');
     Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');

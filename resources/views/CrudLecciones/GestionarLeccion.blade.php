@@ -2,10 +2,6 @@
 
 @section('title', 'Gestión de Lecciones')
 
-@section('head')
-@vite('resources/css/gestionarleccion.css')
-@endsection
-
 @section('content')
 @php
 use Illuminate\Support\Str;
