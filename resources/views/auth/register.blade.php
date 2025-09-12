@@ -41,7 +41,7 @@
           </div>
         @endif
         <h2 class="mb-4 text-center" style="font-size: 1.5rem;">Registrarse</h2>
-        <form method="POST" action="registerPost">
+        <form method="POST" action="/register">
           @csrf
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>

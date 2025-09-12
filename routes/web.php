@@ -29,7 +29,7 @@
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('registerPost');
+    Route::post('/register', [AuthController::class, 'register']);
 
     Route::get('/password/forgot', [AuthController::class, 'showForgotForm'])->name('password.request');
     Route::post('/password/email', [AuthController::class, 'sendResetLink'])->name('password.email');
