@@ -14,10 +14,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Initial state
-    if (window.innerWidth >= 768) {
-        sidebar.classList.add("show");
+    function setInitialState() {
+        if (window.innerWidth >= 768) {
+            sidebar.classList.add("show");
+        } else {
+            sidebar.classList.remove("show");
+        }
+        updateLayout();
     }
-    updateLayout();
+
+    setInitialState();
+
+    // Update on resize
+    window.addEventListener("resize", setInitialState);
 
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener("click", function () {
