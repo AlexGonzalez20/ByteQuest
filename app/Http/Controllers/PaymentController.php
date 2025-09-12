@@ -126,18 +126,58 @@ class PaymentController extends Controller
     public function success(Request $request)
     {
         Log::info('Pago exitoso', $request->all());
-        return view('VistasEstudiante.pagos_success', ['data' => $request->all()]);
+
+        $usuario = auth()->user();
+        $producto = $request->get('producto', ''); // O extraído de external_reference
+
+        // Actualizar usuario según el producto
+        switch ($producto) {
+            case 'Recupera todas tus vidas':
+                $usuario->vidas = 10;
+                break;
+
+            case 'Vidas Infinitas':
+                $usuario->vidas = 999; // ejemplo de vidas ilimitadas
+                break;
+
+            case 'Protector de Racha':
+                $usuario->protege_racha = true;
+                break;
+
+            case 'Combo Completo':
+                $usuario->vidas = 999;
+                $usuario->protege_racha = true;
+                break;
+        }
+
+        $usuario->save();
+
+        return view('VistasEstudiante.pagos_success', [
+            'data' => $request->all(),
+            'producto' => $producto,
+            'mensaje' => '¡Compra realizada con éxito!',
+        ]);
     }
+
 
     public function failure(Request $request)
     {
         Log::info('Pago fallido', $request->all());
-        return view('VistasEstudiante.pagos_failure', ['data' => $request->all()]);
+
+        return view('VistasEstudiante.pagos_failure', [
+            'data' => $request->all(),
+            'mensaje' => 'El pago no se completó. Inténtalo de nuevo.',
+        ]);
     }
+
 
     public function pending(Request $request)
     {
         Log::info('Pago pendiente', $request->all());
-        return view('VistasEstudiante.pagos_pending', ['data' => $request->all()]);
+
+        return view('VistasEstudiante.pagos_pending', [
+            'data' => $request->all(),
+            'mensaje' => 'Tu pago está pendiente. Se actualizará automáticamente cuando se confirme.',
+        ]);
     }
 }
