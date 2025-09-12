@@ -128,34 +128,35 @@ class PaymentController extends Controller
         Log::info('Pago exitoso', $request->all());
 
         $usuario = auth()->user();
-        $producto = $request->get('external_reference', ''); // viene del checkout
-
-        if ($usuario) {
-            switch ($producto) {
-                case 'Recupera todas tus vidas':
-                    $usuario->vidas = 5;
-                    break;
-
-                case 'Vidas Infinitas':
-                    $usuario->vidas = 999;
-                    $usuario->vidas_infinitas = true;
-                    $usuario->vidas_infinitas_hasta = now()->addDays(8);
-                    break;
-
-                case 'Protector de Racha':
-                    $usuario->protege_racha = true;
-                    break;
-
-                case 'Combo Completo':
-                    $usuario->vidas = 999;
-                    $usuario->vidas_infinitas = true;
-                    $usuario->vidas_infinitas_hasta = now()->addDays(8);
-                    $usuario->protege_racha = true;
-                    break;
-            }
-
-            $usuario->save();
+        if (!$usuario) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para continuar.');
         }
+
+        // Recuperar el producto desde external_reference
+        $producto = $request->get('external_reference', '');
+
+        switch ($producto) {
+            case 'Recupera todas tus vidas':
+                $usuario->vidas = 5;
+                break;
+
+            case 'Vidas Infinitas':
+                $usuario->vidas = 999;
+                $usuario->vidas_infinitas_expira = now()->addDays(8); // 👈 guardamos fecha de expiración
+                break;
+
+            case 'Protector de Racha':
+                $usuario->protege_racha = true;
+                break;
+
+            case 'Combo Completo':
+                $usuario->vidas = 999;
+                $usuario->vidas_infinitas_expira = now()->addDays(8);
+                $usuario->protege_racha = true;
+                break;
+        }
+
+        $usuario->save();
 
         return view('VistasEstudiante.pagos_success', [
             'data' => $request->all(),
