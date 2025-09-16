@@ -133,9 +133,7 @@
                             <div class="card-header">Resumen de Actividad</div>
                             <div class="card-body">
                                 <div class="chart-placeholder">
-                                    <a href=" {{ route('CDashboard.grafica') }}"><img
-                                            src="https://imgproxy.domestika.org/unsafe/w:1200/rs:fill/plain/src://blog-post-open-graph-covers/000/013/052/13052-original.jpg?1712830811"
-                                            alt="grafica" class="img-fluid"></a>
+                                    <a href=" {{ route('CDashboard.grafica') }}">
                                 </div>
                             </div>
                         </div>

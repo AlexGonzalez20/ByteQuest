@@ -24,22 +24,59 @@ body {
         background-position: 0% 50%;
     }
 }
-.navbar {
-    border-bottom: #00b2c3 solid 2px;
+/* Sidebar styles */
+#sidebar {
+    width: 250px;
     background-color: #252746;
     color: whitesmoke;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    transition: width 0.3s ease;
+    z-index: 1040;
+    overflow-y: auto;
 }
 
-.nav-item:hover {
+#sidebar .navbar-nav {
+    flex-direction: column;
+    padding-left: 0;
+}
+
+#sidebar .nav-link {
+    color: whitesmoke;
+    padding: 0.5rem 1rem;
+}
+
+#sidebar .nav-link:hover {
     background-color: #00b2c3;
     color: whitesmoke !important;
     cursor: pointer;
     border-radius: 3px;
     transition: 0.3s;
 }
+
 .b {
     color: #00b2c3;
 }
+
 .q {
     color: whitesmoke;
 }
+
+/* Adjust main content margin when sidebar is visible on large screens */
+@media (min-width: 992px) {
+    main {
+        margin-right: 250px;
+        transition: margin-right 0.3s ease;
+    }
+}
+
+/* Offcanvas sidebar overrides for small screens */
+.offcanvas-end {
+    width: 250px !important;
+}
+
+/* When sidebar is collapsed (for future enhancement) */
+/* You can add styles here if you want to implement collapsing behavior */
