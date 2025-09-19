@@ -69,12 +69,14 @@ class Usuario extends Authenticatable
                 $resto = max(0, $segundosPasados % 5);
 
                 if ($this->vidas < 5) {
-                    $this->ultima_vida_perdida = now()->subSeconds($resto);
+                    $this->forceFill([
+                        'ultima_vida_perdida' => now()->subSeconds($resto),
+                    ])->save();
                 } else {
-                    $this->ultima_vida_perdida = null;
+                    $this->forceFill([
+                        'ultima_vida_perdida' => null,
+                    ])->save();
                 }
-
-                $this->save();
             }
         }
     }
