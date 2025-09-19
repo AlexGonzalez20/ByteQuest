@@ -57,18 +57,19 @@ class Usuario extends Authenticatable
         }
 
         if ($this->ultima_vida_perdida) {
-            // Asegura que siempre sea entero
-            $minutosPasados = (int) $this->ultima_vida_perdida->diffInMinutes(now());
+            // Diferencia en segundos
+            $segundosPasados = (int) $this->ultima_vida_perdida->diffInSeconds(now());
 
-            $vidasRecuperadas = intdiv($minutosPasados, 5);
+            // Cada 5 segundos se recupera una vida
+            $vidasRecuperadas = intdiv($segundosPasados, 5);
 
             if ($vidasRecuperadas > 0) {
                 $this->vidas = min(5, $this->vidas + $vidasRecuperadas);
 
-                $resto = max(0, (int) round($minutosPasados % 5));
+                $resto = max(0, $segundosPasados % 5);
 
                 if ($this->vidas < 5) {
-                    $this->ultima_vida_perdida = now()->subMinutes($resto);
+                    $this->ultima_vida_perdida = now()->subSeconds($resto);
                 } else {
                     $this->ultima_vida_perdida = null;
                 }
@@ -77,14 +78,14 @@ class Usuario extends Authenticatable
             }
         }
     }
-protected static function boot()
-{
-    parent::boot();
+    protected static function boot()
+    {
+        parent::boot();
 
-    static::saving(function ($usuario) {
-        if ($usuario->vidas < 0) {
-            $usuario->vidas = 0;
-        }
-    });
-}
+        static::saving(function ($usuario) {
+            if ($usuario->vidas < 0) {
+                $usuario->vidas = 0;
+            }
+        });
+    }
 }
