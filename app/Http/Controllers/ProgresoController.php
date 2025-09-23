@@ -4,35 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Pregunta;
 use App\Models\ProgresoPregunta;
-use Illuminate\Http\Request;
+use App\Models\Respuesta;
+use App\Models\Prueba;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ProgresoController extends Controller
 {
+    /**
+     * Mostrar una pregunta de la prueba.
+     */
     public function mostrarPregunta($prueba_id)
     {
         $usuario = auth()->user();
 
-        $prueba = \App\Models\Prueba::with('leccion.curso')->findOrFail($prueba_id);
+        $prueba = Prueba::with('leccion.curso')->findOrFail($prueba_id);
         $curso = $prueba->leccion->curso;
         $curso_id = $curso->id;
 
+        // Verificar vidas
         if ($usuario->vidas <= 0) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
+            return redirect()->route('usuarios.caminoCurso', compact('curso_id'))
                 ->with('error', '❌ No tienes vidas para iniciar esta prueba. Recarga vidas o espera.');
         }
 
+        // Validar progreso en curso
         $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
-
-        if ($prueba->id != $cursoUsuario->prueba_actual_id) {
-            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
+        if ($prueba->id !== $cursoUsuario->prueba_actual_id) {
+            return redirect()->route('usuarios.caminoCurso', compact('curso_id'))
                 ->with('error', '❌ Esa prueba no está disponible.');
         }
 
-        // Si no hay progreso, crea los 10 registros de progreso
-        if ($usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->count() == 0) {
+        // Crear progreso inicial si no existe
+        if (!$usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->exists()) {
             $preguntas = $prueba->leccion->preguntas()->pluck('id')->shuffle()->take(10);
-
             foreach ($preguntas as $pid) {
                 ProgresoPregunta::create([
                     'usuario_id' => $usuario->id,
@@ -40,76 +45,49 @@ class ProgresoController extends Controller
                     'pregunta_id' => $pid,
                 ]);
             }
-            // Limpiar posibles sesiones anteriores
-            session()->forget('preguntas_incorrectas');
-            session()->forget('ronda_repeticion');
+            session()->forget(['preguntas_incorrectas', 'ronda_repeticion']);
         }
 
-        // ¿Estamos en ronda de repetición?
         $rondaRepeticion = session('ronda_repeticion', false);
 
-        if (!$rondaRepeticion) {
-            // PRIMERA RONDA: solo las 10 originales
-            $pendiente = $usuario->progresoPreguntas()
-                ->where('prueba_id', $prueba->id)
-                ->where('respondida', false)
-                ->first();
+        $pendiente = $usuario->progresoPreguntas()
+            ->where('prueba_id', $prueba->id)
+            ->where('respondida', false)
+            ->first();
 
-            if (!$pendiente) {
-                $incorrectas = session()->get('preguntas_incorrectas', []);
-                if (!empty($incorrectas)) {
-                    $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
-                    foreach ($incorrectas as $pid) {
-                        ProgresoPregunta::create([
-                            'usuario_id' => $usuario->id,
-                            'prueba_id' => $prueba->id,
-                            'pregunta_id' => $pid,
-                        ]);
-                    }
+        if (!$pendiente) {
+            $incorrectas = session()->get('preguntas_incorrectas', []);
+
+            if (!empty($incorrectas)) {
+                $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
+                foreach ($incorrectas as $pid) {
+                    ProgresoPregunta::create([
+                        'usuario_id' => $usuario->id,
+                        'prueba_id' => $prueba->id,
+                        'pregunta_id' => $pid,
+                    ]);
+                }
+
+                session()->forget('preguntas_incorrectas');
+
+                if (!$rondaRepeticion) {
                     session(['ronda_repeticion' => true]);
-                    session()->forget('preguntas_incorrectas');
-                    // Pasa el mensaje de repaso
                     return redirect()->route('pregunta.mostrar', ['prueba_id' => $prueba_id, 'repaso' => 1]);
-                } else {
-                    // No hay incorrectas, termina la prueba
-                    $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
-                    session()->forget('ronda_repeticion');
-                    return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
-                        ->with('finalizado', '✅ Prueba completada.');
                 }
-            }
-        } else {
-            // RONDA DE REPETICIÓN: solo incorrectas
-            $pendiente = $usuario->progresoPreguntas()
-                ->where('prueba_id', $prueba->id)
-                ->where('respondida', false)
-                ->first();
 
-            if (!$pendiente) {
-                $incorrectas = session()->get('preguntas_incorrectas', []);
-                if (!empty($incorrectas)) {
-                    // Borrar progreso anterior
-                    $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
-                    // Crear progreso solo para las incorrectas
-                    foreach ($incorrectas as $pid) {
-                        ProgresoPregunta::create([
-                            'usuario_id' => $usuario->id,
-                            'prueba_id' => $prueba->id,
-                            'pregunta_id' => $pid,
-                        ]);
-                    }
-                    session()->forget('preguntas_incorrectas');
-                    return redirect()->route('pregunta.mostrar', ['prueba_id' => $prueba_id]);
-                } else {
-                    $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
-                    $this->avanzarProgreso($cursoUsuario, $prueba);
-                    // Ya no hay incorrectas, termina la prueba
-                    $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
-                    session()->forget('ronda_repeticion');
-                    return redirect()->route('usuarios.caminoCurso', ['curso_id' => $curso_id])
-                        ->with('finalizado', '✅ Prueba completada.');
-                }
+                return redirect()->route('pregunta.mostrar', compact('prueba_id'));
             }
+
+            // Finalizar prueba si no quedan incorrectas
+            if ($rondaRepeticion) {
+                $this->avanzarProgreso($cursoUsuario, $prueba);
+            }
+
+            $usuario->progresoPreguntas()->where('prueba_id', $prueba->id)->delete();
+            session()->forget('ronda_repeticion');
+
+            return redirect()->route('usuarios.caminoCurso', compact('curso_id'))
+                ->with('finalizado', '✅ Prueba completada.');
         }
 
         $pregunta = $pendiente->pregunta()->with('respuestas')->first();
@@ -124,26 +102,25 @@ class ProgresoController extends Controller
         ]);
     }
 
+    /**
+     * Procesar la respuesta del usuario a una pregunta.
+     */
     public function responderPregunta(Request $request)
     {
         $usuario = auth()->user();
         $pregunta = Pregunta::findOrFail($request->pregunta_id);
-        $respuesta = \App\Models\Respuesta::findOrFail($request->respuesta);
+        $respuesta = Respuesta::findOrFail($request->respuesta);
 
         $correcta = $pregunta->respuestas()->where('es_correcta', true)->first();
-        $resultado = ($respuesta->id == $correcta->id) ? 'correcto' : 'incorrecto';
+        $resultado = $respuesta->id === $correcta->id ? 'correcto' : 'incorrecto';
 
-        // Marcar la pregunta como respondida
+        // Marcar como respondida
         $usuario->progresoPreguntas()
             ->where('pregunta_id', $pregunta->id)
             ->update(['respondida' => true]);
 
-        // Si la respuesta fue incorrecta, restar una vida
         if ($resultado === 'incorrecto') {
-            $usuario->vidas -= 1;
-            $usuario->save();
-
-            // Guardar incorrectas en sesión
+            $usuario->decrement('vidas');
             $incorrectas = session()->get('preguntas_incorrectas', []);
             if (!in_array($pregunta->id, $incorrectas)) {
                 $incorrectas[] = $pregunta->id;
@@ -151,27 +128,25 @@ class ProgresoController extends Controller
             }
         }
 
-        // Si se quedaron sin vidas
+        // Validar vidas
         if ($usuario->vidas <= 0) {
             $usuario->progresoPreguntas()->delete();
-            session()->forget('preguntas_incorrectas');
-            session()->forget('ronda_repeticion');
+            session()->forget(['preguntas_incorrectas', 'ronda_repeticion']);
 
             return view('VistasEstudiante.sinVidas', [
                 'curso_id' => $usuario->cursos()->first()->id ?? null,
-                'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.'
+                'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.',
             ]);
         }
 
-        // Si la respuesta fue correcta, actualizar racha
+        // Actualizar racha
         if ($resultado === 'correcto') {
             $hoy = Carbon::today();
             $ultimoDia = $usuario->ultimo_dia_activo ? Carbon::parse($usuario->ultimo_dia_activo) : null;
 
             if ($ultimoDia) {
                 $diff = $hoy->diffInDays($ultimoDia);
-                if ($diff == 1) $usuario->dias_racha += 1;
-                elseif ($diff > 1) $usuario->dias_racha = 1;
+                $usuario->dias_racha = $diff == 1 ? $usuario->dias_racha + 1 : ($diff > 1 ? 1 : $usuario->dias_racha);
             } else {
                 $usuario->dias_racha = 1;
             }
@@ -180,7 +155,7 @@ class ProgresoController extends Controller
             $usuario->save();
         }
 
-        $pregunta = $pregunta->load('respuestas');
+        $pregunta->load('respuestas');
 
         return view('VistasEstudiante.preguntas', [
             'pregunta' => $pregunta,
@@ -193,35 +168,56 @@ class ProgresoController extends Controller
         ]);
     }
 
-
+    /**
+     * Avanzar el progreso del usuario en el curso.
+     */
     private function avanzarProgreso($cursoUsuario, $prueba)
     {
         $usuario = auth()->user();
-
-        $usuario->experiencia += $prueba->xp;
-        $usuario->save();
+        $usuario->increment('experiencia', $prueba->xp);
 
         $pruebas = $prueba->leccion->pruebas()->orderBy('orden')->get();
-        $posPrueba = $pruebas->search(fn($p) => $p->id == $prueba->id);
+        $posPrueba = $pruebas->search(fn($p) => $p->id === $prueba->id);
 
         if ($posPrueba !== false && isset($pruebas[$posPrueba + 1])) {
-            $cursoUsuario->prueba_actual_id = $pruebas[$posPrueba + 1]->id;
-            $cursoUsuario->save();
+            $cursoUsuario->update(['prueba_actual_id' => $pruebas[$posPrueba + 1]->id]);
             return;
         }
 
         $lecciones = $prueba->leccion->curso->lecciones()->orderBy('id')->get();
-        $posLeccion = $lecciones->search(fn($l) => $l->id == $prueba->leccion_id);
+        $posLeccion = $lecciones->search(fn($l) => $l->id === $prueba->leccion_id);
 
         if ($posLeccion !== false && isset($lecciones[$posLeccion + 1])) {
             $siguiente = $lecciones[$posLeccion + 1];
-            $cursoUsuario->leccion_actual_id = $siguiente->id;
-            $cursoUsuario->prueba_actual_id = $siguiente->pruebas()->orderBy('orden')->first()->id ?? null;
-            $cursoUsuario->save();
+            $cursoUsuario->update([
+                'leccion_actual_id' => $siguiente->id,
+                'prueba_actual_id' => $siguiente->pruebas()->orderBy('orden')->first()->id ?? null,
+            ]);
             return;
         }
 
-        $cursoUsuario->prueba_actual_id = null;
-        $cursoUsuario->save();
+        $cursoUsuario->update(['prueba_actual_id' => null]);
+    }
+
+    /**
+     * Cancelar el intento actual y volver al camino del curso.
+     */
+    public function cancelarIntento($curso_id)
+    {
+        $usuario = auth()->user();
+
+        // Eliminar progreso de la prueba actual en este curso
+        $cursoUsuario = $usuario->cursos()->where('curso_id', $curso_id)->first()->pivot;
+        if ($cursoUsuario?->prueba_actual_id) {
+            $usuario->progresoPreguntas()
+                ->where('prueba_id', $cursoUsuario->prueba_actual_id)
+                ->delete();
+        }
+
+        // Limpiar sesión
+        session()->forget(['preguntas_incorrectas', 'ronda_repeticion']);
+
+        return redirect()->route('usuarios.caminoCurso', compact('curso_id'))
+            ->with('info', '❌ Has cancelado el intento actual de la prueba.');
     }
 }

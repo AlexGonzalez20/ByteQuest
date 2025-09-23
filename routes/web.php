@@ -127,3 +127,8 @@
     Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');
 
     Route::get('/test-mercadopago', [PaymentController::class, 'test']);
+
+    Route::get('/curso/{curso_id}/cancelar-intento', [ProgresoController::class, 'cancelarIntento'])
+    ->name('pregunta.cancelarIntento')
+    ->middleware('auth');
+
