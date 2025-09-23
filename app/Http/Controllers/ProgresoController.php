@@ -92,6 +92,17 @@ class ProgresoController extends Controller
 
         $pregunta = $pendiente->pregunta()->with('respuestas')->first();
 
+        // ====== NUEVO: Contador de pregunta ======
+        $preguntasIds = $usuario->progresoPreguntas()
+            ->where('prueba_id', $prueba->id)
+            ->pluck('pregunta_id')
+            ->toArray();
+
+        $preguntaActualIndex = array_search($pendiente->pregunta_id, $preguntasIds);
+        $numeroPregunta = $preguntaActualIndex !== false ? $preguntaActualIndex + 1 : 1;
+        $totalPreguntas = count($preguntasIds);
+        // =======================================
+
         return view('VistasEstudiante.preguntas', [
             'pregunta' => $pregunta,
             'curso_id' => $curso_id,
@@ -99,8 +110,11 @@ class ProgresoController extends Controller
             'resultado' => null,
             'mensaje' => null,
             'mostrarContinuar' => false,
+            'numeroPregunta' => $numeroPregunta,
+            'totalPreguntas' => $totalPreguntas,
         ]);
     }
+
 
     /**
      * Procesar la respuesta del usuario a una pregunta.
@@ -119,8 +133,10 @@ class ProgresoController extends Controller
             ->where('pregunta_id', $pregunta->id)
             ->update(['respondida' => true]);
 
+        // Manejo de respuestas incorrectas
         if ($resultado === 'incorrecto') {
             $usuario->decrement('vidas');
+
             $incorrectas = session()->get('preguntas_incorrectas', []);
             if (!in_array($pregunta->id, $incorrectas)) {
                 $incorrectas[] = $pregunta->id;
@@ -134,12 +150,12 @@ class ProgresoController extends Controller
             session()->forget(['preguntas_incorrectas', 'ronda_repeticion']);
 
             return view('VistasEstudiante.sinVidas', [
-                'curso_id' => $usuario->cursos()->first()->id ?? null,
+                'curso_id' => $request->curso_id ?? $usuario->cursos()->first()->id ?? null,
                 'mensaje' => 'Te has quedado sin vidas. Debes recargar vidas para continuar.',
             ]);
         }
 
-        // Actualizar racha
+        // Actualizar racha si es correcto
         if ($resultado === 'correcto') {
             $hoy = Carbon::today();
             $ultimoDia = $usuario->ultimo_dia_activo ? Carbon::parse($usuario->ultimo_dia_activo) : null;
@@ -155,6 +171,37 @@ class ProgresoController extends Controller
             $usuario->save();
         }
 
+        // Contador de preguntas
+        $preguntasIds = $usuario->progresoPreguntas()
+            ->where('prueba_id', $request->prueba_id)
+            ->pluck('pregunta_id')
+            ->toArray();
+        $preguntaActualIndex = array_search($pregunta->id, $preguntasIds);
+        $numeroPregunta = $preguntaActualIndex !== false ? $preguntaActualIndex + 1 : 1;
+        $totalPreguntas = count($preguntasIds);
+
+        // Verificar si quedan preguntas pendientes
+        $pendientes = $usuario->progresoPreguntas()
+            ->where('prueba_id', $request->prueba_id)
+            ->where('respondida', false)
+            ->count();
+
+        $cursoUsuario = $usuario->cursos()->where('curso_id', $request->curso_id)->first()->pivot;
+
+        if ($pendientes === 0) {
+            // Si no quedan pendientes, avanzar progreso
+            $prueba = Prueba::findOrFail($request->prueba_id);
+            $this->avanzarProgreso($cursoUsuario, $prueba);
+
+            // Limpiar progreso y sesión
+            $usuario->progresoPreguntas()->where('prueba_id', $request->prueba_id)->delete();
+            session()->forget(['preguntas_incorrectas', 'ronda_repeticion']);
+
+            return redirect()->route('usuarios.caminoCurso', ['curso_id' => $request->curso_id])
+                ->with('finalizado', '✅ Prueba completada.');
+        }
+
+        // Cargar pregunta con respuestas
         $pregunta->load('respuestas');
 
         return view('VistasEstudiante.preguntas', [
@@ -165,8 +212,11 @@ class ProgresoController extends Controller
             'mensaje' => $resultado === 'correcto' ? '✅ Correcto!' : '❌ Incorrecto.',
             'mostrarContinuar' => true,
             'respuesta_seleccionada' => $respuesta->id,
+            'numeroPregunta' => $numeroPregunta,
+            'totalPreguntas' => $totalPreguntas,
         ]);
     }
+
 
     /**
      * Avanzar el progreso del usuario en el curso.
