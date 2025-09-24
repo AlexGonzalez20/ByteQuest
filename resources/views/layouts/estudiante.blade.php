@@ -86,16 +86,16 @@
                                 </button>
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
                                     @forelse ($cursos as $curso)
-                                        <li>
-                                            <a class="dropdown-item"
-                                                href="{{ route('usuarios.caminoCurso', $curso->id) }}">
-                                                {{ $curso->nombre }}
-                                            </a>
-                                        </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                            {{ $curso->nombre }}
+                                        </a>
+                                    </li>
                                     @empty
-                                        <li>
-                                            <span class="dropdown-item text-muted">No tienes cursos</span>
-                                        </li>
+                                    <li>
+                                        <span class="dropdown-item text-muted">No tienes cursos</span>
+                                    </li>
                                     @endforelse
                                 </ul>
                             </div>
@@ -107,10 +107,11 @@
                                 </a>
 
 
-                                <a href="{{ route('tienda') }}" class="btn btn-danger me-3">
+                                <a href="{{ route('tienda') }}" class="btn btn-danger me-3" id="navbar-vidas">
                                     <i class="fa-solid fa-heart"></i>
                                     Vidas: {{ auth()->user()->vidas }}
                                 </a>
+
 
                                 <a href="{{ route('views.UPerfil') }}"
                                     class="btn btn-warning d-flex align-items-center" style="gap: 8px;">
@@ -134,24 +135,7 @@
     </div>
 
     @yield('scripts')
-    <script>
-        @if (isset($tiempo_recuperacion) && $tiempo_recuperacion > 0)
-            let tiempo = {{ $tiempo_recuperacion }};
 
-            function updateCounter() {
-                if (tiempo <= 0) return;
-                let min = Math.floor(tiempo / 60);
-                let sec = tiempo % 60;
-                var el = document.getElementById('tiempo-vidas');
-                if (el) {
-                    el.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
-                }
-                tiempo--;
-                if (tiempo > 0 && el) setTimeout(updateCounter, 1000);
-            }
-            updateCounter();
-        @endif
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Mostrar/Ocultar sidebar en móviles
@@ -213,6 +197,36 @@
         }
         window.addEventListener('resize', handleResize);
         handleResize();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarVidasEl = document.getElementById('navbar-vidas');
+
+            // Función para actualizar vidas desde el servidor
+            function actualizarVidasNavbar() {
+                fetch("{{ route('vidas.reclamar') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (navbarVidasEl) {
+                            navbarVidasEl.innerHTML = `<i class="fa-solid fa-heart"></i> Vidas: ${data.vidas}`;
+                        }
+                    })
+                    .catch(err => console.error('Error actualizando vidas:', err));
+            }
+
+            // Actualiza al cargar la página
+            actualizarVidasNavbar();
+
+            // Actualiza cada 10 segundos
+            setInterval(actualizarVidasNavbar, 10000);
+        });
     </script>
 
 </body>

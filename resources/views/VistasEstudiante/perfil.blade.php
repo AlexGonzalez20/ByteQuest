@@ -238,6 +238,19 @@
         actualizarContador();
         setInterval(actualizarContador, 1000);
     });
+
+    // === Cambiar selección de avatar dinámicamente ===
+    const avatarLabels = document.querySelectorAll('.avatar-holder');
+
+    avatarLabels.forEach(label => {
+        const input = label.querySelector('input[type="radio"]');
+        input.addEventListener('change', () => {
+            // Quita la clase 'selected' de todos los labels
+            avatarLabels.forEach(l => l.classList.remove('selected'));
+            // Agrega 'selected' al label que se seleccionó
+            label.classList.add('selected');
+        });
+    });
 </script>
 
 
