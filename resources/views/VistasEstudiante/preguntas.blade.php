@@ -19,10 +19,13 @@
 
         .options-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
             gap: 0.75rem;
             margin-top: 1rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
         .option-btn {
@@ -30,15 +33,16 @@
             font-weight: 500;
             text-align: center;
             padding: 0.6rem 0.5rem;
-            min-width: 200px;
-            max-width: 300px;
+            min-width: 80px;
+            max-width: 150px;
             border-radius: 0.5rem;
             font-size: 0.9rem;
         }
 
         .option-btn:hover:not(:disabled) {
-            background-color: #0080ffff;
-            transform: scale(1.03);
+            background-color: #00b2c3;
+            color: whitesmoke;
+            transition: all 0.3s ease;
         }
 
         .option-btn:disabled {
@@ -88,6 +92,12 @@
             font-weight: 600;
         }
 
+        .btn-secondary:hover {
+            background-color: #ffc107;
+            color: #252647;
+            transition: all 0.3s ease;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 576px) {
             .option-btn {
@@ -119,78 +129,78 @@
         <div class="card shadow mx-auto p-4" style="max-width: 900px;">
             <div class="card-body">
                 @if (session('finalizado'))
-                <div class="alert alert-success text-center mb-3">
-                    {{ session('finalizado') }}
-                </div>
-                <form method="GET" action="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}">
-                    <button type="submit" class="btn btn-warning btn-enviar">Volver al camino</button>
-                </form>
-                @elseif(isset($pregunta) && $pregunta)
-                <h4 class="mb-2">{{ $pregunta->pregunta }}</h4>
-                <p class="contador">Pregunta {{ $numeroPregunta ?? 1 }} de {{ $totalPreguntas ?? 10 }}</p>
-
-                @if (!empty($pregunta->imagen))
-                <div class="mb-3 text-center">
-                    <img src="{{ asset($pregunta->imagen) }}" alt="Imagen de la pregunta" class="pregunta-img">
-                </div>
-                @endif
-
-                <form method="POST" action="{{ route('pregunta.responder') }}">
-                    @csrf
-                    @if (request('repaso'))
-                    <div class="alert alert-info text-center">
-                        <strong>Repasemos</strong>
+                    <div class="alert alert-success text-center mb-3">
+                        {{ session('finalizado') }}
                     </div>
-                    @endif
-                    <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
-                    <input type="hidden" name="respuesta" id="respuesta">
-                    <input type="hidden" name="curso_id" value="{{ $curso_id }}">
-                    <input type="hidden" name="prueba_id" value="{{ $prueba_id }}">
-
-                    <div class="{{ !empty($pregunta->imagen) ? 'd-flex justify-content-between mt-3' : 'options-container' }}">
-                        @foreach ($pregunta->respuestas->shuffle() as $resp)
-                        @php
-                        $classes = 'btn btn-outline-primary option-btn';
-                        if (isset($respuesta_seleccionada)) {
-                        if ($resp->id == $respuesta_seleccionada) {
-                        $classes .= $resultado === 'correcto' ? ' correct' : ' incorrect';
-                        }
-                        $disabled = 'disabled';
-                        } else {
-                        $disabled = '';
-                        }
-                        @endphp
-                        <button type="button" class="{{ $classes }}" value="{{ $resp->id }}"
-                            onclick="selectOption(this)" {{ $disabled }}
-                            @if(!empty($pregunta->imagen))
-                            style="flex: 1 1 0; max-width: 23%;"
-                            @endif>
-                            {{ $resp->texto }}
-                        </button>
-                        @endforeach
-                    </div>
-
-                    @if (empty($mostrarContinuar))
-                    <button type="submit" id="enviarBtn" class="btn btn-success w-100 mt-3 btn-enviar" disabled>
-                        Enviar respuesta
-                    </button>
-                    @endif
-                </form>
-
-                @if (isset($mensaje))
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 rounded"
-                    style="background-color: {{ $resultado === 'correcto' ? '#d4edda' : '#f8d7da' }};">
-                    <span style="color: {{ $resultado === 'correcto' ? '#155724' : '#721c24' }}; font-weight: 500;">
-                        {{ $mensaje }}
-                    </span>
-
-                    @if (!empty($mostrarContinuar))
-                    <form action="{{ route('pregunta.mostrar', ['prueba_id' => $prueba_id]) }}" method="GET" class="mb-0">
-                        <button type="submit" class="btn btn-primary btn-enviar">Continuar</button>
+                    <form method="GET" action="{{ route('usuarios.caminoCurso', ['curso_id' => $curso_id]) }}">
+                        <button type="submit" class="btn btn-warning btn-enviar">Volver al camino</button>
                     </form>
+                @elseif(isset($pregunta) && $pregunta)
+                    <h4 class="mb-2">{{ $pregunta->pregunta }}</h4>
+                    <p class="contador">Pregunta {{ $numeroPregunta ?? 1 }} de {{ $totalPreguntas ?? 10 }}</p>
+
+                    @if (!empty($pregunta->imagen))
+                        <div class="mb-3 text-center">
+                            <img src="{{ asset($pregunta->imagen) }}" alt="Imagen de la pregunta" class="pregunta-img">
+                        </div>
                     @endif
-                </div>
-                @endif
+
+                    <form method="POST" action="{{ route('pregunta.responder') }}">
+                        @csrf
+                        @if (request('repaso'))
+                            <div class="alert alert-info text-center">
+                                <strong>Repasemos</strong>
+                            </div>
+                        @endif
+                        <input type="hidden" name="pregunta_id" value="{{ $pregunta->id }}">
+                        <input type="hidden" name="respuesta" id="respuesta">
+                        <input type="hidden" name="curso_id" value="{{ $curso_id }}">
+                        <input type="hidden" name="prueba_id" value="{{ $prueba_id }}">
+
+                        <div
+                            class="{{ !empty($pregunta->imagen) ? 'd-flex justify-content-between mt-3' : 'options-container' }}">
+                            @foreach ($pregunta->respuestas->shuffle() as $resp)
+                                @php
+                                    $classes = 'btn btn-outline-primary option-btn';
+                                    if (isset($respuesta_seleccionada)) {
+                                        if ($resp->id == $respuesta_seleccionada) {
+                                            $classes .= $resultado === 'correcto' ? ' correct' : ' incorrect';
+                                        }
+                                        $disabled = 'disabled';
+                                    } else {
+                                        $disabled = '';
+                                    }
+                                @endphp
+                                <button type="button" class="{{ $classes }}" value="{{ $resp->id }}"
+                                    onclick="selectOption(this)" {{ $disabled }} @if(!empty($pregunta->imagen))
+                                    style="flex: 1 1 0; max-width: 18%; min-width: 80px;" @else style="width: 150px;" @endif>
+                                    {{ $resp->texto }}
+                                </button>
+                            @endforeach
+                        </div>
+
+                        @if (empty($mostrarContinuar))
+                            <button type="submit" id="enviarBtn" class="btn btn-success w-100 mt-3 btn-enviar" disabled>
+                                Enviar respuesta
+                            </button>
+                        @endif
+                    </form>
+
+                    @if (isset($mensaje))
+                        <div class="d-flex justify-content-between align-items-center mt-3 p-2 rounded"
+                            style="background-color: {{ $resultado === 'correcto' ? '#d4edda' : '#f8d7da' }};">
+                            <span style="color: {{ $resultado === 'correcto' ? '#155724' : '#721c24' }}; font-weight: 500;">
+                                {{ $mensaje }}
+                            </span>
+
+                            @if (!empty($mostrarContinuar))
+                                <form action="{{ route('pregunta.mostrar', ['prueba_id' => $prueba_id]) }}" method="GET"
+                                    class="mb-0">
+                                    <button type="submit" class="btn btn-primary btn-enviar">Continuar</button>
+                                </form>
+                            @endif
+                        </div>
+                    @endif
 
                 @endif
             </div>
