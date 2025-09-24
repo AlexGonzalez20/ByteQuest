@@ -85,20 +85,22 @@
                                     Mis Cursos
                                 </button>
                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownCursos">
-                                    @forelse ($cursos as $curso)
+                                    @if(isset($cursos) && $cursos->count() > 0)
+                                    @foreach ($cursos as $curso)
                                     <li>
-                                        <a class="dropdown-item"
-                                            href="{{ route('usuarios.caminoCurso', $curso->id) }}">
+                                        <a class="dropdown-item" href="{{ route('usuarios.caminoCurso', $curso->id) }}">
                                             {{ $curso->nombre }}
                                         </a>
                                     </li>
-                                    @empty
+                                    @endforeach
+                                    @else
                                     <li>
                                         <span class="dropdown-item text-muted">No tienes cursos</span>
                                     </li>
-                                    @endforelse
+                                    @endif
                                 </ul>
                             </div>
+
                             <div class="d-flex ms-auto align-items-center">
 
                                 <a href="#" class="btn btn-info me-3">
