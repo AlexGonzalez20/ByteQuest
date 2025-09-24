@@ -103,7 +103,8 @@
 
                                 <a href="#" class="btn btn-info me-3">
                                     <i class="fa-solid fa-bolt"></i>
-                                    Racha: {{ auth()->user()->dias_racha }} días
+                                    Racha: {{ $diasRacha }} días
+
                                 </a>
 
 

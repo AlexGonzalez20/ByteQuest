@@ -36,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.estudiante', function ($view) {
             $user = auth()->user();
 
+            // Cursos del usuario o colección vacía
+            $cursos = $user ? $user->cursos : collect();
+
+            // Racha de días
+            $diasRacha = 0;
             if ($user) {
                 $hoy = Carbon::today();
                 $ultimoDia = $user->ultimo_dia_activo ? Carbon::parse($user->ultimo_dia_activo) : null;
@@ -49,10 +54,12 @@ class AppServiceProvider extends ServiceProvider
                 } else {
                     $diasRacha = 1;
                 }
-
-                // Pasar la racha calculada a la vista
-                $view->with('diasRacha', $diasRacha);
             }
+
+            $view->with([
+                'cursos' => $cursos,
+                'diasRacha' => $diasRacha,
+            ]);
         });
     }
 }
