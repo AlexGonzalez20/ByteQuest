@@ -19,10 +19,13 @@
 
         .options-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
             gap: 0.75rem;
             margin-top: 1rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
         .option-btn {
@@ -30,15 +33,16 @@
             font-weight: 500;
             text-align: center;
             padding: 0.6rem 0.5rem;
-            min-width: 200px;
-            max-width: 300px;
+            min-width: 80px;
+            max-width: 150px;
             border-radius: 0.5rem;
             font-size: 0.9rem;
         }
 
         .option-btn:hover:not(:disabled) {
-            background-color: #0080ffff;
-            transform: scale(1.03);
+            background-color: #00b2c3;
+            color: whitesmoke;
+            transition: all 0.3s ease;
         }
 
         .option-btn:disabled {
@@ -86,6 +90,12 @@
 
         .btn-enviar {
             font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffc107;
+            color: #252647;
+            transition: all 0.3s ease;
         }
 
         /* Responsive adjustments */
@@ -147,7 +157,8 @@
                     <input type="hidden" name="curso_id" value="{{ $curso_id }}">
                     <input type="hidden" name="prueba_id" value="{{ $prueba_id }}">
 
-                    <div class="{{ !empty($pregunta->imagen) ? 'd-flex justify-content-between mt-3' : 'options-container' }}">
+                    <div
+                        class="{{ !empty($pregunta->imagen) ? 'd-flex justify-content-between mt-3' : 'options-container' }}">
                         @foreach ($pregunta->respuestas->shuffle() as $resp)
                         @php
                         $classes = 'btn btn-outline-primary option-btn';
@@ -161,10 +172,8 @@
                         }
                         @endphp
                         <button type="button" class="{{ $classes }}" value="{{ $resp->id }}"
-                            onclick="selectOption(this)" {{ $disabled }}
-                            @if(!empty($pregunta->imagen))
-                            style="flex: 1 1 0; max-width: 23%;"
-                            @endif>
+                            onclick="selectOption(this)" {{ $disabled }} @if(!empty($pregunta->imagen))
+                            style="flex: 1 1 0; max-width: 18%; min-width: 80px;" @else style="width: 150px;" @endif>
                             {{ $resp->texto }}
                         </button>
                         @endforeach
@@ -185,7 +194,8 @@
                     </span>
 
                     @if (!empty($mostrarContinuar))
-                    <form action="{{ route('pregunta.mostrar', ['prueba_id' => $prueba_id]) }}" method="GET" class="mb-0">
+                    <form action="{{ route('pregunta.mostrar', ['prueba_id' => $prueba_id]) }}" method="GET"
+                        class="mb-0">
                         <button type="submit" class="btn btn-primary btn-enviar">Continuar</button>
                     </form>
                     @endif

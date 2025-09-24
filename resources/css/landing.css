@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
 * {
     font-family: Montserrat, Arial, sans-serif !important;
     font-weight: 300 !important;
 }
+
 h1,
 h2,
 h3,
@@ -28,6 +30,7 @@ body {
     clear: both;
     display: block;
 }
+
 /* Tarjetas de servicios en una sola línea */
 .services .row.float-start {
     display: flex;
@@ -38,35 +41,42 @@ body {
     flex-wrap: wrap;
     margin: 0 auto;
 }
+
 .service-card {
     min-width: 280px;
     max-width: 340px;
     flex: 1 1 0;
 }
+
 /* Iconos grandes para servicios en landing */
 .service-card i {
     font-size: 4rem;
     margin-bottom: 16px;
 }
+
 /* Estilos para las tarjetas de servicios */
 .service-title {
     color: #242546;
     text-align: center;
     transition: color 0.3s;
 }
+
 .service-title:hover {
     color: #00b2c3;
 }
+
 .service-btn {
     color: #242546;
     background: #fff;
     border: 1px solid #242546;
     transition: color 0.3s, border-color 0.3s;
 }
+
 .service-btn:hover {
     color: #00b2c3;
     border-color: #00b2c3;
 }
+
 /* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"); */
 
 *,
@@ -83,6 +93,7 @@ body {
     left: 0;
     z-index: -1;
 }
+
 h3 {
     font-weight: 400;
 }
@@ -126,12 +137,14 @@ small {
         color: inherit;
     }
 }
+
 /* Estilos ajenos ala plantilla */
 .contenido {
     overflow: auto;
     width: 90%;
     height: auto;
 }
+
 /* animacion */
 textarea {
     display: block;
@@ -143,15 +156,18 @@ textarea {
 button {
     margin-top: 10px;
 }
+
 .img-fluid {
     height: 300px;
 }
+
 .img-nav {
     width: 5%;
     position: absolute;
     margin-top: -20px;
     margin-left: 130px;
 }
+
 .img-text {
     position: static;
     width: 200px;
@@ -166,6 +182,7 @@ button {
 .carousel {
     width: 100%;
 }
+
 .textarea {
     display: flex;
     line-height: 3;
@@ -178,6 +195,7 @@ button {
     resize: none;
     padding-right: 100px;
 }
+
 .button-magico {
     border: none;
     border-bottom: 3px solid #252746;
@@ -186,6 +204,7 @@ button {
     background-color: #00b2c3;
     color: whitesmoke;
 }
+
 .btn {
     border: none;
     border-radius: 20px;
@@ -195,10 +214,12 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
 .btn:hover {
     background-color: #252746;
     color: whitesmoke;
 }
+
 .card-body {
     background-color: #252746;
     height: 100%;
@@ -218,6 +239,7 @@ button {
     height: 200px;
     text-shadow: 1px 1px 2px #252746, 0 0 1em #00b2c3, 0 0 0.2em #242546;
 }
+
 .area {
     background: #00b2c3;
     height: 400px;
@@ -333,20 +355,24 @@ button {
         border-radius: 50%;
     }
 }
+
 .nav-link {
     color: #fff !important;
 }
+
 .nav-item:hover {
     background-color: #00b2c3;
     border-radius: 10px;
     transition: 0.3s;
 }
+
 .animacion {
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
 }
+
 .animacion textarea {
     height: 250px;
     margin-bottom: 0;
@@ -356,6 +382,7 @@ button {
     border-radius: 20px;
     border: 1px solid #bbb;
 }
+
 .img-text {
     position: static;
     width: 300px;
