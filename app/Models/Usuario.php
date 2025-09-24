@@ -22,6 +22,11 @@ class Usuario extends Authenticatable
         'role_id',
         'imagen'
     ];
+
+    protected $attributes = [
+        'imagen' => 'amarillo.PNG',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
