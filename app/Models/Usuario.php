@@ -50,29 +50,36 @@ class Usuario extends Authenticatable
             ->withTimestamps();
     }
 
+
     public function actualizarVidas()
     {
-        if ($this->vidas >= 5) {
+        $maxVidas = 5;
+        $tiempoRecuperacion = 30; // en segundos (usa 1800 para 30 min reales)
+
+        // Si ya tiene todas las vidas, no hacemos nada
+        if ($this->vidas >= $maxVidas) {
             return;
         }
 
         if ($this->ultima_vida_perdida) {
-            // Diferencia en segundos
-            $segundosPasados = (int) $this->ultima_vida_perdida->diffInSeconds(now());
+            // Segundos transcurridos desde la última vida perdida
+            $segundosPasados = $this->ultima_vida_perdida->diffInSeconds(now());
 
-            // Cada 5 segundos se recupera una vida
-            $vidasRecuperadas = intdiv($segundosPasados, 5);
+            // Vidas recuperadas = cada X segundos (o minutos)
+            $vidasRecuperadas = intdiv($segundosPasados, $tiempoRecuperacion);
 
             if ($vidasRecuperadas > 0) {
-                $this->vidas = min(5, $this->vidas + $vidasRecuperadas);
+                // Sumamos vidas sin pasarnos del máximo
+                $this->vidas = min($maxVidas, $this->vidas + $vidasRecuperadas);
 
-                $resto = max(0, $segundosPasados % 5);
-
-                if ($this->vidas < 5) {
+                if ($this->vidas < $maxVidas) {
+                    // Aún no tiene todas → dejamos un timestamp ajustado
+                    $resto = $segundosPasados % $tiempoRecuperacion;
                     $this->forceFill([
                         'ultima_vida_perdida' => now()->subSeconds($resto),
                     ])->save();
                 } else {
+                    // Ya se recuperó al máximo → borramos el timestamp
                     $this->forceFill([
                         'ultima_vida_perdida' => null,
                     ])->save();
@@ -80,6 +87,9 @@ class Usuario extends Authenticatable
             }
         }
     }
+
+
+
     protected static function boot()
     {
         parent::boot();
