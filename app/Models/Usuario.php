@@ -77,4 +77,14 @@ class Usuario extends Authenticatable
             }
         }
     }
+protected static function boot()
+{
+    parent::boot();
+
+    static::saving(function ($usuario) {
+        if ($usuario->vidas < 0) {
+            $usuario->vidas = 0;
+        }
+    });
+}
 }
