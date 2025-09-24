@@ -16,6 +16,7 @@
     use App\Http\Controllers\AprenderController;
     use App\Http\Controllers\RecuperarVidasController;
     use App\Http\Controllers\PaymentController;
+    use App\Http\Controllers\ProfileController;
 
 
     use App\Models\Usuario;
@@ -65,7 +66,7 @@
         Route::view('/CrearUsuario', 'CrudUsuarios.CrearUsuario')->name('views.CrearUsuario');
         Route::get('/cursos', [UsuarioController::class, 'catalogoCursos'])->name('views.UCursos');
         Route::get('/miscursos', [UsuarioController::class, 'misCursos'])->name('views.UMisCursos');
-        Route::view('/perfil', 'VistasEstudiante.perfil')->name('views.UPerfil');
+        Route::get('/perfil', [ProfileController::class, 'index'])->name('views.UPerfil');
     });
 
     // ✅ Reportes
@@ -132,3 +133,10 @@
     Route::get('/pending', [PaymentController::class, 'pending'])->name('pago.pending');
 
     Route::get('/test-mercadopago', [PaymentController::class, 'test']);
+
+    Route::get('/curso/{curso_id}/cancelar-intento', [ProgresoController::class, 'cancelarIntento'])
+        ->name('pregunta.cancelarIntento')
+        ->middleware('auth');
+
+    Route::post('/vidas/reclamar', [ProfileController::class, 'reclamarVida'])
+        ->name('vidas.reclamar');
