@@ -178,14 +178,18 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let tiempoRestante = @json($segundosRestantes ?? 0);
+        let puedeReclamar = tiempoRestante > 0 ? true : false;
         const display = document.getElementById('contador-vidas');
         const vidasCountEl = document.getElementById('vidas-count');
 
         function formatTime(s) {
+            s = Math.floor(s); // 🔹 fuerza a entero
             const m = Math.floor(s / 60);
             const sec = s % 60;
             return `${m}:${sec < 10 ? '0' : ''}${sec}`;
         }
+
+
 
         function reclamarVida() {
             fetch("{{ route('vidas.reclamar') }}", {
@@ -198,36 +202,45 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    if (vidasCountEl) {
-                        vidasCountEl.textContent = data.vidas;
+                    vidasCountEl.textContent = data.vidas;
+
+                    if (data.vidas < 5) {
+                        tiempoRestante = 30; // reinicia contador (cambiar a 1800 para 30 min reales)
+                        puedeReclamar = true;
+                    } else {
+                        display.textContent = "❤️ Vidas completas";
                     }
                 });
         }
 
         function actualizarContador() {
-            if (!display) return;
+            const vidasActuales = parseInt(vidasCountEl.textContent);
+
+            if (vidasActuales >= 5) {
+                display.textContent = "❤️ Vidas completas";
+                return;
+            }
+
+            // Siempre muestra el contador
+            display.textContent = `⏳ Próxima vida en ${formatTime(tiempoRestante)}`;
 
             if (tiempoRestante > 0) {
-                display.textContent = `⏳ Próxima vida en ${formatTime(tiempoRestante)}`;
                 tiempoRestante--;
             } else {
-                display.textContent = "✅ Vida lista para reclamar";
-
-                // Reclamar solo si aún no tiene 5 vidas Y si justo se acaba de cumplir
-                if (parseInt(vidasCountEl.textContent) < 5 && tiempoRestante === 1) {
+                if (puedeReclamar) {
                     reclamarVida();
-
-                    // Reinicia el contador
-                    tiempoRestante = 30; // 🔹 cambia a 1800 si quieres 30 min
+                    puedeReclamar = false; // evita reclamo múltiple hasta reiniciar
                 }
             }
         }
 
-
+        // Actualiza el contador inmediatamente y luego cada segundo
         actualizarContador();
         setInterval(actualizarContador, 1000);
     });
 </script>
+
+
 
 
 @endsection

@@ -10,12 +10,12 @@ class ProfileController extends Controller
     public function index()
     {
         $usuario = Auth::user();
-        $usuario->actualizarVidas();
 
-        $segundosRestantes = 0;
-        if ($usuario->vidas < 5 && $usuario->ultima_vida_perdida) {
+        // Solo calculamos segundos restantes para el contador
+        $segundosRestantes = 30; // default
+        if ($usuario->ultima_vida_perdida) {
             $segundosPasados = $usuario->ultima_vida_perdida->diffInSeconds(now());
-            $segundosRestantes = max(0, 30 - ($segundosPasados % 30)); // 30 seg, cámbialo a 1800 si quieres 30 min
+            $segundosRestantes = max(0, 30 - $segundosPasados);
         }
 
         return view('VistasEstudiante.perfil', [
@@ -27,13 +27,7 @@ class ProfileController extends Controller
     public function reclamarVida()
     {
         $usuario = Auth::user();
-        $usuario->actualizarVidas();
-
-        if ($usuario->vidas < 5) {
-            $usuario->vidas++;
-            $usuario->ultima_vida_perdida = now();
-            $usuario->save();
-        }
+        $usuario->recuperarVida(); // solo se recupera 1 vida si ya corresponde
 
         return response()->json([
             'vidas' => $usuario->vidas
