@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/2ecd82a135.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="{{ asset('icon.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}">
+
 
     <title>@yield('title')</title>
     @vite('resources/css/admin.css')
@@ -15,15 +16,47 @@
 </head>
 
 <body>
-    <!-- Toggle button for small screens -->
-    <button class="btn btn-light d-lg-none position-fixed" style="top: 10px; left: 10px; z-index: 1050;" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-        <i class="fas fa-bars"></i>
-    </button>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="q navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="b">Byte</span>Quest</a>
 
-    <!-- Sidebar -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-        <div class="offcanvas-header d-lg-none">
-            <h5 class="offcanvas-title" id="sidebarLabel"><a class="q navbar-brand fw-bold" href="{{ route('views.dashboard') }}"><span class="b">Byte</span>Quest</a></h5>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-light">
+                    <li class="nav-item">
+                        <a href="{{ route('usuarios.index') }}" class="nav-link  text-light">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cursos.index') }}" class="nav-link text-light">Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('lecciones.index') }}" class="nav-link text-light">Lecciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pruebas.index') }}" class="nav-link text-light">Pruebas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('preguntas.index') }}" class="nav-link text-light">Preguntas</a>
+                    </li>
+
+                </ul>
+                <a class="btn btn-info mx-2" href="{{ route('views.dashboard') }}">Regresar a Dashboard</a>
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    <main>
 
         @yield('content')
     </main>

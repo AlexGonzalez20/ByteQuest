@@ -37,6 +37,7 @@ return new class extends Migration
                 'password'    => Hash::make('12345678'),
                 'rol_id'       => 2,
                 'created_at'  => now(),
+                'imagen' => 'amarillo.PNG',
                 'updated_at'  => now(),
             ],
         ]);
