@@ -228,6 +228,13 @@
             setInterval(actualizarVidasNavbar, 10000);
         });
     </script>
+    @yield('scripts')
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 
 </body>
 
