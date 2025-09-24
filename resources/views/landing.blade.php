@@ -100,7 +100,7 @@
         </div>
 
         <!-- Contenido Central -->
-        <main id="about" class="d-flex flex-column justify-content-center align-items-center">
+        <main id="about" class="d-flex flex-column justify-content-center align-items-center h-50">
             <!-- Texto Magico -->
             <div class="animacion pb-4 mb-5 w-75  d-flex flex-row align-items-center">
                 <div class="flex-grow-1 d-flex flex-column">
