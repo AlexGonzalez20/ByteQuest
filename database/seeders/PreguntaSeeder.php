@@ -240,6 +240,78 @@ class PreguntaSeeder extends Seeder
             ],
         ];
 
+
+        $preguntasConImagen = [
+            [
+                'pregunta' => 'Observa la imagen y elige qué tipo de bucle se está utilizando:',
+                'imagen' => 'preguntas/bucle_for.png',
+                'opciones' => [
+                    ['texto' => 'for', 'es_correcta' => true],
+                    ['texto' => 'while', 'es_correcta' => false],
+                    ['texto' => 'foreach', 'es_correcta' => false],
+                    ['texto' => 'do-while', 'es_correcta' => false],
+                ]
+            ],
+            [
+                'pregunta' => 'Según la imagen, ¿qué operador se usa para concatenar cadenas?',
+                'imagen' => 'preguntas/concatenar.png',
+                'opciones' => [
+                    ['texto' => '.', 'es_correcta' => true],
+                    ['texto' => '+', 'es_correcta' => false],
+                    ['texto' => '&&', 'es_correcta' => false],
+                    ['texto' => '||', 'es_correcta' => false],
+                ]
+            ],
+            [
+                'pregunta' => 'Mira la imagen y selecciona la variable correctamente declarada en PHP:',
+                'imagen' => 'preguntas/variable_php.png',
+                'opciones' => [
+                    ['texto' => '$nombre', 'es_correcta' => true],
+                    ['texto' => 'let nombre', 'es_correcta' => false],
+                    ['texto' => 'var nombre', 'es_correcta' => false],
+                    ['texto' => 'nombre = $valor', 'es_correcta' => false],
+                ]
+            ],
+            [
+                'pregunta' => 'Observa la imagen y elige cuál es la forma correcta de definir un array asociativo:',
+                'imagen' => 'preguntas/array_asociativo.png',
+                'opciones' => [
+                    ['texto' => '["clave" => "valor"]', 'es_correcta' => true],
+                    ['texto' => '{"clave": "valor"}', 'es_correcta' => false],
+                    ['texto' => '{clave: valor}', 'es_correcta' => false],
+                    ['texto' => 'new Map()', 'es_correcta' => false],
+                ]
+            ],
+            [
+                'pregunta' => 'Según la imagen, ¿qué palabra clave se utiliza para definir una función en PHP?',
+                'imagen' => 'preguntas/funcion.png',
+                'opciones' => [
+                    ['texto' => 'function', 'es_correcta' => true],
+                    ['texto' => 'def', 'es_correcta' => false],
+                    ['texto' => 'func', 'es_correcta' => false],
+                    ['texto' => 'method', 'es_correcta' => false],
+                ]
+            ],
+        ];
+
+
+        foreach ($preguntasConImagen as $q) {
+            $pregunta = Pregunta::firstOrCreate([
+                'leccion_id' => $leccionId,
+                'pregunta' => $q['pregunta'],
+                'imagen' => $q['imagen'] ?? null,
+            ]);
+
+            foreach ($q['opciones'] as $opcion) {
+                Respuesta::firstOrCreate([
+                    'pregunta_id' => $pregunta->id,
+                    'texto' => $opcion['texto'],
+                    'es_correcta' => $opcion['es_correcta'],
+                ]);
+            }
+        }
+
+
         foreach ($preguntas as $q) {
             $pregunta = Pregunta::firstOrCreate([
                 'leccion_id' => $leccionId,
@@ -256,5 +328,4 @@ class PreguntaSeeder extends Seeder
             }
         }
     }
-    
 }

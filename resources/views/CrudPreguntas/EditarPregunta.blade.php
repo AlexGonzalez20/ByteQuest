@@ -3,7 +3,6 @@
 @section('title', 'Editar Pregunta')
 
 @section('head')
-    @vite('resources/css/editarPregunta.css')
 @endsection
 
 @section('content')

@@ -50,36 +50,73 @@ class Usuario extends Authenticatable
             ->withTimestamps();
     }
 
+
     public function actualizarVidas()
     {
-        if ($this->vidas >= 5) {
+        $maxVidas = 5;
+        $tiempoRecuperacion = 30;
+
+        if ($this->vidas >= $maxVidas) {
+            $this->ultima_vida_perdida = null;
+            $this->save();
             return;
         }
 
-        if ($this->ultima_vida_perdida) {
-            // Diferencia en segundos
-            $segundosPasados = (int) $this->ultima_vida_perdida->diffInSeconds(now());
+        if (!$this->ultima_vida_perdida) {
+            $this->ultima_vida_perdida = now();
+            $this->save();
+            return;
+        }
 
-            // Cada 5 segundos se recupera una vida
-            $vidasRecuperadas = intdiv($segundosPasados, 5);
+        $segundosPasados = $this->ultima_vida_perdida->diffInSeconds(now());
 
-            if ($vidasRecuperadas > 0) {
-                $this->vidas = min(5, $this->vidas + $vidasRecuperadas);
+        if ($segundosPasados >= $tiempoRecuperacion) {
+            // 🔹 Solo 1 vida por vez
+            $this->vidas = min($maxVidas, $this->vidas + 1);
 
-                $resto = max(0, $segundosPasados % 5);
-
-                if ($this->vidas < 5) {
-                    $this->forceFill([
-                        'ultima_vida_perdida' => now()->subSeconds($resto),
-                    ])->save();
-                } else {
-                    $this->forceFill([
-                        'ultima_vida_perdida' => null,
-                    ])->save();
-                }
+            if ($this->vidas < $maxVidas) {
+                $this->ultima_vida_perdida = now();
+            } else {
+                $this->ultima_vida_perdida = null;
             }
+
+            $this->save();
         }
     }
+
+    // Usuario.php
+    public function puedeRecuperarVida()
+    {
+        $maxVidas = 5;
+        $tiempoRecuperacion = 30; // o 1800 para 30 min
+
+        if ($this->vidas >= $maxVidas) {
+            return false;
+        }
+
+        if (!$this->ultima_vida_perdida) {
+            // Iniciamos el timestamp
+            $this->ultima_vida_perdida = now();
+            $this->save();
+            return false; // aún no ha pasado el tiempo
+        }
+
+        $segundosPasados = $this->ultima_vida_perdida->diffInSeconds(now());
+
+        return $segundosPasados >= $tiempoRecuperacion;
+    }
+
+    public function recuperarVida()
+    {
+        if ($this->puedeRecuperarVida()) {
+            $this->vidas = min(5, $this->vidas + 1);
+            $this->ultima_vida_perdida = $this->vidas < 5 ? now() : null;
+            $this->save();
+        }
+    }
+
+
+
     protected static function boot()
     {
         parent::boot();

@@ -6,9 +6,8 @@
 <style>
     .profile-container {
         max-width: 60%;
-        /* Más ancho */
         margin: 3rem auto;
-        background: #fff;
+        background: #000000ff;
         border-radius: 20px;
         box-shadow: 0 0 30px rgba(255, 193, 7, 0.2);
         padding: 3rem;
@@ -31,6 +30,7 @@
     .progress {
         background-color: #e9ecef;
         border-radius: 30px;
+        height: 22px;
     }
 
     .progress-bar {
@@ -61,40 +61,63 @@
         font-weight: 600;
         padding: 0.75rem 2rem;
     }
+
+    /* ---- Contador vidas ---- */
+    .vidas-section {
+        margin-top: 2.5rem;
+        padding: 1.5rem;
+        border: 2px dashed #ffc107;
+        border-radius: 15px;
+        background: #252746;
+    }
+
+    .vidas-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #ffffffff;
+    }
+
+    .vidas-counter {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #dc3545;
+        margin-top: 0.5rem;
+    }
 </style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const holders = document.querySelectorAll('.avatar-holder');
-        holders.forEach(holder => {
-            holder.addEventListener('click', function() {
-                holders.forEach(h => h.classList.remove('selected'));
-                this.classList.add('selected');
-                this.querySelector('input').checked = true;
-            });
-        });
-    });
-</script>
+
+
 @endsection
 
 @section('content')
 <div class="profile-container text-center">
-    <h2 class="mb-4">👤 Mi Perfil</h2>
+    <h2 class="mb-4">Mi Perfil</h2>
 
     <div class="profile-picture mb-4">
-        <img src="{{ asset('img/robots/' . (Auth::user()->imagen ?? 'amarillo.PNG')) }}" alt="Foto de perfil"
+        <img src="{{ asset('img/robots/' . (Auth::user()->imagen ?? 'amarillo.PNG')) }}"
+            alt="Foto de perfil"
             class="profile-img">
     </div>
 
     <!-- Barra de progreso de experiencia -->
     <h5>Experiencia</h5>
-    <div class="progress mb-5" style="height: 22px;">
+    <div class="progress mb-5">
         <div class="progress-bar bg-warning" role="progressbar"
             style="width: {{ min((Auth::user()->experiencia / 100) * 100, 100) }}%;">
             {{ Auth::user()->experiencia }} XP
         </div>
     </div>
 
-    <form class="profile-form text-start" method="POST" action="{{ route('profile.update') }}">
+    <!-- Contador vidas -->
+    <div class="vidas-section">
+        <div class="vidas-title">❤️ Recuperación de vidas</div>
+        <div id="contador-vidas" class="vidas-counter"></div>
+        <div class="mt-2">
+            Vidas actuales: <strong id="vidas-count">{{ $usuario->vidas }}</strong> / 5
+        </div>
+    </div>
+
+
+    <form class="profile-form text-start mt-5" method="POST" action="{{ route('profile.update') }}">
         @csrf
         @method('POST')
 
@@ -109,8 +132,7 @@
                     style="cursor:pointer;">
                     <input type="radio" name="imagen" value="{{ $img }}" class="d-none"
                         {{ Auth::user()->imagen === $img ? 'checked' : '' }}>
-                    <img src="{{ asset('img/robots/' . $img) }}" alt="{{ $img }}" width="70"
-                        height="70">
+                    <img src="{{ asset('img/robots/' . $img) }}" alt="{{ $img }}" width="70" height="70">
                 </label>
                 @endforeach
             </div>
@@ -149,4 +171,89 @@
 
     <a href="{{ route('aprender') }}" class="btn btn-link mt-4">← Volver a Aprender</a>
 </div>
+
+<!-- Contador vidas -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let tiempoRestante = @json($segundosRestantes ?? 0);
+        let puedeReclamar = tiempoRestante > 0 ? true : false;
+        const display = document.getElementById('contador-vidas');
+        const vidasCountEl = document.getElementById('vidas-count');
+
+        function formatTime(s) {
+            s = Math.floor(s); // 🔹 fuerza a entero
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+
+
+        function reclamarVida() {
+            fetch("{{ route('vidas.reclamar') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    vidasCountEl.textContent = data.vidas;
+
+                    if (data.vidas < 5) {
+                        tiempoRestante = 30; // reinicia contador (cambiar a 1800 para 30 min reales)
+                        puedeReclamar = true;
+                    } else {
+                        display.textContent = "❤️ Vidas completas";
+                    }
+                });
+        }
+
+        function actualizarContador() {
+            const vidasActuales = parseInt(vidasCountEl.textContent);
+
+            if (vidasActuales >= 5) {
+                display.textContent = "❤️ Vidas completas";
+                return;
+            }
+
+            // Siempre muestra el contador
+            display.textContent = `⏳ Próxima vida en ${formatTime(tiempoRestante)}`;
+
+            if (tiempoRestante > 0) {
+                tiempoRestante--;
+            } else {
+                if (puedeReclamar) {
+                    reclamarVida();
+                    puedeReclamar = false; // evita reclamo múltiple hasta reiniciar
+                }
+            }
+        }
+
+        // Actualiza el contador inmediatamente y luego cada segundo
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+    });
+
+    // === Cambiar selección de avatar dinámicamente ===
+    const avatarLabels = document.querySelectorAll('.avatar-holder');
+
+    avatarLabels.forEach(label => {
+        const input = label.querySelector('input[type="radio"]');
+        input.addEventListener('change', () => {
+            // Quita la clase 'selected' de todos los labels
+            avatarLabels.forEach(l => l.classList.remove('selected'));
+            // Agrega 'selected' al label que se seleccionó
+            label.classList.add('selected');
+        });
+    });
+</script>
+
+
+
+
 @endsection
